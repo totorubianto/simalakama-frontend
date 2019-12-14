@@ -12,44 +12,9 @@ import {
   ContextualMenuItemType,
   IContextualMenuItem
 } from 'office-ui-fabric-react';
-
+import Redirect from '../../utils/Redirect';
 import { useConstCallback } from '@uifabric/react-hooks';
-
-interface Props {
-  toto?: any;
-}
-interface State {}
-
-const menuItems: IContextualMenuItem[] = [
-  {
-    key: 'newItem',
-    text: 'New',
-    iconProps: {
-      iconName: 'Add'
-    },
-    onClick: () => console.log('New clicked')
-  },
-  {
-    key: 'divider_1',
-    itemType: ContextualMenuItemType.Divider
-  },
-  {
-    key: 'setting',
-    text: 'Setting',
-    iconProps: {
-      iconName: 'Settings'
-    },
-    onClick: () => console.log('Edit clicked')
-  },
-  {
-    key: 'logout',
-    text: 'Logout',
-    iconProps: {
-      iconName: 'SignOut'
-    },
-    onClick: e => console.log(e)
-  }
-];
+import { Link, useHistory } from 'react-router-dom';
 
 const examplePersona: IPersonaSharedProps = {
   imageUrl:
@@ -62,6 +27,7 @@ const examplePersona: IPersonaSharedProps = {
 };
 
 export const Navbar: React.FunctionComponent = () => {
+  let history = useHistory();
   const linkRef = React.useRef(null);
   const [showContextualMenu, setShowContextualMenu] = React.useState(false);
   const onShowContextualMenu = useConstCallback(() =>
@@ -70,6 +36,37 @@ export const Navbar: React.FunctionComponent = () => {
   const onHideContextualMenu = useConstCallback(() =>
     setShowContextualMenu(false)
   );
+
+  const menuItems: IContextualMenuItem[] = [
+    {
+      key: 'newItem',
+      text: 'New',
+      iconProps: {
+        iconName: 'Add'
+      },
+      onClick: () => console.log('New clicked')
+    },
+    {
+      key: 'divider_1',
+      itemType: ContextualMenuItemType.Divider
+    },
+    {
+      key: 'setting',
+      text: 'Setting',
+      iconProps: {
+        iconName: 'Settings'
+      },
+      onClick: () => console.log('Edit clicked')
+    },
+    {
+      key: 'logout',
+      text: 'Logout',
+      iconProps: {
+        iconName: 'SignOut'
+      },
+      onClick: e => Redirect(history, '/login')
+    }
+  ];
 
   return (
     <NavbarStyle>
@@ -89,25 +86,26 @@ export const Navbar: React.FunctionComponent = () => {
             </div>
           </div>
           <div className='nav-wrapper-end'>
-            <a className='nav-link'>
+            <Link to='#/' className='nav-link'>
               <Text key='1' variant='medium' nowrap block>
                 Beranda
               </Text>
-            </a>
-            <a className='nav-link'>
+            </Link>
+            <Link to='#/' className='nav-link'>
               <Text key='1' variant='medium' nowrap block>
-                Beranda
+                Pekerjaan
               </Text>
-            </a>
-            <a className='nav-link'>
+            </Link>
+            <Link to='#/' className='nav-link'>
               <PrimaryButton
                 text='Primary'
                 allowDisabledFocus
                 disabled={false}
                 checked={false}
               />
-            </a>
-            <a
+            </Link>
+            <Link
+              to='#/'
               className='nav-link'
               ref={linkRef}
               onClick={onShowContextualMenu}
@@ -118,7 +116,7 @@ export const Navbar: React.FunctionComponent = () => {
                 presence={PersonaPresence.away}
                 hidePersonaDetails={false}
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

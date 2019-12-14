@@ -1,7 +1,11 @@
-import React from 'react';
+import axios from 'axios';
 
-interface Props {}
-
-export const Auth: React.FC<Props> = () => {
-  return <div></div>;
+const setAuthToken = (token: any) => {
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  } else {
+    delete axios.defaults.headers.common['Authorization'];
+  }
 };
+
+export default setAuthToken;
