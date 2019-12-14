@@ -1,22 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 interface Props {
-    child : any
+  child: any;
 }
-interface State {
-    
-}
+interface State {}
 
-class wraper extends Component<Props, State> {
-    state = {}
+class Wraper extends Component<Props, State> {
+  state = {};
 
-    render() {
-        return (
-            <div className="container">
-                {this.props.child}
-            </div>
-        )
-    }
+  render() {
+    return <div className='container'>{this.props.child}</div>;
+  }
 }
 
-export default wraper
+export default Wraper;
