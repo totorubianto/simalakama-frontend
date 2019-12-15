@@ -9,7 +9,6 @@ function Wraper({ Navbar, Child }: Props) {
   return (
     <div>
       <Navbar />
-      {console.log(Navbar)}
       <div className='container'>
         <Child />
       </div>

@@ -1,12 +1,12 @@
 import React from 'react';
-import LoginStyle from './styles/Index';
+import LoginStyle from './styles/Login';
 import {
   Text,
   TextField,
   PrimaryButton,
   Checkbox
 } from 'office-ui-fabric-react';
-import { getTheme, FontWeights } from 'office-ui-fabric-react/lib/Styling';
+// import { getTheme, FontWeights } from 'office-ui-fabric-react/lib/Styling';
 import { Link } from 'react-router-dom';
 interface Props {}
 
