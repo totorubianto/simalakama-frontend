@@ -1,9 +1,11 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+// import { loadUser } from './actions/AuthAction';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
-import Route from './router/Router';
-
+import { Routes } from './router/router';
+import { Provider } from 'react-redux';
+import configureStore from './stores/indexReducer';
+const store = configureStore();
 loadTheme({
   palette: {
     themePrimary: '#0078d4',
@@ -31,12 +33,17 @@ loadTheme({
   }
 });
 const App: React.FC = () => {
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
   return (
-    <div className='App'>
-      <Router>
-        <Route />
-      </Router>
-    </div>
+    <Provider store={store}>
+      <div className='App'>
+        <Router>
+          <Routes />
+        </Router>
+      </div>
+    </Provider>
   );
 };
 

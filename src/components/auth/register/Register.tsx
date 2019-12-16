@@ -6,17 +6,18 @@ import {
   Checkbox
 } from 'office-ui-fabric-react';
 import { Link } from 'react-router-dom';
+import RegisterStyle from './styles/Register';
 interface Props {}
 
 const Register: React.FC<Props> = () => {
   return (
-    <div>
+    <RegisterStyle>
       <div className='row'>
         <div className='col-md-3'></div>
         <div className='col-md-6'>
           <div className='card'>
             <Text className='card-field' variant='xxLarge'>
-              Login
+              Register
             </Text>
             <TextField
               className='card-field'
@@ -31,18 +32,25 @@ const Register: React.FC<Props> = () => {
               name='password'
               //   onRenderDescription={() => onRenderDescription('rubianto')}
             />
+            <TextField
+              className='card-field'
+              label='Name'
+              type='text'
+              name='name'
+              //   onRenderDescription={() => onRenderDescription('rubianto')}
+            />
             <Checkbox
               className='card-field'
               label='Setuju dengan semua ketentuan'
               //   onChange={_onChange}
             />
-            <div className='card-forgotPassword'>
+            <div className='card-label'>
               <Text className='card-field' variant='medium'>
-                Lupa Password?
+                Belum punya akun?
               </Text>
               <Text className='card-field' variant='medium'>
                 <Link to='#/' className='card-field'>
-                  Reset Password!
+                  Daftar!
                 </Link>
               </Text>
             </div>
@@ -57,7 +65,7 @@ const Register: React.FC<Props> = () => {
         </div>
         <div className='col-md-3'></div>
       </div>
-    </div>
+    </RegisterStyle>
   );
 };
 

@@ -7,7 +7,7 @@ import Register from '../components/auth/register/Register';
 import { Home } from '../components/home/Home';
 interface Props {}
 
-const Router: React.FC<Props> = () => {
+const Routes: React.FC<Props> = () => {
   return (
     <div>
       <Switch>
@@ -28,4 +28,4 @@ const Router: React.FC<Props> = () => {
   );
 };
 
-export default Router;
+export { Routes };

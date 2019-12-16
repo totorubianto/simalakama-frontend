@@ -76,12 +76,12 @@ export const RightMenu = ({ history }: any) => {
         </>
       ) : (
         <>
-          <div className='nav-link'>
+          <Link to='/login' className='nav-link'>
             <PrimaryButton>Login</PrimaryButton>
-          </div>
-          <div className='nav-link'>
+          </Link>
+          <Link to='/register' className='nav-link'>
             <PrimaryButton>Register</PrimaryButton>
-          </div>
+          </Link>
         </>
       )}
     </div>

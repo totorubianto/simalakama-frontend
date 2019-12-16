@@ -10,9 +10,9 @@ export const Navbar: React.FunctionComponent = () => {
   return (
     <NavbarStyle>
       <div className='nav container'>
-        <div className='nav-link'>
+        <Link to='/' className='nav-link'>
           <div className='nav-brand'>SIMALAKAMA</div>
-        </div>
+        </Link>
 
         <div className='nav-wrapper'>
           <LeftMenu></LeftMenu>
