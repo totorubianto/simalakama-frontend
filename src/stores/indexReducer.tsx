@@ -3,8 +3,9 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { authReducer } from './auth/reducers';
-
+import { alertReducer } from './alert/reducers'
 const rootReducer = combineReducers({
+  alert: alertReducer,
   auth: authReducer
 });
 

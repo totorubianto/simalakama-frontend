@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarStyle from './styles/Navbar';
+import NavbarStyle from './styles/NavbarStyle';
 import LeftMenu from './common/LeftMenu';
 import { Link, useHistory } from 'react-router-dom';
 import { RightMenu } from './common/RightMenu';

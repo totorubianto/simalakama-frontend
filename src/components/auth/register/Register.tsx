@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   TextField,
@@ -6,10 +6,26 @@ import {
   Checkbox
 } from 'office-ui-fabric-react';
 import { Link } from 'react-router-dom';
-import RegisterStyle from './styles/Register';
-interface Props {}
+import RegisterStyle from './styles/RegisterStyle';
+import { connect } from 'react-redux';
+import { register } from '../../../stores/auth/action'
+interface Props {
+  register:any
+}
 
-const Register: React.FC<Props> = () => {
+const Register: React.FC<Props> = ({register}) => {
+  const [fieldRegister, setFieldRegister] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
+  const {name, email, password} = fieldRegister
+  const onChangeTextField = (e:any)=>{
+    setFieldRegister({...fieldRegister, [e.target.name]:e.target.value})
+  }
+  const onRegister=()=>{
+    register({name,email,password})
+  }
   return (
     <RegisterStyle>
       <div className='row'>
@@ -23,6 +39,8 @@ const Register: React.FC<Props> = () => {
               className='card-field'
               label='Email'
               name='email'
+              value={email}
+              onChange={(e) => onChangeTextField(e)}
               //   onRenderDescription={() => onRenderDescription('toto')}
             />
             <TextField
@@ -30,6 +48,8 @@ const Register: React.FC<Props> = () => {
               label='Password'
               type='password'
               name='password'
+              value={password}
+              onChange={(e) => onChangeTextField(e)}
               //   onRenderDescription={() => onRenderDescription('rubianto')}
             />
             <TextField
@@ -37,6 +57,8 @@ const Register: React.FC<Props> = () => {
               label='Name'
               type='text'
               name='name'
+              onChange={(e) => onChangeTextField(e)}
+              value={name}
               //   onRenderDescription={() => onRenderDescription('rubianto')}
             />
             <Checkbox
@@ -60,6 +82,7 @@ const Register: React.FC<Props> = () => {
               text='Primary '
               allowDisabledFocus
               disabled={false}
+              onClick={(e:any) => onRegister()}
             />
           </div>
         </div>
@@ -68,5 +91,8 @@ const Register: React.FC<Props> = () => {
     </RegisterStyle>
   );
 };
-
-export default Register;
+const mapStateToProps = (state:any) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  // error: state.error
+});
+export default connect(mapStateToProps, {  register })(Register);

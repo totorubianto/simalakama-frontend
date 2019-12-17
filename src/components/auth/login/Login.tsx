@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginStyle from './styles/Login';
+import LoginStyle from './styles/LoginStyle';
 import {
   Text,
   TextField,

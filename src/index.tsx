@@ -4,8 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { initializeIcons } from '@uifabric/icons';
+import configureStore from "./stores/indexReducer";
+import { Provider } from "react-redux";
+const store = configureStore();
 initializeIcons();
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = () => (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

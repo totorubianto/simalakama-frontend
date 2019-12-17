@@ -21,7 +21,7 @@ export const RightMenu = ({ history }: any) => {
   const onHideContextualMenu = useConstCallback(() =>
     setShowContextualMenu(false)
   );
-  const isAuthenthicated = true;
+  const isAuthenthicated = false;
   const avatar: IPersonaSharedProps = {
     imageUrl:
       'https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png',
