@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginStyle from './styles/LoginStyle';
 import {
   Text,
@@ -6,11 +6,28 @@ import {
   PrimaryButton,
   Checkbox
 } from 'office-ui-fabric-react';
-
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-interface Props {}
+import { login } from '../../../stores/auth/action'
+interface Props {
+  login: any
+}
 
-const Login: React.FC<Props> = () => {
+const Login: React.FC<Props> = ({ login }) => {
+  const [fieldLogin, setFieldLogin] = useState({
+    email: "",
+    password: ""
+  })
+  const { email, password } = fieldLogin;
+  console.log(email)
+  const onChangeTextField = (e: any) => {
+    setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value })
+  }
+  const onLogin = () => {
+    console.log({email, password})
+    login({ email, password })
+  }
+
   return (
     <LoginStyle>
       <div className='row'>
@@ -23,13 +40,18 @@ const Login: React.FC<Props> = () => {
             <TextField
               className='card-field'
               label='Email'
+              type="email"
               name='email'
+              onChange={e => onChangeTextField(e)}
+              value={email}
             />
             <TextField
               className='card-field'
               label='Password'
               type='password'
               name='password'
+              onChange={(e: any) => onChangeTextField(e)}
+              value={password}
             />
             <Checkbox
               className='card-field'
@@ -51,6 +73,7 @@ const Login: React.FC<Props> = () => {
               text='Primary '
               allowDisabledFocus
               disabled={false}
+              onClick={() => onLogin()}
             />
           </div>
         </div>
@@ -60,4 +83,8 @@ const Login: React.FC<Props> = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated
+  // error: state.error
+});
+export default connect(mapStateToProps, { login })(Login);

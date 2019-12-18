@@ -22,7 +22,6 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
   const onHideContextualMenu = useConstCallback(() =>
     setShowContextualMenu(false)
   );
-  console.log(user)
 
   const avatar: IPersonaSharedProps = {
     imageUrl:

@@ -36,7 +36,6 @@ export const loadUser = () => async (dispatch: any) => {
 
 // Register User
 export const register = ({ name, email, password }: any) => async (dispatch: any) => {
-  console.log(name, email, password)
   dispatch(clearErrors());
   const config = {
     headers: {
@@ -86,7 +85,7 @@ export const register = ({ name, email, password }: any) => async (dispatch: any
 };
 
 // Login User
-export const login = (email: string, password: string) => async (dispatch: any) => {
+export const login = ({email, password}:any) => async (dispatch: any) => {
   dispatch(clearErrors());
   const config = {
     headers: {
