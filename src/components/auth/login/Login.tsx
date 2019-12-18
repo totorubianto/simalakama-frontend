@@ -6,24 +6,11 @@ import {
   PrimaryButton,
   Checkbox
 } from 'office-ui-fabric-react';
-// import { getTheme, FontWeights } from 'office-ui-fabric-react/lib/Styling';
+
 import { Link } from 'react-router-dom';
 interface Props {}
 
 const Login: React.FC<Props> = () => {
-  //   const onRenderDescription = (toto: string) => {
-  //     const theme = getTheme();
-  //     return (
-  //       <Text
-  //         variant='small'
-  //         styles={{
-  //           root: { color: theme.palette.green, fontWeight: FontWeights.bold }
-  //         }}
-  //       >
-  //         {toto}
-  //       </Text>
-  //     );
-  //   };
   return (
     <LoginStyle>
       <div className='row'>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   TextField,
@@ -8,24 +8,24 @@ import {
 import { Link } from 'react-router-dom';
 import RegisterStyle from './styles/RegisterStyle';
 import { connect } from 'react-redux';
-import { register } from '../../../stores/auth/action'
+import { register } from '../../../stores/auth/action';
 interface Props {
-  register:any
+  register: any;
 }
 
-const Register: React.FC<Props> = ({register}) => {
+const Register: React.FC<Props> = ({ register }) => {
   const [fieldRegister, setFieldRegister] = useState({
-    name:"",
-    email:"",
-    password:""
-  })
-  const {name, email, password} = fieldRegister
-  const onChangeTextField = (e:any)=>{
-    setFieldRegister({...fieldRegister, [e.target.name]:e.target.value})
-  }
-  const onRegister=()=>{
-    register({name,email,password})
-  }
+    name: '',
+    email: '',
+    password: ''
+  });
+  const { name, email, password } = fieldRegister;
+  const onChangeTextField = (e: any) => {
+    setFieldRegister({ ...fieldRegister, [e.target.name]: e.target.value });
+  };
+  const onRegister = () => {
+    register({ name, email, password });
+  };
   return (
     <RegisterStyle>
       <div className='row'>
@@ -40,8 +40,7 @@ const Register: React.FC<Props> = ({register}) => {
               label='Email'
               name='email'
               value={email}
-              onChange={(e) => onChangeTextField(e)}
-              //   onRenderDescription={() => onRenderDescription('toto')}
+              onChange={e => onChangeTextField(e)}
             />
             <TextField
               className='card-field'
@@ -49,22 +48,19 @@ const Register: React.FC<Props> = ({register}) => {
               type='password'
               name='password'
               value={password}
-              onChange={(e) => onChangeTextField(e)}
-              //   onRenderDescription={() => onRenderDescription('rubianto')}
+              onChange={e => onChangeTextField(e)}
             />
             <TextField
               className='card-field'
               label='Name'
               type='text'
               name='name'
-              onChange={(e) => onChangeTextField(e)}
+              onChange={e => onChangeTextField(e)}
               value={name}
-              //   onRenderDescription={() => onRenderDescription('rubianto')}
             />
             <Checkbox
               className='card-field'
               label='Setuju dengan semua ketentuan'
-              //   onChange={_onChange}
             />
             <div className='card-label'>
               <Text className='card-field' variant='medium'>
@@ -82,7 +78,7 @@ const Register: React.FC<Props> = ({register}) => {
               text='Primary '
               allowDisabledFocus
               disabled={false}
-              onClick={(e:any) => onRegister()}
+              onClick={(e: any) => onRegister()}
             />
           </div>
         </div>
@@ -91,8 +87,8 @@ const Register: React.FC<Props> = ({register}) => {
     </RegisterStyle>
   );
 };
-const mapStateToProps = (state:any) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated
   // error: state.error
 });
-export default connect(mapStateToProps, {  register })(Register);
+export default connect(mapStateToProps, { register })(Register);
