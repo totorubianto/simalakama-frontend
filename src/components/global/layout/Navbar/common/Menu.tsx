@@ -4,7 +4,7 @@ import {
 } from 'office-ui-fabric-react';
 import Redirect from '../../../utils/Redirect';
 
-const MenuItems = (history: any) => {
+const MenuItems = (history: any, logout:any) => {
   const toto: IContextualMenuItem[] = [
     {
       key: 'newItem',
@@ -24,7 +24,7 @@ const MenuItems = (history: any) => {
       iconProps: {
         iconName: 'Settings'
       },
-      onClick: () => console.log('Edit clicked')
+      onClick: () => Redirect(history, '/login')
     },
     {
       key: 'logout',
@@ -32,7 +32,7 @@ const MenuItems = (history: any) => {
       iconProps: {
         iconName: 'SignOut'
       },
-      onClick: (e: any) => Redirect(history, '/login')
+      onClick: (e: any) => logout()
     }
   ];
   return toto;

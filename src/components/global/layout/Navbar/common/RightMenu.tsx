@@ -12,7 +12,8 @@ import {
 } from 'office-ui-fabric-react';
 import MenuItems from './Menu';
 
-export const RightMenu = ({ history }: any) => {
+
+export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
   const linkRef = React.useRef(null);
   const [showContextualMenu, setShowContextualMenu] = React.useState(false);
   const onShowContextualMenu = useConstCallback(() =>
@@ -21,12 +22,13 @@ export const RightMenu = ({ history }: any) => {
   const onHideContextualMenu = useConstCallback(() =>
     setShowContextualMenu(false)
   );
-  const isAuthenthicated = false;
+  console.log(user)
+
   const avatar: IPersonaSharedProps = {
     imageUrl:
       'https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png',
     imageInitials: 'AL',
-    text: 'Annie Lindqvist',
+    text: user.name,
     secondaryText: 'Software Engineer',
     tertiaryText: 'In a meeting',
     optionalText: 'Available at 4:00pm'
@@ -34,13 +36,13 @@ export const RightMenu = ({ history }: any) => {
   return (
     <div className='nav-wrapper-end'>
       <ContextualMenu
-        items={MenuItems(history)}
+        items={MenuItems(history, logout)}
         hidden={!showContextualMenu}
         target={linkRef}
         onItemClick={onHideContextualMenu}
         onDismiss={onHideContextualMenu}
       />
-      {isAuthenthicated ? (
+      {isAuthenticated ? (
         <>
           <Link to='#/' className='nav-link'>
             <Text key='1' variant='medium' nowrap block>
@@ -75,15 +77,15 @@ export const RightMenu = ({ history }: any) => {
           </Link>
         </>
       ) : (
-        <>
-          <Link to='/login' className='nav-link'>
-            <PrimaryButton>Login</PrimaryButton>
-          </Link>
-          <Link to='/register' className='nav-link'>
-            <PrimaryButton>Register</PrimaryButton>
-          </Link>
-        </>
-      )}
+          <>
+            <Link to='/login' className='nav-link'>
+              <PrimaryButton>Login</PrimaryButton>
+            </Link>
+            <Link to='/register' className='nav-link'>
+              <PrimaryButton>Register</PrimaryButton>
+            </Link>
+          </>
+        )}
     </div>
   );
 };

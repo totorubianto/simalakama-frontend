@@ -15,9 +15,9 @@ import {
 import setAuthToken from '../../utils/setAuthToken';
 
 // Load User
-export const loadUser = () => async (dispatch:any) => {
+export const loadUser = () => async (dispatch: any) => {
   if (localStorage.token) {
-    setAuthToken(localStorage.token);
+    await setAuthToken(localStorage.token);
   }
 
   try {
@@ -35,7 +35,7 @@ export const loadUser = () => async (dispatch:any) => {
 };
 
 // Register User
-export const register = ({ name, email, password }:any) => async (dispatch:any) => {
+export const register = ({ name, email, password }: any) => async (dispatch: any) => {
   console.log(name, email, password)
   dispatch(clearErrors());
   const config = {
@@ -86,7 +86,7 @@ export const register = ({ name, email, password }:any) => async (dispatch:any) 
 };
 
 // Login User
-export const login = (email:string, password:string) => async (dispatch:any) => {
+export const login = (email: string, password: string) => async (dispatch: any) => {
   dispatch(clearErrors());
   const config = {
     headers: {
@@ -131,7 +131,7 @@ export const login = (email:string, password:string) => async (dispatch:any) => 
 };
 
 // Logout / Clear Profile
-export const logout = () => (dispatch:any) => {
+export const logout = () => (dispatch: any) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

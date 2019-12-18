@@ -24,19 +24,16 @@ const Login: React.FC<Props> = () => {
               className='card-field'
               label='Email'
               name='email'
-              //   onRenderDescription={() => onRenderDescription('toto')}
             />
             <TextField
               className='card-field'
               label='Password'
               type='password'
               name='password'
-              //   onRenderDescription={() => onRenderDescription('rubianto')}
             />
             <Checkbox
               className='card-field'
               label='Setuju dengan semua ketentuan'
-              //   onChange={_onChange}
             />
             <div className='card-forgotPassword'>
               <Text className='card-field' variant='medium'>
