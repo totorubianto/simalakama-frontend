@@ -1,35 +1,66 @@
+// import React, { Component } from 'react';
+// import { BrowserRouter as Router } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import { Routes } from './router/router';
+// import { AppState } from './stores/indexReducer';
+// import setAuthToken from './utils/setAuthToken';
+// import { AuthState } from './stores/auth/interfaces/auth.interface';
+// import { loadUser } from './stores/auth/action';
+// interface AppProps {
+//   auth: AuthState;
+//   loadUser: any;
+// }
+
+// class App extends Component<AppProps> {
+//   componentDidMount = async () => {
+//     await this.props.loadUser();
+//   };
+//   render() {
+//     return (
+//       <div className='App'>
+//         <Router>
+//           <Routes />
+//         </Router>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state: AppState) => ({
+//   auth: state.auth
+// });
+
+// export default connect(mapStateToProps, { loadUser })(App);
+
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Routes } from './router/router';
-import { AppState } from "./stores/indexReducer";
+import { AppState } from './stores/indexReducer';
 import setAuthToken from './utils/setAuthToken';
-import { thunkSendMessage } from "./thunk";
-
+import { loadUser } from './stores/auth/action';
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-const App: React.FC = () => {
+interface AppProps {
+  auth: any;
+  loadUser: any;
+}
+const App: React.FC<AppProps> = ({ auth, loadUser }) => {
   useEffect(() => {
-    thunkSendMessage()
-  }, []);
+    loadUser();
+  }, [loadUser]);
   return (
-      <div className='App'>
-        <button onClick={()=>thunkSendMessage()}>asdfas</button>
-        <Router>
-          <Routes />
-        </Router>
-      </div>
+    <div className='App'>
+      <Router>
+        <Routes />
+      </Router>
+    </div>
   );
 };
-
 
 const mapStateToProps = (state: AppState) => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { thunkSendMessage }
-)(App);
-
+export default connect(mapStateToProps, { loadUser })(App);

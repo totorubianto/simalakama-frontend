@@ -1,4 +1,4 @@
-import {  
+import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
@@ -9,26 +9,26 @@ import {
   ACCOUNT_DELETED,
   USER_LOADING
 } from '../types';
-import {AuthState} from './interfaces/auth.interface'
-import {AuthTypes} from './interfaces/update.interface'
+import { AuthState } from './interfaces/auth.interface';
+import { AuthTypes } from './interfaces/update.interface';
 
 const initialState: AuthState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   user: {}
 };
 export function authReducer(
   state = initialState,
   action: AuthTypes
 ): AuthState {
-  const {type, payload} = action;
+  const { type, payload } = action;
   switch (type) {
     case USER_LOADING:
       return {
         ...state,
-        loading: true,
-      }
+        loading: true
+      };
     case USER_LOADED:
       return {
         ...state,
@@ -37,12 +37,10 @@ export function authReducer(
         user: payload.data
       };
     case REGISTER_SUCCESS:
-      console.log("toto")
-      console.log(payload.data)
       localStorage.setItem('token', payload.data.register.accessToken);
       return {
         ...state,
-        // ...payload,
+        ...payload,
         isAuthenticated: true,
         loading: false
       };
@@ -50,7 +48,7 @@ export function authReducer(
       localStorage.setItem('token', payload.data.login.accessToken);
       return {
         ...state,
-        // ...payload,
+        ...payload,
         isAuthenticated: true,
         loading: false
       };
@@ -70,4 +68,3 @@ export function authReducer(
       return state;
   }
 }
-
