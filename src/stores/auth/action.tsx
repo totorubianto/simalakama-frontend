@@ -85,7 +85,7 @@ export const register = ({ name, email, password }: any) => async (dispatch: any
 };
 
 // Login User
-export const login = ({email, password}:any) => async (dispatch: any) => {
+export const login = ({ email, password }: any) => async (dispatch: any) => {
   dispatch(clearErrors());
   const config = {
     headers: {
@@ -140,17 +140,5 @@ export const clearErrors = () => {
     type: CLEAR_ERRORS
   };
 };
-
-
-// import { SystemState, UPDATE_SESSION } from './types';
-
-// function updateSession(newSession: SystemState) {
-//   return {
-//     type: UPDATE_SESSION,
-//     payload: newSession
-//   };
-// }
-
-// export { updateSession };
 
 

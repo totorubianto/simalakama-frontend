@@ -32,6 +32,7 @@ const Register: React.FC<Props> = ({ register }) => {
         <div className='col-md-3'></div>
         <div className='col-md-6'>
           <div className='card'>
+            <form onSubmit={() => onRegister()}>
             <Text className='card-field' variant='xxLarge'>
               Register
             </Text>
@@ -80,6 +81,8 @@ const Register: React.FC<Props> = ({ register }) => {
               disabled={false}
               onClick={(e: any) => onRegister()}
             />
+            </form>
+            
           </div>
         </div>
         <div className='col-md-3'></div>
