@@ -96,7 +96,7 @@ const Login: React.FC<Props> = ({ login, error }) => {
 
               <PrimaryButton
                 className='w-100'
-                text='Primary '
+                text='Login '
                 allowDisabledFocus
                 disabled={false}
                 onClick={() => onLogin()}

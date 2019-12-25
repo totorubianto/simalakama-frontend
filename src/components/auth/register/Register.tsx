@@ -87,7 +87,7 @@ const Register: React.FC<Props> = ({ register, error }) => {
 
               <PrimaryButton
                 className='w-100'
-                text='Primary '
+                text='Register '
                 allowDisabledFocus
                 disabled={false}
                 onClick={(e: any) => onRegister()}

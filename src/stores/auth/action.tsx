@@ -64,7 +64,7 @@ export const register = ({ name, email, password }: any) => async (
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response.data;
 
     let error;
     if (errors && typeof errors.message.message !== 'object')
