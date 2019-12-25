@@ -73,6 +73,9 @@ const Login: React.FC<Props> = ({ login, error }) => {
                 label='Password'
                 type='password'
                 name='password'
+                onRenderDescription={() =>
+                  errorData({ error: checkErrors('password', error) })
+                }
                 onChange={(e: any) => onChangeTextField(e)}
                 value={password}
               />
