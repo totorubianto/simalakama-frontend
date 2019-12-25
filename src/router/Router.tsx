@@ -6,6 +6,7 @@ import Login from '../components/auth/login/Login';
 import Register from '../components/auth/register/Register';
 import { Home } from '../components/home/Home';
 import Alert from '../components/global/exception/Alert';
+import ForgotPassword from '../components/auth/forgot-password/ForgotPassword';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
@@ -24,6 +25,9 @@ const Routes: React.FC<Props> = () => {
         </Route>
         <Route exact path='/logout'>
           <Wraper Navbar={Navbar} Child='logot' />
+        </Route>
+        <Route exact path='/forgot-password'>
+          <Wraper Navbar={Navbar} Child={ForgotPassword} />
         </Route>
       </Switch>
     </div>

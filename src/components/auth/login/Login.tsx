@@ -88,7 +88,7 @@ const Login: React.FC<Props> = ({ login, error }) => {
                   Lupa Password?
                 </Text>
                 <Text className='card-field' variant='medium'>
-                  <Link to='#/' className='card-field'>
+                  <Link to='/forgot-password' className='card-field'>
                     Reset Password!
                   </Link>
                 </Text>
