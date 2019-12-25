@@ -6,33 +6,40 @@ import {
   PrimaryButton,
   Checkbox,
   ITextFieldProps,
-  getTheme, FontWeights
+  getTheme,
+  FontWeights
 } from 'office-ui-fabric-react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login } from '../../../stores/auth/action'
-import error from '../../global/common/error'
+import { login } from '../../../stores/auth/action';
+import { errorData, checkErrors } from '../../global/common/error';
 interface Props {
-  login: any,
-  onRenderDescription: any
+  login: any;
+  onRenderDescription: any;
+  error: any;
 }
 
-const Login: React.FC<Props> = ({ login, }) => {
+const Login: React.FC<Props> = ({ login, error }) => {
   const [fieldLogin, setFieldLogin] = useState({
-    email: "",
-    password: ""
-  })
+    email: '',
+    password: ''
+  });
   const { email, password } = fieldLogin;
   const onChangeTextField = (e: any) => {
-    setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value })
-  }
+    setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value });
+  };
   const onLogin = () => {
-    login({ email, password })
-  }
+    login({ email, password });
+  };
   const _onRenderDescription = (): JSX.Element => {
     const theme = getTheme();
     return (
-      <Text variant="medium" styles={{ root: { color: theme.palette.red, fontWeight: FontWeights.bold } }}>
+      <Text
+        variant='medium'
+        styles={{
+          root: { color: theme.palette.red, fontWeight: FontWeights.bold }
+        }}
+      >
         {/* toto rubianto */}
       </Text>
     );
@@ -40,6 +47,7 @@ const Login: React.FC<Props> = ({ login, }) => {
 
   return (
     <LoginStyle>
+      {console.log(error)}
       <div className='row'>
         <div className='col-md-3'></div>
         <div className='col-md-6'>
@@ -52,10 +60,12 @@ const Login: React.FC<Props> = ({ login, }) => {
               <TextField
                 className='card-field'
                 label='Email'
-                type="email"
+                type='email'
                 name='email'
                 onChange={e => onChangeTextField(e)}
-                onRenderDescription={()=>error({error:"data"})}
+                onRenderDescription={() =>
+                  errorData({ error: checkErrors('email', error) })
+                }
                 value={email}
               />
               <TextField
@@ -73,11 +83,11 @@ const Login: React.FC<Props> = ({ login, }) => {
               <div className='card-forgotPassword'>
                 <Text className='card-field' variant='medium'>
                   Lupa Password?
-              </Text>
+                </Text>
                 <Text className='card-field' variant='medium'>
                   <Link to='#/' className='card-field'>
                     Reset Password!
-                </Link>
+                  </Link>
                 </Text>
               </div>
 
@@ -98,7 +108,7 @@ const Login: React.FC<Props> = ({ login, }) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  isAuthenticated: state.auth.isAuthenticated
-  // error: state.error
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
 });
 export default connect(mapStateToProps, { login })(Login);

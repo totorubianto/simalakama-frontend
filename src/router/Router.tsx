@@ -5,11 +5,13 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../components/auth/login/Login';
 import Register from '../components/auth/register/Register';
 import { Home } from '../components/home/Home';
+import Alert from '../components/global/exception/Alert';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
   return (
     <div>
+      <Alert></Alert>
       <Switch>
         <Route exact path='/'>
           <Wraper Navbar={Navbar} Child={Home} />

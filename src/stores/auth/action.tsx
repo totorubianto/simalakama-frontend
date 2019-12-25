@@ -21,7 +21,9 @@ export const loadUser = () => async (dispatch: any) => {
   }
 
   try {
-    const res = await axios.get('https://simalakama.herokuapp.com/api/users/me');
+    const res = await axios.get(
+      'https://simalakama.herokuapp.com/api/users/me'
+    );
 
     dispatch({
       type: USER_LOADED,
@@ -35,7 +37,9 @@ export const loadUser = () => async (dispatch: any) => {
 };
 
 // Register User
-export const register = ({ name, email, password }: any) => async (dispatch: any) => {
+export const register = ({ name, email, password }: any) => async (
+  dispatch: any
+) => {
   dispatch(clearErrors());
   const config = {
     headers: {
@@ -107,7 +111,7 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response.data;
     let error;
     if (errors && typeof errors.message.message !== 'object')
       dispatch(setAlert(errors.message.message, 'danger'));
@@ -140,5 +144,3 @@ export const clearErrors = () => {
     type: CLEAR_ERRORS
   };
 };
-
-
