@@ -5,9 +5,6 @@ import {
   TextField,
   PrimaryButton,
   Checkbox,
-  ITextFieldProps,
-  getTheme,
-  FontWeights
 } from 'office-ui-fabric-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -30,19 +27,6 @@ const Login: React.FC<Props> = ({ login, error }) => {
   };
   const onLogin = () => {
     login({ email, password });
-  };
-  const _onRenderDescription = (): JSX.Element => {
-    const theme = getTheme();
-    return (
-      <Text
-        variant='medium'
-        styles={{
-          root: { color: theme.palette.red, fontWeight: FontWeights.bold }
-        }}
-      >
-        {/* toto rubianto */}
-      </Text>
-    );
   };
 
   return (

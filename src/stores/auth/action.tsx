@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { setAlert } from '../alert/action';
+import axios from "axios";
+import { setAlert } from "../alert/action";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -10,9 +10,11 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   CLEAR_ERRORS,
-  GET_ERRORS
-} from '../types';
-import setAuthToken from '../../utils/setAuthToken';
+  GET_ERRORS,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL
+} from "../types";
+import setAuthToken from "../../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
@@ -22,7 +24,7 @@ export const loadUser = () => async (dispatch: any) => {
 
   try {
     const res = await axios.get(
-      'https://simalakama.herokuapp.com/api/users/me'
+      "https://simalakama.herokuapp.com/api/users/me"
     );
 
     dispatch({
@@ -43,16 +45,16 @@ export const register = ({ name, email, password }: any) => async (
   dispatch(clearErrors());
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   };
-  const role = 'user';
+  const role = "user";
 
   const body = JSON.stringify({ name, email, password, role });
 
   try {
     const res = await axios.post(
-      'https://simalakama.herokuapp.com/api/users/register',
+      "https://simalakama.herokuapp.com/api/users/register",
       body,
       config
     );
@@ -67,11 +69,11 @@ export const register = ({ name, email, password }: any) => async (
     const errors = err.response.data;
 
     let error;
-    if (errors && typeof errors.message.message !== 'object')
-      dispatch(setAlert(errors.message.message, 'danger'));
+    if (errors && typeof errors.message.message !== "object")
+      dispatch(setAlert(errors.message.message, "danger"));
     if (
       errors &&
-      typeof errors.message.message === 'object' &&
+      typeof errors.message.message === "object" &&
       errors.message.message.length > 0
     ) {
       error = errors.message.message;
@@ -93,13 +95,13 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
   dispatch(clearErrors());
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   };
   const body = JSON.stringify({ email, password });
   try {
     const res = await axios.post(
-      'https://simalakama.herokuapp.com/api/users/login',
+      "https://simalakama.herokuapp.com/api/users/login",
       body,
       config
     );
@@ -113,11 +115,11 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
   } catch (err) {
     const errors = err.response.data;
     let error;
-    if (errors && typeof errors.message.message !== 'object')
-      dispatch(setAlert(errors.message.message, 'danger'));
+    if (errors && typeof errors.message.message !== "object")
+      dispatch(setAlert(errors.message.message, "danger"));
     if (
       errors &&
-      typeof errors.message.message === 'object' &&
+      typeof errors.message.message === "object" &&
       errors.message.message.length > 0
     ) {
       error = errors.message.message;
@@ -129,6 +131,54 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
 
     dispatch({
       type: LOGIN_FAIL
+    });
+  }
+};
+
+// Login User
+export const requestForgotPassword = ({ email }: any) => async (
+  dispatch: any
+) => {
+  console.log(email, "diaction");
+  dispatch(clearErrors());
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  const body = JSON.stringify({ email });
+  try {
+    const res = await axios.post(
+      "https://simalakama.herokuapp.com/api/users/request-forgot-password",
+      body,
+      config
+    );
+
+    dispatch({
+      type: FORGOT_PASSWORD_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(loadUser());
+  } catch (err) {
+    const errors = err.response.data;
+    let error;
+    if (errors && typeof errors.message.message !== "object")
+      dispatch(setAlert(errors.message.message, "danger"));
+    if (
+      errors &&
+      typeof errors.message.message === "object" &&
+      errors.message.message.length > 0
+    ) {
+      error = errors.message.message;
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    }
+
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL
     });
   }
 };

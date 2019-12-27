@@ -8,12 +8,12 @@ import {
   LOGOUT,
   ACCOUNT_DELETED,
   USER_LOADING
-} from '../types';
-import { AuthState } from './interfaces/auth.interface';
-import { AuthTypes } from './interfaces/update.interface';
+} from "../types";
+import { AuthState } from "./interfaces/auth.interface";
+import { AuthTypes } from "./interfaces/update.interface";
 
 const initialState: AuthState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem("token"),
   isAuthenticated: false,
   loading: true,
   user: {}
@@ -37,7 +37,7 @@ export function authReducer(
         user: payload.data
       };
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', payload.data.register.accessToken);
+      localStorage.setItem("token", payload.data.register.accessToken);
       return {
         ...state,
         ...payload,
@@ -45,7 +45,7 @@ export function authReducer(
         loading: false
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.data.login.accessToken);
+      localStorage.setItem("token", payload.data.login.accessToken);
       return {
         ...state,
         ...payload,
@@ -57,7 +57,7 @@ export function authReducer(
     case LOGIN_FAIL:
     case LOGOUT:
     case ACCOUNT_DELETED:
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,

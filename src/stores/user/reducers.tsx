@@ -1,12 +1,4 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  ACCOUNT_DELETED,
   USER_LOADING
 } from '../types';
 import { UserState } from './interfaces/user.interface';
