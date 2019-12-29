@@ -1,5 +1,5 @@
 import { setAlert } from "../alert/action";
-import { GET_ERRORS } from "../types";
+import { GET_ERRORS, CLEAR_ERRORS } from "../types";
 
 export const errorAction = (err: any) => async (dispatch: any) => {
   const errors = err && err.response && err.response.data;
@@ -17,4 +17,10 @@ export const errorAction = (err: any) => async (dispatch: any) => {
       payload: error
     });
   }
+};
+
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 };

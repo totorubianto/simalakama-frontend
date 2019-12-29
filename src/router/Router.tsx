@@ -4,7 +4,7 @@ import Wraper from "../components/global/layout/wrapper/Wraper";
 import { Switch, Route } from "react-router-dom";
 import Login from "../components/auth/login/Login";
 import Register from "../components/auth/register/Register";
-import { Home } from "../components/home/Home";
+import Home from "../components/home/Home";
 import Alert from "../components/global/exception/Alert";
 import ForgotPassword from "../components/auth/forgot-password/ForgotPassword";
 import PrivateRouter from "./utils/PrivateRoute";

@@ -1,12 +1,38 @@
 import React, { useState } from "react";
 import Card from "../global/style/Card";
 import { Text, TextField } from "office-ui-fabric-react";
+import { PrimaryButton } from "office-ui-fabric-react";
 import { Nav, INavLink } from "office-ui-fabric-react/lib/Nav";
 import SettingStyle from "./styles/SettingStyle";
-interface Props {}
+import { checkErrors, errorData } from "../global/common/error";
+import { connect } from "react-redux";
+import { updateProfile } from "../../stores/user/action";
+interface Props {
+  error: any;
+  updateProfile: any;
+  auth: any;
+}
 
-export const Home: React.FC<Props> = () => {
+const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
   const [menuSidebar, setMenuSidebar] = useState("account");
+  const [formUpdateProfile, setFormUpdateProfile] = useState({
+    name: "",
+    email: ""
+  });
+
+  const onChangeTextField = (e: any) => {
+    setFormUpdateProfile({
+      ...formUpdateProfile,
+      [e.target.name]: e.target.value
+    });
+  };
+  const { email: emailData, name: nameData } = user;
+  const { email, name } = formUpdateProfile;
+  const onUpdateProfile = () => {
+    console.log(formUpdateProfile);
+    updateProfile({ email, name });
+  };
+
   const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
     if (item && item.key) {
       setMenuSidebar(item.key);
@@ -63,7 +89,13 @@ export const Home: React.FC<Props> = () => {
                 <div className="col-md-6">
                   <TextField
                     label="First Name"
-                    placeholder="Masukan firstname "
+                    name="name"
+                    onRenderDescription={() =>
+                      errorData({ error: checkErrors("name", error) })
+                    }
+                    onChange={(e: any) => onChangeTextField(e)}
+                    value={name}
+                    placeholder={nameData}
                   />
                 </div>
                 <div className="col-md-6">
@@ -73,9 +105,22 @@ export const Home: React.FC<Props> = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <TextField label="Email" placeholder="Masukan email mu" />
+                  <TextField
+                    label="Email"
+                    type="email"
+                    name="email"
+                    onRenderDescription={() =>
+                      errorData({ error: checkErrors("email", error) })
+                    }
+                    onChange={(e: any) => onChangeTextField(e)}
+                    value={email}
+                    placeholder={emailData}
+                  />
                 </div>
               </div>
+              <PrimaryButton onClick={() => onUpdateProfile()}>
+                Save the Changes
+              </PrimaryButton>
             </div>
           </div>
         </div>
@@ -83,3 +128,9 @@ export const Home: React.FC<Props> = () => {
     </SettingStyle>
   );
 };
+
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+  error: state.error
+});
+export default connect(mapStateToProps, { updateProfile })(Home);

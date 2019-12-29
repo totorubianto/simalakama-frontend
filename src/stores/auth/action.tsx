@@ -12,7 +12,7 @@ import {
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAIL
 } from "../types";
-import { errorAction } from "../global/action";
+import { errorAction, clearErrors } from "../global/action";
 import setAuthToken from "../../utils/setAuthToken";
 
 // Load User
@@ -138,10 +138,4 @@ export const requestForgotPassword = ({ email }: any) => async (
 export const logout = () => (dispatch: any) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
-};
-
-export const clearErrors = () => {
-  return {
-    type: CLEAR_ERRORS
-  };
 };
