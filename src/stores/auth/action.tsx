@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setAlert } from "../alert/action";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -10,10 +9,10 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   CLEAR_ERRORS,
-  GET_ERRORS,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAIL
 } from "../types";
+import { errorAction } from "../global/action";
 import setAuthToken from "../../utils/setAuthToken";
 
 // Load User
@@ -66,24 +65,7 @@ export const register = ({ name, email, password }: any) => async (
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err && err.response && err.response.data;
-
-    let error;
-    if (errors && typeof errors.message.message !== "object")
-      dispatch(setAlert(errors.message.message, "danger"));
-    if (
-      errors &&
-      typeof errors.message.message === "object" &&
-      errors.message.message.length > 0
-    ) {
-      error = errors.message.message;
-      dispatch({
-        type: GET_ERRORS,
-        payload: error
-      });
-    }
-
-    //   errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    dispatch(errorAction(err));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -112,29 +94,14 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err && err.response && err.response.data;
-    let error;
-    if (errors && typeof errors.message.message !== "object")
-      dispatch(setAlert(errors.message.message, "danger"));
-    if (
-      errors &&
-      typeof errors.message.message === "object" &&
-      errors.message.message.length > 0
-    ) {
-      error = errors.message.message;
-      dispatch({
-        type: GET_ERRORS,
-        payload: error
-      });
-    }
-
+    dispatch(errorAction(err));
     dispatch({
       type: LOGIN_FAIL
     });
   }
 };
 
-// Login User
+// request forgot password
 export const requestForgotPassword = ({ email }: any) => async (
   dispatch: any
 ) => {
@@ -160,22 +127,7 @@ export const requestForgotPassword = ({ email }: any) => async (
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err && err.response && err.response.data;
-    let error;
-    if (errors && typeof errors.message.message !== "object")
-      dispatch(setAlert(errors.message.message, "danger"));
-    if (
-      errors &&
-      typeof errors.message.message === "object" &&
-      errors.message.message.length > 0
-    ) {
-      error = errors.message.message;
-      dispatch({
-        type: GET_ERRORS,
-        payload: error
-      });
-    }
-
+    dispatch(errorAction(err));
     dispatch({
       type: FORGOT_PASSWORD_FAIL
     });
