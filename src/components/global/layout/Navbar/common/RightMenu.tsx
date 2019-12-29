@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useConstCallback } from '@uifabric/react-hooks';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useConstCallback } from "@uifabric/react-hooks";
 import {
   Text,
   PrimaryButton,
@@ -9,9 +9,8 @@ import {
   PersonaSize,
   PersonaPresence,
   ContextualMenu
-} from 'office-ui-fabric-react';
-import MenuItems from './Menu';
-
+} from "office-ui-fabric-react";
+import MenuItems from "./Menu";
 
 export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
   const linkRef = React.useRef(null);
@@ -25,15 +24,15 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
 
   const avatar: IPersonaSharedProps = {
     imageUrl:
-      'https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png',
-    imageInitials: 'AL',
-    text: user.name,
-    secondaryText: 'Software Engineer',
-    tertiaryText: 'In a meeting',
-    optionalText: 'Available at 4:00pm'
+      "https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png",
+    imageInitials: user.firstName[0],
+    text: user.firstName,
+    secondaryText: "Software Engineer",
+    tertiaryText: "In a meeting",
+    optionalText: "Available at 4:00pm"
   };
   return (
-    <div className='nav-wrapper-end'>
+    <div className="nav-wrapper-end">
       <ContextualMenu
         items={MenuItems(history, logout)}
         hidden={!showContextualMenu}
@@ -43,27 +42,27 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
       />
       {isAuthenticated ? (
         <>
-          <Link to='#/' className='nav-link'>
-            <Text key='1' variant='medium' nowrap block>
+          <Link to="#/" className="nav-link">
+            <Text key="1" variant="medium" nowrap block>
               Beranda
             </Text>
           </Link>
-          <Link to='#/' className='nav-link'>
-            <Text key='1' variant='medium' nowrap block>
+          <Link to="#/" className="nav-link">
+            <Text key="1" variant="medium" nowrap block>
               Pekerjaan
             </Text>
           </Link>
-          <Link to='#/' className='nav-link'>
+          <Link to="#/" className="nav-link">
             <PrimaryButton
-              text='Primary'
+              text="Primary"
               allowDisabledFocus
               disabled={false}
               checked={false}
             />
           </Link>
           <Link
-            to='#/'
-            className='nav-link'
+            to="#/"
+            className="nav-link"
             ref={linkRef}
             onClick={onShowContextualMenu}
           >
@@ -76,15 +75,15 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
           </Link>
         </>
       ) : (
-          <>
-            <Link to='/login' className='nav-link'>
-              <PrimaryButton>Login</PrimaryButton>
-            </Link>
-            <Link to='/register' className='nav-link'>
-              <PrimaryButton>Register</PrimaryButton>
-            </Link>
-          </>
-        )}
+        <>
+          <Link to="/login" className="nav-link">
+            <PrimaryButton>Login</PrimaryButton>
+          </Link>
+          <Link to="/register" className="nav-link">
+            <PrimaryButton>Register</PrimaryButton>
+          </Link>
+        </>
+      )}
     </div>
   );
 };

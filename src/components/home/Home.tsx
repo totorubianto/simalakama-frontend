@@ -16,7 +16,8 @@ interface Props {
 const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
   const [menuSidebar, setMenuSidebar] = useState("account");
   const [formUpdateProfile, setFormUpdateProfile] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: ""
   });
 
@@ -26,11 +27,15 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
       [e.target.name]: e.target.value
     });
   };
-  const { email: emailData, name: nameData } = user;
-  const { email, name } = formUpdateProfile;
+  const {
+    email: emailData,
+    firstName: firstNameData,
+    lastName: lastNameData
+  } = user;
+  const { email, firstName, lastName } = formUpdateProfile;
   const onUpdateProfile = () => {
     console.log(formUpdateProfile);
-    updateProfile({ email, name });
+    updateProfile({ firstName, lastName, email });
   };
 
   const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
@@ -89,19 +94,25 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
                 <div className="col-md-6">
                   <TextField
                     label="First Name"
-                    name="name"
+                    name="firstName"
                     onRenderDescription={() =>
-                      errorData({ error: checkErrors("name", error) })
+                      errorData({ error: checkErrors("firstName", error) })
                     }
                     onChange={(e: any) => onChangeTextField(e)}
-                    value={name}
-                    placeholder={nameData}
+                    value={firstName}
+                    placeholder={firstNameData}
                   />
                 </div>
                 <div className="col-md-6">
                   <TextField
                     label="Last Name"
-                    placeholder="Masukan lastname "
+                    name="lastName"
+                    onRenderDescription={() =>
+                      errorData({ error: checkErrors("lastName", error) })
+                    }
+                    onChange={(e: any) => onChangeTextField(e)}
+                    value={lastName}
+                    placeholder={lastNameData}
                   />
                 </div>
                 <div className="col-md-6">

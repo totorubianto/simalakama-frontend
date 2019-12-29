@@ -22,16 +22,17 @@ const Register: React.FC<Props> = ({
   auth: { isAuthenticated, loading }
 }) => {
   const [fieldRegister, setFieldRegister] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   });
-  const { name, email, password } = fieldRegister;
+  const { firstName, lastName, email, password } = fieldRegister;
   const onChangeTextField = (e: any) => {
     setFieldRegister({ ...fieldRegister, [e.target.name]: e.target.value });
   };
   const onRegister = () => {
-    register({ name, email, password });
+    register({ firstName, lastName, email, password });
   };
   if (isAuthenticated) {
     return <Redirect to="/"></Redirect>;
@@ -69,14 +70,25 @@ const Register: React.FC<Props> = ({
               />
               <TextField
                 className="card-field"
-                label="Name"
+                label="firstName"
                 type="text"
-                name="name"
+                name="firstName"
                 onRenderDescription={() =>
-                  errorData({ error: checkErrors("name", error) })
+                  errorData({ error: checkErrors("firstName", error) })
                 }
                 onChange={e => onChangeTextField(e)}
-                value={name}
+                value={firstName}
+              />
+              <TextField
+                className="card-field"
+                label="LastName"
+                type="text"
+                name="lastName"
+                onRenderDescription={() =>
+                  errorData({ error: checkErrors("lastName", error) })
+                }
+                onChange={e => onChangeTextField(e)}
+                value={lastName}
               />
               <Checkbox
                 className="card-field"

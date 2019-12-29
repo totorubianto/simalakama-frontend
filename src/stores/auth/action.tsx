@@ -20,12 +20,10 @@ export const loadUser = () => async (dispatch: any) => {
   if (localStorage.token) {
     await setAuthToken(localStorage.token);
   }
-
   try {
     const res = await axios.get(
       "https://simalakama.herokuapp.com/api/users/me"
     );
-
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -38,9 +36,12 @@ export const loadUser = () => async (dispatch: any) => {
 };
 
 // Register User
-export const register = ({ name, email, password }: any) => async (
-  dispatch: any
-) => {
+export const register = ({
+  firstName,
+  lastName,
+  email,
+  password
+}: any) => async (dispatch: any) => {
   dispatch(clearErrors());
   const config = {
     headers: {
@@ -48,21 +49,17 @@ export const register = ({ name, email, password }: any) => async (
     }
   };
   const role = "user";
-
-  const body = JSON.stringify({ name, email, password, role });
-
+  const body = JSON.stringify({ firstName, lastName, email, password, role });
   try {
     const res = await axios.post(
       "https://simalakama.herokuapp.com/api/users/register",
       body,
       config
     );
-
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-
     dispatch(loadUser());
   } catch (err) {
     dispatch(errorAction(err));
@@ -91,7 +88,6 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-
     dispatch(loadUser());
   } catch (err) {
     dispatch(errorAction(err));
