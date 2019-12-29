@@ -2,6 +2,7 @@ import styled from "styled-components";
 interface Props {
   padding?: string;
   margin?: string;
+  height?: string;
 }
 
 const Card = styled.section<Props>`
@@ -24,6 +25,7 @@ const Card = styled.section<Props>`
           .split(",")
           .map((data: any) => data + "px ")
       : "0px"};
+  height: ${(props: any) => (props.height ? props.height + "%" : "0px")};
 `;
 
 export default Card;

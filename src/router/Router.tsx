@@ -15,7 +15,7 @@ const Routes: React.FC<Props> = () => {
     <div>
       <Alert></Alert>
       <Switch>
-        <PrivateRouter exact path="/" component={Navbar}>
+        <PrivateRouter exact path="/">
           <Wraper Navbar={Navbar} Child={Home} />
         </PrivateRouter>
         <Route exact path="/login">

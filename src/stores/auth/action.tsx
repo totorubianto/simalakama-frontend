@@ -66,7 +66,7 @@ export const register = ({ name, email, password }: any) => async (
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data;
+    const errors = err && err.response && err.response.data;
 
     let error;
     if (errors && typeof errors.message.message !== "object")
@@ -105,7 +105,6 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
       body,
       config
     );
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -113,7 +112,7 @@ export const login = ({ email, password }: any) => async (dispatch: any) => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data;
+    const errors = err && err.response && err.response.data;
     let error;
     if (errors && typeof errors.message.message !== "object")
       dispatch(setAlert(errors.message.message, "danger"));
@@ -161,7 +160,7 @@ export const requestForgotPassword = ({ email }: any) => async (
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data;
+    const errors = err && err.response && err.response.data;
     let error;
     if (errors && typeof errors.message.message !== "object")
       dispatch(setAlert(errors.message.message, "danger"));
