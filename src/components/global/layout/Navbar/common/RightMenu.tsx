@@ -25,8 +25,8 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
   const avatar: IPersonaSharedProps = {
     imageUrl:
       "https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png",
-    imageInitials: user.firstName[0],
-    text: user.firstName,
+    imageInitials: user && user.firstName && user.firstName[0],
+    text: user && user.firstName,
     secondaryText: "Software Engineer",
     tertiaryText: "In a meeting",
     optionalText: "Available at 4:00pm"

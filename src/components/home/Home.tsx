@@ -7,19 +7,29 @@ import SettingStyle from "./styles/SettingStyle";
 import { checkErrors, errorData } from "../global/common/error";
 import { connect } from "react-redux";
 import { updateProfile } from "../../stores/user/action";
+import { useLocation } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 interface Props {
   error: any;
   updateProfile: any;
   auth: any;
+  history: any;
 }
 
-const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
+const Home: React.FC<Props> = ({
+  error,
+  updateProfile,
+  auth: { user },
+  history
+}) => {
   const [menuSidebar, setMenuSidebar] = useState("account");
   const [formUpdateProfile, setFormUpdateProfile] = useState({
     firstName: "",
     lastName: "",
     email: ""
   });
+  const [tabQuery, setTabQuery] = useState("account");
 
   const onChangeTextField = (e: any) => {
     setFormUpdateProfile({
@@ -27,18 +37,26 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
       [e.target.name]: e.target.value
     });
   };
+
   const {
     email: emailData,
     firstName: firstNameData,
     lastName: lastNameData
   } = user;
+
   const { email, firstName, lastName } = formUpdateProfile;
   const onUpdateProfile = () => {
-    console.log(formUpdateProfile);
     updateProfile({ firstName, lastName, email });
   };
-
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+  let query = useQuery();
   const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
+    const queryPage = item && item.page;
+    history.push(`?page=${queryPage}`);
+    setTabQuery(queryPage);
+    console.log(queryPage);
     if (item && item.key) {
       setMenuSidebar(item.key);
     }
@@ -67,7 +85,7 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
                 {
                   links: [
                     {
-                      value: "value",
+                      page: "account",
                       name: "Account",
                       url: "#",
                       icon: "UserFollowed",
@@ -75,7 +93,7 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
                       isExpanded: true
                     },
                     {
-                      value: "value",
+                      page: "security",
                       name: "Security",
                       url: "#",
                       icon: "LaptopSecure",
@@ -88,51 +106,56 @@ const Home: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
             />
           </div>
           <div className="col-md-9">
-            <div className="tab">
-              <Text variant="xLarge">General</Text>
-              <div className="row">
-                <div className="col-md-6">
-                  <TextField
-                    label="First Name"
-                    name="firstName"
-                    onRenderDescription={() =>
-                      errorData({ error: checkErrors("firstName", error) })
-                    }
-                    onChange={(e: any) => onChangeTextField(e)}
-                    value={firstName}
-                    placeholder={firstNameData}
-                  />
+            {console.log(tabQuery)}
+            {tabQuery === "account" ? (
+              <div className="tab">
+                <Text variant="xLarge">General</Text>
+                <div className="row">
+                  <div className="col-md-6">
+                    <TextField
+                      label="First Name"
+                      name="firstName"
+                      onRenderDescription={() =>
+                        errorData({ error: checkErrors("firstName", error) })
+                      }
+                      onChange={(e: any) => onChangeTextField(e)}
+                      value={firstName}
+                      placeholder={firstNameData}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <TextField
+                      label="Last Name"
+                      name="lastName"
+                      onRenderDescription={() =>
+                        errorData({ error: checkErrors("lastName", error) })
+                      }
+                      onChange={(e: any) => onChangeTextField(e)}
+                      value={lastName}
+                      placeholder={lastNameData}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <TextField
+                      label="Email"
+                      type="email"
+                      name="email"
+                      onRenderDescription={() =>
+                        errorData({ error: checkErrors("email", error) })
+                      }
+                      onChange={(e: any) => onChangeTextField(e)}
+                      value={email}
+                      placeholder={emailData}
+                    />
+                  </div>
                 </div>
-                <div className="col-md-6">
-                  <TextField
-                    label="Last Name"
-                    name="lastName"
-                    onRenderDescription={() =>
-                      errorData({ error: checkErrors("lastName", error) })
-                    }
-                    onChange={(e: any) => onChangeTextField(e)}
-                    value={lastName}
-                    placeholder={lastNameData}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <TextField
-                    label="Email"
-                    type="email"
-                    name="email"
-                    onRenderDescription={() =>
-                      errorData({ error: checkErrors("email", error) })
-                    }
-                    onChange={(e: any) => onChangeTextField(e)}
-                    value={email}
-                    placeholder={emailData}
-                  />
-                </div>
+                <PrimaryButton onClick={() => onUpdateProfile()}>
+                  Save the Changes
+                </PrimaryButton>
               </div>
-              <PrimaryButton onClick={() => onUpdateProfile()}>
-                Save the Changes
-              </PrimaryButton>
-            </div>
+            ) : (
+              <div>toto</div>
+            )}
           </div>
         </div>
       </Card>
@@ -144,4 +167,4 @@ const mapStateToProps = (state: any) => ({
   auth: state.auth,
   error: state.error
 });
-export default connect(mapStateToProps, { updateProfile })(Home);
+export default withRouter(connect(mapStateToProps, { updateProfile })(Home));
