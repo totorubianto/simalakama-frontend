@@ -1,11 +1,11 @@
 import {
-  GET_PROFILE,
-  GET_PROFILES,
+  // GET_PROFILE,
+  // GET_PROFILES,
   UPDATE_PROFILE,
-  UPLOAD_AVATAR,
-  CLEAR_PROFILE,
-  PROFILE_ERROR,
-  ACCOUNT_DELETED
+  // UPLOAD_AVATAR,
+  // CLEAR_PROFILE,
+  // PROFILE_ERROR,
+  // ACCOUNT_DELETED
 } from "../types";
 import { clearErrors, errorAction } from "../global/action";
 import axios from "axios";

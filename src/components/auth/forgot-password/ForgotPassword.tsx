@@ -6,19 +6,26 @@ import { checkErrors, errorData } from '../../global/common/error';
 import { requestForgotPassword } from '../../../stores/auth/action';
 import { useQuery } from '../../global/common/useQuery';
 import { forgotPassword } from '../../../stores/auth/action';
+import Redirect from '../../global/utils/Redirect';
+import {useHistory} from 'react-router-dom'
 
 interface Props {
     error: any;
     requestForgotPassword: any;
     forgotPassword: any;
+    verification: any;
 }
 
-const ForgotPassword: React.FC<Props> = ({ error, requestForgotPassword, forgotPassword }) => {
+const ForgotPassword: React.FC<Props> = ({
+    error,
+    requestForgotPassword,
+    forgotPassword,
+    verification,
+}) => {
+    let history = useHistory();
     let query = useQuery();
     let token = query.get('token');
-    const [formForgotPassword, setFormForgotPassword] = useState({
-        email: '',
-    });
+    const [formForgotPassword, setFormForgotPassword] = useState({ email: '' });
     const [formNewPassword, setFormNewPassword] = useState({
         newPassword: '',
         newPasswordConfirmation: '',
@@ -40,6 +47,8 @@ const ForgotPassword: React.FC<Props> = ({ error, requestForgotPassword, forgotP
     const onSubmitNewForgotPassword = () => {
         forgotPassword(token, formNewPassword);
     };
+    const {verification:verify} = verification
+    if(verify && verify.user && verify.user.email) Redirect(history,'/')
     return (
         <ForgotPasswordStyle>
             {token ? (
@@ -121,6 +130,7 @@ const ForgotPassword: React.FC<Props> = ({ error, requestForgotPassword, forgotP
 
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
+    verification: state.verification,
     error: state.error,
 });
 export default connect(mapStateToProps, {

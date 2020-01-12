@@ -7,7 +7,6 @@ import SettingStyle from "./styles/SettingStyle";
 import { checkErrors, errorData } from "../global/common/error";
 import { connect } from "react-redux";
 import { updateProfile } from "../../stores/user/action";
-import { useLocation } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 interface Props {
