@@ -131,6 +131,37 @@ export const requestForgotPassword = ({ email }: any) => async (
 };
 
 // request forgot password
+export const forgotPassword = (token: any, {newPassword, newPasswordConfirmation}:any) => async (
+  dispatch: any
+) => {
+  dispatch(clearErrors());
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  const body = JSON.stringify({ newPassword,newPasswordConfirmation });
+  try {
+    const res = await axios.post(
+      `https://simalakama.herokuapp.com/api/users/forgot-password/${token}`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: FORGOT_PASSWORD_SUCCESS,
+      payload: res.data
+    });
+
+  } catch (err) {
+    dispatch(errorAction(err));
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL
+    });
+  }
+};
+
+// request forgot password
 export const verify = ( id : any) => async (
   dispatch: any
 ) => {
