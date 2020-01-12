@@ -130,6 +130,28 @@ export const requestForgotPassword = ({ email }: any) => async (
   }
 };
 
+// request forgot password
+export const verify = ( id : any) => async (
+  dispatch: any
+) => {
+  dispatch(clearErrors());
+  try {
+    const res = await axios.get(`https://simalakama.herokuapp.com/api/users/verify/${id}`);
+
+    dispatch({
+      type: FORGOT_PASSWORD_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch(errorAction(err));
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL
+    });
+  }
+};
+
 // Logout / Clear Profile
 export const logout = () => (dispatch: any) => {
   dispatch({ type: CLEAR_PROFILE });

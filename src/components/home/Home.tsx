@@ -48,10 +48,7 @@ const Home: React.FC<Props> = ({
   const onUpdateProfile = () => {
     updateProfile({ firstName, lastName, email });
   };
-  const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-  };
-  let query = useQuery();
+
   const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
     const queryPage = item && item.page;
     history.push(`?page=${queryPage}`);
