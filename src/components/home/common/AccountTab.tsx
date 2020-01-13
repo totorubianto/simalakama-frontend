@@ -4,14 +4,15 @@ import { errorData, checkErrors } from '../../global/common/error';
 import { updateProfile } from '../../../stores/user/action';
 import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { connect } from 'react-redux';
-
+import { updateAvatar } from '../../../stores/user/action';
 interface Props {
     error: any;
     auth: any;
     updateProfile: any;
+    updateAvatar: any;
 }
 
-const AccountTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
+const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth: { user } }) => {
     useEffect(() => {
         const { firstName: firstNameData, lastName: lastNameData } = user;
         setFormUpdateProfile({
@@ -46,7 +47,7 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) =
         updateProfile({ firstName, lastName, email });
     };
     const changeAvatar = (e: any) => {
-        console.log(e.target.files[0]);
+        updateAvatar(e.target.files[0]);
     };
 
     return (
@@ -61,7 +62,6 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) =
                             size={PersonaSize.size72}
                             imageAlt="Annie Lindqvist, status is dnd"
                         />
-
                         <PrimaryButton
                             iconProps={{ iconName: 'CloudUpload' }}
                             style={{ position: 'relative', overflow: 'hidden' }}
@@ -142,4 +142,4 @@ const mapStateToProps = (state: any) => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateProfile })(AccountTab);
+export default connect(mapStateToProps, { updateProfile, updateAvatar })(AccountTab);

@@ -7,12 +7,10 @@ import SecurityTab from './common/SecurityTab';
 import { withRouter } from 'react-router-dom';
 import AccountTab from './common/AccountTab';
 interface Props {
-    error: any;
-    auth: any;
     history: any;
 }
 
-const Home: React.FC<Props> = ({ error, auth: { user }, history }) => {
+const Home: React.FC<Props> = ({ history }) => {
     const [menuSidebar, setMenuSidebar] = useState('account');
     const [tabQuery, setTabQuery] = useState('account');
     const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
@@ -69,7 +67,7 @@ const Home: React.FC<Props> = ({ error, auth: { user }, history }) => {
                         />
                     </div>
                     <div className="col-md-9">
-                        {tabQuery === 'account' ? <AccountTab /> : <SecurityTab></SecurityTab>}
+                        {tabQuery === 'account' ? <AccountTab /> : <SecurityTab />}
                     </div>
                 </div>
             </Card>
@@ -77,8 +75,5 @@ const Home: React.FC<Props> = ({ error, auth: { user }, history }) => {
     );
 };
 
-const mapStateToProps = (state: any) => ({
-    auth: state.auth,
-    error: state.error,
-});
+const mapStateToProps = (state: any) => ({});
 export default withRouter(connect(mapStateToProps)(Home));
