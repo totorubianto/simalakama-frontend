@@ -46,8 +46,7 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) =
         updateProfile({ firstName, lastName, email });
     };
     const changeAvatar = (e: any) => {
-        console.log('fungsi');
-        console.log(e.target.files);
+        console.log(e.target.files[0]);
     };
 
     return (
@@ -65,7 +64,6 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) =
 
                         <PrimaryButton
                             iconProps={{ iconName: 'CloudUpload' }}
-                            onClick={() => console.log('gagal')}
                             style={{ position: 'relative', overflow: 'hidden' }}
                             onRenderChildren={() => (
                                 <input
