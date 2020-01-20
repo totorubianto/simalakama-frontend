@@ -9,10 +9,10 @@ import {
 } from '../types';
 import { clearErrors, errorAction } from '../global/action';
 import axios from 'axios';
+import { loadUser } from '../auth/action';
 
 // Updated User
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
-    console.log(firstName, lastName, email);
     dispatch(clearErrors());
     const config = {
         headers: {
@@ -26,6 +26,7 @@ export const updateProfile = ({ firstName, lastName, email }: any) => async (dis
             body,
             config,
         );
+        dispatch(loadUser());
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data,

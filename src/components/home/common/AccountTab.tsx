@@ -33,7 +33,6 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth:
             [e.target.name]: e.target.value,
         });
     };
-
     const { email, firstName, lastName } = formUpdateProfile;
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const examplePersona: IPersonaSharedProps = {
