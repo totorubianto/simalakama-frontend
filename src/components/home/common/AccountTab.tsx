@@ -36,7 +36,7 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth:
     const { email, firstName, lastName } = formUpdateProfile;
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const examplePersona: IPersonaSharedProps = {
-        imageUrl: 'https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb',
+        imageUrl: user && user.avatar && user.avatar.url,
         imageInitials: 'AL',
         text: `${firstNameData} ${lastNameData}`,
         secondaryText: 'Software Engineer',
