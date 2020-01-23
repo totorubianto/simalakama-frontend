@@ -57,6 +57,7 @@ export const updateAvatar = (file: any) => async (dispatch: any) => {
     }
 };
 
+//update password
 export const updatePassword = ({
     oldPassword,
     newPassword,
