@@ -6,6 +6,7 @@ import {
     // CLEAR_PROFILE,
     // PROFILE_ERROR,
     // ACCOUNT_DELETED
+    UPDATE_PASSWORD,
 } from '../types';
 import { clearErrors, errorAction } from '../global/action';
 import axios from 'axios';
@@ -49,6 +50,36 @@ export const updateAvatar = (file: any) => async (dispatch: any) => {
         dispatch(loadUser());
         dispatch({
             type: UPLOAD_AVATAR,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch(errorAction(err));
+    }
+};
+
+export const updatePassword = ({
+    oldPassword,
+    newPassword,
+    newPasswordConfirmation,
+}: any) => async (dispatch: any) => {
+    console.log(newPassword, oldPassword, newPasswordConfirmation);
+    dispatch(clearErrors());
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    const body = JSON.stringify({ oldPassword, newPassword, newPasswordConfirmation });
+
+    try {
+        const res = await axios.post(
+            'https://simalakama.herokuapp.com/api/users/update-password',
+            body,
+            config,
+        );
+        dispatch(loadUser());
+        dispatch({
+            type: UPDATE_PASSWORD,
             payload: res.data,
         });
     } catch (err) {

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Text, TextField, PrimaryButton } from 'office-ui-fabric-react';
 import { errorData, checkErrors } from '../../global/common/error';
-import { updateProfile } from '../../../stores/user/action';
+import { updatePassword } from '../../../stores/user/action';
 import { connect } from 'react-redux';
 interface Props {
     error: any;
     auth: any;
-    updateProfile: any;
+    updatePassword: any;
 }
 
-const SecurityTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) => {
+const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } }) => {
     const [formUpdateProfile, setFormUpdateProfile] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
+        oldPassword: '',
+        newPassword: '',
+        newPasswordConfirmation: '',
     });
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const onChangeTextField = (e: any) => {
@@ -22,9 +22,9 @@ const SecurityTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) 
             [e.target.name]: e.target.value,
         });
     };
-    const { email, firstName, lastName } = formUpdateProfile;
+    const { oldPassword, newPassword, newPasswordConfirmation } = formUpdateProfile;
     const onUpdateProfile = () => {
-        updateProfile({ firstName, lastName, email });
+        updatePassword({ oldPassword, newPassword, newPasswordConfirmation });
     };
 
     return (
@@ -33,41 +33,48 @@ const SecurityTab: React.FC<Props> = ({ error, updateProfile, auth: { user } }) 
             <div className="row">
                 <div className="col-md-6">
                     <TextField
-                        label="First Name"
-                        name="firstName"
+                        label="Old Password"
+                        name="oldPassword"
                         onRenderDescription={() =>
                             errorData({
-                                error: checkErrors('firstName', error),
+                                error: checkErrors('oldPassword', error),
                             })
                         }
                         onChange={(e: any) => onChangeTextField(e)}
-                        value={firstName}
-                        placeholder={firstNameData}
+                        value={oldPassword}
+                        placeholder="input old password"
                     />
                 </div>
+            </div>
+            <div className="row">
                 <div className="col-md-6">
                     <TextField
-                        label="Last Name"
-                        name="lastName"
+                        label="New Password"
+                        name="newPassword"
                         onRenderDescription={() =>
-                            errorData({ error: checkErrors('lastName', error) })
+                            errorData({
+                                error: checkErrors('newPassword', error),
+                            })
                         }
                         onChange={(e: any) => onChangeTextField(e)}
-                        value={lastName}
-                        placeholder={lastNameData}
+                        value={newPassword}
+                        placeholder="input new password"
                     />
                 </div>
+            </div>
+            <div className="row">
                 <div className="col-md-6">
                     <TextField
-                        label="Email"
-                        type="email"
-                        name="email"
+                        label="New Password Confirmation"
+                        name="newPasswordConfirmation"
                         onRenderDescription={() =>
-                            errorData({ error: checkErrors('email', error) })
+                            errorData({
+                                error: checkErrors('newPasswordConfirmation', error),
+                            })
                         }
                         onChange={(e: any) => onChangeTextField(e)}
-                        value={email}
-                        placeholder={emailData}
+                        value={newPasswordConfirmation}
+                        placeholder="new password confirmation"
                     />
                 </div>
             </div>
@@ -81,4 +88,4 @@ const mapStateToProps = (state: any) => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateProfile })(SecurityTab);
+export default connect(mapStateToProps, { updatePassword })(SecurityTab);

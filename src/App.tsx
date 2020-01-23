@@ -6,27 +6,27 @@ import { AppState } from './stores/indexReducer';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './stores/auth/action';
 if (localStorage.token) {
-  setAuthToken(localStorage.token);
+    setAuthToken(localStorage.token);
 }
 interface AppProps {
-  auth: any;
-  loadUser: any;
+    auth: any;
+    loadUser: any;
 }
 const App: React.FC<AppProps> = ({ auth, loadUser }) => {
-  useEffect(() => {
-    loadUser();
-  }, [loadUser]);
-  return (
-    <div className='App'>
-      <Router>
-        <Routes />
-      </Router>
-    </div>
-  );
+    useEffect(() => {
+        loadUser();
+    }, [loadUser]);
+    return (
+        <div className="App">
+            <Router>
+                <Routes />
+            </Router>
+        </div>
+    );
 };
 
 const mapStateToProps = (state: AppState) => ({
-  auth: state.auth
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, { loadUser })(App);
