@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextField, PrimaryButton, Button, DefaultButton } from 'office-ui-fabric-react';
+import { Text, TextField, PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
 import { errorData, checkErrors } from '../../global/common/error';
 import { updateProfile } from '../../../stores/user/action';
 import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';

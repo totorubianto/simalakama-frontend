@@ -7,7 +7,8 @@ import { requestForgotPassword } from '../../../stores/auth/action';
 import { useQuery } from '../../global/common/useQuery';
 import { forgotPassword } from '../../../stores/auth/action';
 import Redirect from '../../global/utils/Redirect';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import TextFieldGroup from '../../global/common/inputGroup/TextFieldGroup';
 
 interface Props {
     error: any;
@@ -47,8 +48,8 @@ const ForgotPassword: React.FC<Props> = ({
     const onSubmitNewForgotPassword = () => {
         forgotPassword(token, formNewPassword);
     };
-    const {verification:verify} = verification
-    if(verify && verify.user && verify.user.email) Redirect(history,'/')
+    const { verification: verify } = verification;
+    if (verify && verify.user && verify.user.email) Redirect(history, '/');
     return (
         <ForgotPasswordStyle>
             {token ? (
@@ -60,32 +61,25 @@ const ForgotPassword: React.FC<Props> = ({
                                 Forgot Password
                             </Text>
                             <form onSubmit={() => onSubmitForgotPassword()}>
-                                <TextField
-                                    className="card-field"
+                                <TextFieldGroup
                                     label="New Password"
                                     type="password"
-                                    placeholder="Masukan new password"
+                                    placeholder="Input new password confirmation"
                                     name="newPassword"
-                                    onChange={e => onChangeNewTextField(e)}
-                                    onRenderDescription={() =>
-                                        errorData({ error: checkErrors('newPassword', error) })
-                                    }
+                                    onChange={onChangeNewTextField}
+                                    error={error}
                                     value={newPassword}
                                 />
-                                <TextField
-                                    className="card-field"
+                                <TextFieldGroup
                                     label="New Password Confirmation"
                                     type="password"
-                                    placeholder="Masukan new password confirmation"
+                                    placeholder="Input new password"
                                     name="newPasswordConfirmation"
-                                    onChange={e => onChangeNewTextField(e)}
-                                    onRenderDescription={() =>
-                                        errorData({
-                                            error: checkErrors('newPasswordConfirmation', error),
-                                        })
-                                    }
+                                    onChange={onChangeNewTextField}
+                                    error={error}
                                     value={newPasswordConfirmation}
                                 />
+
                                 <PrimaryButton onClick={() => onSubmitNewForgotPassword()}>
                                     Forgot Password
                                 </PrimaryButton>
@@ -103,16 +97,13 @@ const ForgotPassword: React.FC<Props> = ({
                                 Forgot Password
                             </Text>
                             <form onSubmit={() => onSubmitForgotPassword()}>
-                                <TextField
-                                    className="card-field"
+                                <TextFieldGroup
                                     label="Email"
-                                    type="email"
-                                    placeholder="Masukan email"
+                                    type="text"
+                                    placeholder="Masukan Email"
                                     name="email"
-                                    onChange={e => onChangeTextField(e)}
-                                    onRenderDescription={() =>
-                                        errorData({ error: checkErrors('email', error) })
-                                    }
+                                    onChange={onChangeTextField}
+                                    error={error}
                                     value={email}
                                 />
                                 <PrimaryButton onClick={() => onSubmitForgotPassword()}>
