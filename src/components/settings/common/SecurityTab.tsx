@@ -15,7 +15,6 @@ const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } })
         newPassword: '',
         newPasswordConfirmation: '',
     });
-    const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const onChangeTextField = (e: any) => {
         setFormUpdateProfile({
             ...formUpdateProfile,

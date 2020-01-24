@@ -10,7 +10,7 @@ interface Props {
     history: any;
 }
 
-const Home: React.FC<Props> = ({ history }) => {
+const Settings: React.FC<Props> = ({ history }) => {
     const [menuSidebar, setMenuSidebar] = useState('account');
     const [tabQuery, setTabQuery] = useState('account');
     const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
@@ -76,4 +76,4 @@ const Home: React.FC<Props> = ({ history }) => {
 };
 
 const mapStateToProps = (state: any) => ({});
-export default withRouter(connect(mapStateToProps)(Home));
+export default withRouter(connect(mapStateToProps)(Settings));

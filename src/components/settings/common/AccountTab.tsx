@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextField, PrimaryButton } from 'office-ui-fabric-react';
+import { Text, TextField, PrimaryButton, Button, DefaultButton } from 'office-ui-fabric-react';
 import { errorData, checkErrors } from '../../global/common/error';
 import { updateProfile } from '../../../stores/user/action';
 import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { connect } from 'react-redux';
 import { updateAvatar } from '../../../stores/user/action';
+import { logoutAll } from '../../../stores/auth/action';
+import { ButtonGroup } from '../../global/style/ButtonGroup';
 interface Props {
     error: any;
     auth: any;
     updateProfile: any;
     updateAvatar: any;
+    logoutAll: any;
 }
 
-const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth: { user } }) => {
+const AccountTab: React.FC<Props> = ({
+    error,
+    updateProfile,
+    updateAvatar,
+    logoutAll,
+    auth: { user },
+}) => {
     useEffect(() => {
         const { firstName: firstNameData, lastName: lastNameData } = user;
         setFormUpdateProfile({
@@ -37,7 +46,7 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth:
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const examplePersona: IPersonaSharedProps = {
         imageUrl: user && user.avatar && user.avatar.url,
-        imageInitials: 'AL',
+        imageInitials: user && user.firstName && firstNameData[0] + firstNameData[1],
         text: `${firstNameData} ${lastNameData}`,
         secondaryText: 'Software Engineer',
         optionalText: 'Available at 4:00pm',
@@ -48,7 +57,9 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth:
     const changeAvatar = (e: any) => {
         updateAvatar(e.target.files[0]);
     };
-
+    const onLogoutAll = () => {
+        logoutAll();
+    };
     return (
         <div className="tab">
             <Text variant="xLarge">General</Text>
@@ -131,7 +142,10 @@ const AccountTab: React.FC<Props> = ({ error, updateProfile, updateAvatar, auth:
                     />
                 </div>
             </div>
-            <PrimaryButton onClick={() => onUpdateProfile()}>Save the Changes</PrimaryButton>
+            <ButtonGroup>
+                <PrimaryButton text="Save the Changes" onClick={() => onUpdateProfile()} />
+                <DefaultButton text="Logout All Device" onClick={() => onLogoutAll()} />
+            </ButtonGroup>
         </div>
     );
 };
@@ -141,4 +155,4 @@ const mapStateToProps = (state: any) => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateProfile, updateAvatar })(AccountTab);
+export default connect(mapStateToProps, { updateProfile, updateAvatar, logoutAll })(AccountTab);

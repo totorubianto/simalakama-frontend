@@ -185,7 +185,15 @@ export const verify = (id: any) => async (dispatch: any) => {
 };
 
 // Logout / Clear Profile
-export const logout = () => (dispatch: any) => {
+export const logout = () => async (dispatch: any) => {
+    await axios.post(`https://simalakama.herokuapp.com/api/users/logout`);
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: LOGOUT });
+};
+
+// Logout / Clear Profile
+export const logoutAll = () => async (dispatch: any) => {
+    await axios.post(`https://simalakama.herokuapp.com/api/users/logout-all`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };
