@@ -1,5 +1,5 @@
 import { ContextualMenuItemType, IContextualMenuItem } from 'office-ui-fabric-react';
-import Redirect from '../../../utils/Redirect';
+import { Redirect } from '../../../utils/Redirect';
 
 const MenuItems = (history: any, logout: any) => {
     const toto: IContextualMenuItem[] = [

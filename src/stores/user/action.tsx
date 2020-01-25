@@ -47,11 +47,12 @@ export const updateAvatar = (file: any) => async (dispatch: any) => {
             'https://simalakama.herokuapp.com/api/users/upload-avatar',
             formData,
         );
-        dispatch(loadUser());
+
         dispatch({
             type: UPLOAD_AVATAR,
             payload: res.data,
         });
+        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
     }

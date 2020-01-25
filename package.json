@@ -28,6 +28,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.1",
     "typescript": "^3.7.3",
+    "use-image": "^1.0.5",
     "uuid": "^3.3.3"
   },
   "scripts": {

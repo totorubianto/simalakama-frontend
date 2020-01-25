@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextField, PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
+import {
+    Text,
+    TextField,
+    PrimaryButton,
+    DefaultButton,
+    ShimmerElementsGroup,
+    ShimmerElementType,
+    Shimmer,
+} from 'office-ui-fabric-react';
 import { errorData, checkErrors } from '../../global/common/error';
 import { updateProfile } from '../../../stores/user/action';
 import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
@@ -20,6 +28,7 @@ const AccountTab: React.FC<Props> = ({
     updateProfile,
     updateAvatar,
     logoutAll,
+    auth,
     auth: { user },
 }) => {
     useEffect(() => {
@@ -30,7 +39,10 @@ const AccountTab: React.FC<Props> = ({
             email: '',
         });
     }, [user]);
-
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(auth.loading);
+    }, [auth]);
     const [formUpdateProfile, setFormUpdateProfile] = useState({
         firstName: '',
         lastName: '',
@@ -51,6 +63,7 @@ const AccountTab: React.FC<Props> = ({
         secondaryText: 'Software Engineer',
         optionalText: 'Available at 4:00pm',
     };
+
     const onUpdateProfile = () => {
         updateProfile({ firstName, lastName, email });
     };
@@ -60,18 +73,53 @@ const AccountTab: React.FC<Props> = ({
     const onLogoutAll = () => {
         logoutAll();
     };
+    const getCustomElements = (): JSX.Element => {
+        return (
+            <div style={{ display: 'flex' }}>
+                <ShimmerElementsGroup
+                    shimmerElements={[
+                        { type: ShimmerElementType.circle, height: 40 },
+                        { type: ShimmerElementType.gap, width: 16, height: 40 },
+                    ]}
+                />
+                <ShimmerElementsGroup
+                    flexWrap={true}
+                    width="100%"
+                    shimmerElements={[
+                        {
+                            type: ShimmerElementType.line,
+                            width: '100%',
+                            height: 10,
+                            verticalAlign: 'bottom',
+                        },
+                        { type: ShimmerElementType.line, width: '90%', height: 8 },
+                        { type: ShimmerElementType.gap, width: '10%', height: 20 },
+                    ]}
+                />
+            </div>
+        );
+    };
     return (
         <div className="tab">
             <Text variant="xLarge">General</Text>
             <div className="row">
+                {console.log(loading)}
+
                 <div className="col-md-12">
                     <div className="d-flex justify-content-between align-items-center">
-                        <Persona
-                            className="mb-3 mt-3"
-                            {...examplePersona}
-                            size={PersonaSize.size72}
-                            imageAlt="Annie Lindqvist, status is dnd"
-                        />
+                        <Shimmer
+                            customElementsGroup={getCustomElements()}
+                            width={300}
+                            isDataLoaded={true}
+                        >
+                            <Persona
+                                className="mb-3 mt-3"
+                                {...examplePersona}
+                                size={PersonaSize.size72}
+                                imageAlt="Annie Lindqvist, status is dnd"
+                            />
+                        </Shimmer>
+
                         <PrimaryButton
                             iconProps={{ iconName: 'CloudUpload' }}
                             style={{ position: 'relative', overflow: 'hidden' }}

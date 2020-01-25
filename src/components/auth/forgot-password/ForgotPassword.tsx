@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { TextField, Text, PrimaryButton } from 'office-ui-fabric-react';
+import { Text } from 'office-ui-fabric-react';
 import { connect } from 'react-redux';
 import ForgotPasswordStyle from './styles/ForgotPasswordStyle';
-import { checkErrors, errorData } from '../../global/common/error';
 import { requestForgotPassword } from '../../../stores/auth/action';
-import { useQuery } from '../../global/common/useQuery';
+import { useQuery } from '../../global/utils/useQuery';
 import { forgotPassword } from '../../../stores/auth/action';
-import Redirect from '../../global/utils/Redirect';
+import { Redirect } from '../../global/utils/Redirect';
 import { useHistory } from 'react-router-dom';
-import TextFieldGroup from '../../global/common/inputGroup/TextFieldGroup';
+import { TextFieldGroup, Button } from '../../global/common/index';
 
 interface Props {
     error: any;
@@ -60,6 +59,7 @@ const ForgotPassword: React.FC<Props> = ({
                             <Text className="card-field" variant="xxLarge">
                                 Forgot Password
                             </Text>
+
                             <form onSubmit={() => onSubmitForgotPassword()}>
                                 <TextFieldGroup
                                     label="New Password"
@@ -80,9 +80,11 @@ const ForgotPassword: React.FC<Props> = ({
                                     value={newPasswordConfirmation}
                                 />
 
-                                <PrimaryButton onClick={() => onSubmitNewForgotPassword()}>
-                                    Forgot Password
-                                </PrimaryButton>
+                                <Button
+                                    onClick={onSubmitNewForgotPassword}
+                                    value="Forgot Password"
+                                    type="submit"
+                                ></Button>
                             </form>
                         </div>
                     </div>
@@ -106,9 +108,11 @@ const ForgotPassword: React.FC<Props> = ({
                                     error={error}
                                     value={email}
                                 />
-                                <PrimaryButton onClick={() => onSubmitForgotPassword()}>
-                                    Forgot Password
-                                </PrimaryButton>
+                                <Button
+                                    onClick={onSubmitForgotPassword}
+                                    value="Forgot Password"
+                                    type="submit"
+                                ></Button>
                             </form>
                         </div>
                     </div>

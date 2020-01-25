@@ -7,6 +7,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    USER_LOADING,
     CLEAR_PROFILE,
     // CLEAR_ERRORS,
     FORGOT_PASSWORD_SUCCESS,
@@ -22,6 +23,10 @@ export const loadUser = () => async (dispatch: any) => {
     }
     try {
         const res = await axios.get('https://simalakama.herokuapp.com/api/users/me');
+        dispatch({
+            type: USER_LOADING,
+            payload: res.data,
+        });
         dispatch({
             type: USER_LOADED,
             payload: res.data,
@@ -76,14 +81,14 @@ export const register = ({
 };
 
 // Login User
-export const login = ({ email, password }: any) => async (dispatch: any) => {
+export const login = ({ email, password, keepLogin }: any) => async (dispatch: any) => {
     dispatch(clearErrors());
     const config = {
         headers: {
             'Content-Type': 'application/json',
         },
     };
-    const body = JSON.stringify({ email, password });
+    const body = JSON.stringify({ email, password, keepLogin });
     try {
         const res = await axios.post(
             'https://simalakama.herokuapp.com/api/users/login',
@@ -191,7 +196,7 @@ export const logout = () => async (dispatch: any) => {
     dispatch({ type: LOGOUT });
 };
 
-// Logout / Clear Profile
+// Logout all Clear Profile
 export const logoutAll = () => async (dispatch: any) => {
     await axios.post(`https://simalakama.herokuapp.com/api/users/logout-all`);
     dispatch({ type: CLEAR_PROFILE });

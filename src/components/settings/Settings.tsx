@@ -17,10 +17,7 @@ const Settings: React.FC<Props> = ({ history }) => {
         const queryPage = item && item.page;
         history.push(`?page=${queryPage}`);
         setTabQuery(queryPage);
-        console.log(queryPage);
-        if (item && item.key) {
-            setMenuSidebar(item.key);
-        }
+        if (item && item.key) setMenuSidebar(item.key);
     };
     return (
         <SettingStyle className="container">

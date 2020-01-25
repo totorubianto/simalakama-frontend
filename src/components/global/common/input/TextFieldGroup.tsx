@@ -40,4 +40,4 @@ const TextFieldGroup: React.FC<Props> = ({
     );
 };
 
-export default TextFieldGroup;
+export { TextFieldGroup };
