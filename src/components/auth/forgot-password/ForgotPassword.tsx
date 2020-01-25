@@ -83,7 +83,7 @@ const ForgotPassword: React.FC<Props> = ({
                                 <Button
                                     onClick={onSubmitNewForgotPassword}
                                     value="Forgot Password"
-                                    type="submit"
+                                    type="button"
                                 ></Button>
                             </form>
                         </div>

@@ -5,12 +5,13 @@ interface Props {
     value: string;
     onClick: Function;
     type: string;
+    disabled?: boolean;
 }
 
-const Button: React.FC<Props> = ({ onClick, value, type }) => {
+const Button: React.FC<Props> = ({ onClick, value, type, disabled }) => {
     return (
         <div>
-            <PrimaryButton type={type} onClick={() => onClick()}>
+            <PrimaryButton disabled={disabled} type={type} onClick={() => onClick()}>
                 {value}
             </PrimaryButton>
         </div>

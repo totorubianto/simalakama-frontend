@@ -1,4 +1,4 @@
-const inputType = (event: any, state: any, setState: Function) => {
+const inputType = (event: any, state: any, setState: Function, option?: any) => {
     switch (event.target.type) {
         case 'text':
             setState({ ...state, [event.target.name]: event.target.value });
@@ -12,10 +12,12 @@ const inputType = (event: any, state: any, setState: Function) => {
         case 'checkbox':
             setState({ ...state, [event.target.name]: event.target.checked });
             break;
+        case 'file':
+            setState({ ...state, [event.target.name]: event.target.files });
+            break;
         default:
             break;
     }
-    return 'toto';
 };
 
 export { inputType };

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Text, TextField, PrimaryButton, Checkbox } from 'office-ui-fabric-react';
+import { Text } from 'office-ui-fabric-react';
 import { Link, Redirect } from 'react-router-dom';
 import RegisterStyle from './styles/RegisterStyle';
 import { connect } from 'react-redux';
 import { register } from '../../../stores/auth/action';
-import { errorData, checkErrors } from '../../global/common/error';
+import { inputType } from '../../global/utils/inputType';
+import { TextFieldGroup, Button } from '../../global/common';
 interface Props {
     register: any;
     error: any;
@@ -18,10 +19,11 @@ const Register: React.FC<Props> = ({ register, error, auth: { isAuthenticated, l
         email: '',
         password: '',
         passwordConfirmation: '',
+        agree: false,
     });
-    const { firstName, lastName, email, password, passwordConfirmation } = fieldRegister;
+    const { firstName, lastName, email, password, passwordConfirmation, agree } = fieldRegister;
     const onChangeTextField = (e: any) => {
-        setFieldRegister({ ...fieldRegister, [e.target.name]: e.target.value });
+        inputType(e, fieldRegister, setFieldRegister, { checkbox: { antonym: true } });
     };
     const onRegister = () => {
         register({ firstName, lastName, email, password, passwordConfirmation });
@@ -39,64 +41,58 @@ const Register: React.FC<Props> = ({ register, error, auth: { isAuthenticated, l
                             <Text className="card-field" variant="xxLarge">
                                 Register
                             </Text>
-                            <TextField
-                                className="card-field"
+                            <TextFieldGroup
                                 label="Email"
                                 name="email"
+                                placeholder="Input your email"
+                                type="email"
                                 value={email}
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('email', error) })
-                                }
-                                onChange={e => onChangeTextField(e)}
+                                error={error}
+                                onChange={onChangeTextField}
                             />
-                            <TextField
-                                className="card-field"
+                            <TextFieldGroup
                                 label="Password"
-                                type="password"
                                 name="password"
-                                value={password}
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('password', error) })
-                                }
-                                onChange={e => onChangeTextField(e)}
-                            />
-                            <TextField
-                                className="card-field"
-                                label="Password Confirmation"
+                                placeholder="Input your password"
                                 type="password"
+                                value={password}
+                                error={error}
+                                onChange={onChangeTextField}
+                            />
+                            <TextFieldGroup
+                                label="Password Confirmation"
                                 name="passwordConfirmation"
+                                placeholder="Input your password Confirmation"
+                                type="password"
                                 value={passwordConfirmation}
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('passwordConfirmation', error) })
-                                }
-                                onChange={e => onChangeTextField(e)}
+                                error={error}
+                                onChange={onChangeTextField}
                             />
-                            <TextField
-                                className="card-field"
-                                label="firstName"
-                                type="text"
+                            <TextFieldGroup
+                                label="First Name"
                                 name="firstName"
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('firstName', error) })
-                                }
-                                onChange={e => onChangeTextField(e)}
-                                value={firstName}
-                            />
-                            <TextField
-                                className="card-field"
-                                label="LastName"
+                                placeholder="Input your firstName"
                                 type="text"
+                                value={firstName}
+                                error={error}
+                                onChange={onChangeTextField}
+                            />
+                            <TextFieldGroup
+                                label="Last Name"
                                 name="lastName"
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('lastName', error) })
-                                }
-                                onChange={e => onChangeTextField(e)}
+                                placeholder="Input your lastname"
+                                type="text"
                                 value={lastName}
+                                error={error}
+                                onChange={onChangeTextField}
                             />
-                            <Checkbox
-                                className="card-field"
+                            <TextFieldGroup
                                 label="Setuju dengan semua ketentuan"
+                                name="agree"
+                                type="checkbox"
+                                onChange={onChangeTextField}
                             />
+
                             <div className="card-label">
                                 <Text className="card-field" variant="medium">
                                     Belum punya akun?
@@ -107,14 +103,12 @@ const Register: React.FC<Props> = ({ register, error, auth: { isAuthenticated, l
                                     </Link>
                                 </Text>
                             </div>
-
-                            <PrimaryButton
-                                className="w-100"
-                                text="Register "
-                                allowDisabledFocus
-                                disabled={false}
-                                onClick={(e: any) => onRegister()}
-                            />
+                            <Button
+                                type="button"
+                                value="Register"
+                                onClick={onRegister}
+                                disabled={agree}
+                            ></Button>
                         </form>
                     </div>
                 </div>
