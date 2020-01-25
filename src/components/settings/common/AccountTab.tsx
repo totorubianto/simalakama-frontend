@@ -34,15 +34,12 @@ const AccountTab: React.FC<Props> = ({
     useEffect(() => {
         const { firstName: firstNameData, lastName: lastNameData } = user;
         setFormUpdateProfile({
-            firstName: firstNameData,
-            lastName: lastNameData,
+            firstName: firstNameData || '',
+            lastName: lastNameData || '',
             email: '',
         });
     }, [user]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setLoading(auth.loading);
-    }, [auth]);
+
     const [formUpdateProfile, setFormUpdateProfile] = useState({
         firstName: '',
         lastName: '',
@@ -103,8 +100,6 @@ const AccountTab: React.FC<Props> = ({
         <div className="tab">
             <Text variant="xLarge">General</Text>
             <div className="row">
-                {console.log(loading)}
-
                 <div className="col-md-12">
                     <div className="d-flex justify-content-between align-items-center">
                         <Shimmer

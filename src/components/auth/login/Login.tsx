@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import LoginStyle from './styles/LoginStyle';
-import { Text, TextField, PrimaryButton, Checkbox } from 'office-ui-fabric-react';
+import { Text } from 'office-ui-fabric-react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { login } from '../../../stores/auth/action';
-import { errorData, checkErrors } from '../../global/common/error';
+import { TextFieldGroup, Button } from '../../global/common';
+import { inputType } from '../../global/utils/inputType';
 interface Props {
     login: any;
     auth: any;
@@ -20,23 +21,7 @@ const Login: React.FC<Props> = ({ login, error, auth: { isAuthenticated, loading
     });
     const { email, password, keepLogin } = fieldLogin;
     const onChangeTextField = (e: any) => {
-        switch (e.target.type) {
-            case 'text':
-                setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value });
-                break;
-            case 'password':
-                setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value });
-                break;
-            case 'email':
-                setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.value });
-                break;
-            case 'checkbox':
-                setFieldLogin({ ...fieldLogin, [e.target.name]: e.target.checked });
-                break;
-            default:
-                setFieldLogin({ ...fieldLogin, [e.target.name]: '' });
-                break;
-        }
+        inputType(e, fieldLogin, setFieldLogin);
     };
     const onLogin = () => {
         login({ email, password, keepLogin });
@@ -54,38 +39,34 @@ const Login: React.FC<Props> = ({ login, error, auth: { isAuthenticated, loading
                             <Text className="card-field" variant="xxLarge">
                                 Login
                             </Text>
-
-                            <TextField
-                                className="card-field"
+                            <TextFieldGroup
                                 label="Email"
                                 type="email"
+                                placeholder="Input your email"
                                 name="email"
-                                onChange={e => onChangeTextField(e)}
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('email', error) })
-                                }
+                                onChange={onChangeTextField}
+                                error={error}
                                 value={email}
                             />
-                            <TextField
-                                className="card-field"
+                            <TextFieldGroup
                                 label="Password"
                                 type="password"
+                                placeholder="Input your password"
                                 name="password"
-                                onRenderDescription={() =>
-                                    errorData({ error: checkErrors('password', error) })
-                                }
-                                onChange={(e: any) => onChangeTextField(e)}
+                                onChange={onChangeTextField}
+                                error={error}
                                 value={password}
                             />
-                            <Checkbox
-                                className="card-field"
+                            <TextFieldGroup
+                                label="Remember me"
+                                type="checkbox"
                                 name="keepLogin"
-                                onChange={(e: any) => onChangeTextField(e)}
-                                label="Setuju dengan semua ketentuan"
+                                onChange={onChangeTextField}
                             />
+
                             <div className="card-forgotPassword">
                                 <Text className="card-field" variant="medium">
-                                    Lupa Password?
+                                    Forgot Password?
                                 </Text>
                                 <Text className="card-field" variant="medium">
                                     <Link to="/forgot-password" className="card-field">
@@ -93,14 +74,7 @@ const Login: React.FC<Props> = ({ login, error, auth: { isAuthenticated, loading
                                     </Link>
                                 </Text>
                             </div>
-
-                            <PrimaryButton
-                                className="w-100"
-                                text="Login "
-                                allowDisabledFocus
-                                disabled={false}
-                                onClick={() => onLogin()}
-                            />
+                            <Button value="Login" onClick={onLogin} type="button" />
                         </form>
                     </div>
                 </div>
