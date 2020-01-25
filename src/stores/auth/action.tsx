@@ -67,11 +67,11 @@ export const register = ({
             body,
             config,
         );
-        dispatch(loadUser());
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data,
         });
+        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({

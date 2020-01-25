@@ -19,7 +19,7 @@ const Register: React.FC<Props> = ({ register, error, auth: { isAuthenticated, l
         email: '',
         password: '',
         passwordConfirmation: '',
-        agree: false,
+        agree: true,
     });
     const { firstName, lastName, email, password, passwordConfirmation, agree } = fieldRegister;
     const onChangeTextField = (e: any) => {

@@ -10,7 +10,13 @@ const inputType = (event: any, state: any, setState: Function, option?: any) => 
             setState({ ...state, [event.target.name]: event.target.value });
             break;
         case 'checkbox':
-            setState({ ...state, [event.target.name]: event.target.checked });
+            setState({
+                ...state,
+                [event.target.name]:
+                    option && option.checkbox && option.checkbox.antonym
+                        ? !event.target.checked
+                        : event.target.checked,
+            });
             break;
         case 'file':
             setState({ ...state, [event.target.name]: event.target.files });
