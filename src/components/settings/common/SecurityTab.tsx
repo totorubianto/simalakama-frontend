@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, TextField, PrimaryButton } from 'office-ui-fabric-react';
-import { errorData, checkErrors } from '../../global/common/error';
+import { Text } from 'office-ui-fabric-react';
 import { updatePassword } from '../../../stores/user/action';
 import { connect } from 'react-redux';
+import { inputType } from '../../global/utils/inputType';
+import { TextFieldGroup, Button } from '../../global/common';
 interface Props {
     error: any;
     auth: any;
@@ -16,10 +17,7 @@ const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } })
         newPasswordConfirmation: '',
     });
     const onChangeTextField = (e: any) => {
-        setFormUpdateProfile({
-            ...formUpdateProfile,
-            [e.target.name]: e.target.value,
-        });
+        inputType(e, formUpdateProfile, setFormUpdateProfile);
     };
     const { oldPassword, newPassword, newPasswordConfirmation } = formUpdateProfile;
     const onUpdateProfile = () => {
@@ -31,15 +29,12 @@ const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } })
             <Text variant="xLarge">Security</Text>
             <div className="row">
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="Old Password"
                         name="oldPassword"
-                        onRenderDescription={() =>
-                            errorData({
-                                error: checkErrors('oldPassword', error),
-                            })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        error={error}
+                        type="password"
+                        onChange={onChangeTextField}
                         value={oldPassword}
                         placeholder="input old password"
                     />
@@ -47,15 +42,12 @@ const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } })
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="New Password"
                         name="newPassword"
-                        onRenderDescription={() =>
-                            errorData({
-                                error: checkErrors('newPassword', error),
-                            })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        error={error}
+                        type="password"
+                        onChange={onChangeTextField}
                         value={newPassword}
                         placeholder="input new password"
                     />
@@ -63,21 +55,18 @@ const SecurityTab: React.FC<Props> = ({ error, updatePassword, auth: { user } })
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="New Password Confirmation"
                         name="newPasswordConfirmation"
-                        onRenderDescription={() =>
-                            errorData({
-                                error: checkErrors('newPasswordConfirmation', error),
-                            })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        error={error}
+                        type="password"
+                        onChange={onChangeTextField}
                         value={newPasswordConfirmation}
                         placeholder="new password confirmation"
                     />
                 </div>
             </div>
-            <PrimaryButton onClick={() => onUpdateProfile()}>Save the Changes</PrimaryButton>
+            <Button value="Save the Changes" type="button" onClick={onUpdateProfile} />
         </div>
     );
 };
