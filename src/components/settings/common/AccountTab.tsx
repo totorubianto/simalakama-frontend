@@ -60,7 +60,6 @@ const AccountTab: React.FC<Props> = ({
         secondaryText: 'Software Engineer',
         optionalText: 'Available at 4:00pm',
     };
-
     const onUpdateProfile = () => {
         updateProfile({ firstName, lastName, email });
     };
