@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import SecurityTab from './common/SecurityTab';
 import { withRouter } from 'react-router-dom';
 import AccountTab from './common/AccountTab';
-import { Sidebar } from '../global/common/menu/Sidebar';
+import { Sidebar } from '../global/common';
 interface Props {
     history: any;
 }

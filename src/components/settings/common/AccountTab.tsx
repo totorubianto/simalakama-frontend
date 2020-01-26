@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Text,
-    TextField,
-    PrimaryButton,
-    DefaultButton,
-    ShimmerElementsGroup,
-    ShimmerElementType,
-    Shimmer,
-} from 'office-ui-fabric-react';
-import { errorData, checkErrors } from '../../global/common/error';
+import { Text } from 'office-ui-fabric-react';
 import { updateProfile } from '../../../stores/user/action';
 import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { connect } from 'react-redux';
 import { updateAvatar } from '../../../stores/user/action';
 import { logoutAll } from '../../../stores/auth/action';
 import { ButtonGroup } from '../../global/style/ButtonGroup';
+import { TextFieldGroup, Button } from '../../global/common';
+import { inputType } from '../../global/utils/inputType';
 interface Props {
     error: any;
     auth: any;
@@ -46,10 +39,7 @@ const AccountTab: React.FC<Props> = ({
         email: '',
     });
     const onChangeTextField = (e: any) => {
-        setFormUpdateProfile({
-            ...formUpdateProfile,
-            [e.target.name]: e.target.value,
-        });
+        inputType(e, formUpdateProfile, setFormUpdateProfile);
     };
     const { email, firstName, lastName } = formUpdateProfile;
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
@@ -69,55 +59,25 @@ const AccountTab: React.FC<Props> = ({
     const onLogoutAll = () => {
         logoutAll();
     };
-    const getCustomElements = (): JSX.Element => {
-        return (
-            <div style={{ display: 'flex' }}>
-                <ShimmerElementsGroup
-                    shimmerElements={[
-                        { type: ShimmerElementType.circle, height: 40 },
-                        { type: ShimmerElementType.gap, width: 16, height: 40 },
-                    ]}
-                />
-                <ShimmerElementsGroup
-                    flexWrap={true}
-                    width="100%"
-                    shimmerElements={[
-                        {
-                            type: ShimmerElementType.line,
-                            width: '100%',
-                            height: 10,
-                            verticalAlign: 'bottom',
-                        },
-                        { type: ShimmerElementType.line, width: '90%', height: 8 },
-                        { type: ShimmerElementType.gap, width: '10%', height: 20 },
-                    ]}
-                />
-            </div>
-        );
-    };
+
     return (
         <div className="tab">
             <Text variant="xLarge">General</Text>
             <div className="row">
                 <div className="col-md-12">
                     <div className="d-flex justify-content-between align-items-center">
-                        <Shimmer
-                            customElementsGroup={getCustomElements()}
-                            width={300}
-                            isDataLoaded={true}
-                        >
-                            <Persona
-                                className="mb-3 mt-3"
-                                {...examplePersona}
-                                size={PersonaSize.size72}
-                                imageAlt="Annie Lindqvist, status is dnd"
-                            />
-                        </Shimmer>
-
-                        <PrimaryButton
+                        <Persona
+                            className="mb-3 mt-3"
+                            {...examplePersona}
+                            size={PersonaSize.size72}
+                            imageAlt="Annie Lindqvist, status is dnd"
+                        />
+                        <Button
                             iconProps={{ iconName: 'CloudUpload' }}
                             style={{ position: 'relative', overflow: 'hidden' }}
-                            onRenderChildren={() => (
+                            value="Upload"
+                            type="button"
+                            onRenderChildren={
                                 <input
                                     type="file"
                                     style={{
@@ -138,55 +98,52 @@ const AccountTab: React.FC<Props> = ({
                                     onChange={(e: any) => changeAvatar(e)}
                                     id="file"
                                 />
-                            )}
-                        >
-                            Upload
-                        </PrimaryButton>
+                            }
+                        ></Button>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="First Name"
                         name="firstName"
-                        onRenderDescription={() =>
-                            errorData({
-                                error: checkErrors('firstName', error),
-                            })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        type="text"
+                        error={error}
+                        onChange={onChangeTextField}
                         value={firstName}
                         placeholder={firstNameData}
                     />
                 </div>
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="Last Name"
                         name="lastName"
-                        onRenderDescription={() =>
-                            errorData({ error: checkErrors('lastName', error) })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        type="text"
+                        error={error}
+                        onChange={onChangeTextField}
                         value={lastName}
                         placeholder={lastNameData}
                     />
                 </div>
                 <div className="col-md-6">
-                    <TextField
+                    <TextFieldGroup
                         label="Email"
-                        type="email"
                         name="email"
-                        onRenderDescription={() =>
-                            errorData({ error: checkErrors('email', error) })
-                        }
-                        onChange={(e: any) => onChangeTextField(e)}
+                        type="email"
+                        error={error}
+                        onChange={onChangeTextField}
                         value={email}
                         placeholder={emailData}
                     />
                 </div>
             </div>
             <ButtonGroup>
-                <PrimaryButton text="Save the Changes" onClick={() => onUpdateProfile()} />
-                <DefaultButton text="Logout All Device" onClick={() => onLogoutAll()} />
+                <Button value="Save the Changes" type="button" onClick={onUpdateProfile} />
+                <Button
+                    theme="plain"
+                    value="Logout All Device"
+                    type="button"
+                    onClick={onLogoutAll}
+                />
             </ButtonGroup>
         </div>
     );
