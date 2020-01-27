@@ -18,8 +18,8 @@ import setAuthToken from '../../utils/setAuthToken';
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
-    if (localStorage.token) {
-        await setAuthToken(localStorage.token);
+    if (localStorage.accessToken) {
+        await setAuthToken(localStorage.accessToken);
     }
     try {
         const res = await axios.get('https://simalakama.herokuapp.com/api/users/me');

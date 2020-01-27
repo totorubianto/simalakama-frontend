@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { AuthState } from './interfaces/auth.interface';
 import { AuthTypes } from './interfaces/update.interface';
+import { checkObject } from '../../components/global/utils/checkObject';
 
 const initialState: AuthState = {
     token: localStorage.getItem('token'),
@@ -34,7 +35,8 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
                 user: payload.data,
             };
         case REGISTER_SUCCESS:
-            localStorage.setItem('token', payload.data.register.accessToken);
+            localStorage.setItem('accessToken', payload.data.register.accessToken);
+            localStorage.setItem('refreshToken', payload.data.register.refreshToken);
             return {
                 ...state,
                 ...payload,
@@ -42,7 +44,12 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
                 loading: false,
             };
         case LOGIN_SUCCESS:
-            localStorage.setItem('token', payload.data.login.accessToken);
+            localStorage.setItem('accessToken', payload.data.login.accessToken);
+            // eslint-disable-next-line
+            if (eval(checkObject('payload.data.login.refreshToken'))) {
+                localStorage.setItem('refreshToken', payload.data.login.refreshToken);
+            }
+
             return {
                 ...state,
                 ...payload,
@@ -54,7 +61,8 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
         case LOGIN_FAIL:
         case LOGOUT:
         case ACCOUNT_DELETED:
-            localStorage.removeItem('token');
+            // localStorage.removeItem('accessToken');
+            // localStorage.removeItem('refreshToken');
             return {
                 ...state,
                 token: null,
