@@ -45,8 +45,7 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
             };
         case LOGIN_SUCCESS:
             localStorage.setItem('accessToken', payload.data.login.accessToken);
-            // eslint-disable-next-line
-            if (eval(checkObject('payload.data.login.refreshToken'))) {
+            if (checkObject('payload.data.login.refreshToken', payload)) {
                 localStorage.setItem('refreshToken', payload.data.login.refreshToken);
             }
 
@@ -61,8 +60,8 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
         case LOGIN_FAIL:
         case LOGOUT:
         case ACCOUNT_DELETED:
-            // localStorage.removeItem('accessToken');
-            // localStorage.removeItem('refreshToken');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
             return {
                 ...state,
                 token: null,
