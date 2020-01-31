@@ -30,7 +30,7 @@ const Login: React.FC<Props> = ({ login, error, auth: { isAuthenticated, loading
         return <Redirect to="/" />;
     }
     return (
-        <LoginStyle>
+        <LoginStyle className="container">
             <div className="row">
                 <div className="col-md-3"></div>
                 <div className="col-md-6">
