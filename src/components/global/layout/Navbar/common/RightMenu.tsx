@@ -42,9 +42,9 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
                             Beranda
                         </Text>
                     </Link>
-                    <Link to="#/" className="nav-link">
+                    <Link to="network" className="nav-link">
                         <Text key="1" variant="medium" nowrap block>
-                            Pekerjaan
+                            Network
                         </Text>
                     </Link>
                     <Link to="#/" className="nav-link">

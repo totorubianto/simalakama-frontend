@@ -8,6 +8,7 @@ import Alert from '../components/global/exception/Alert';
 import ForgotPassword from '../components/auth/forgot-password/ForgotPassword';
 import PrivateRouter from './utils/PrivateRoute';
 import DefaultRoute from './utils/DefaultRoute';
+import Connection from '../components/connection/Connection';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
@@ -20,6 +21,7 @@ const Routes: React.FC<Props> = () => {
                 <DefaultRoute exact path="/register" comp={Register} navbar={Navbar} />
                 <DefaultRoute exact path="/logout" navbar={Navbar} />
                 <DefaultRoute exact path="/forgot-password" comp={ForgotPassword} navbar={Navbar} />
+                <DefaultRoute exact path="/network" comp={Connection} navbar={Navbar} />
             </Switch>
         </div>
     );
