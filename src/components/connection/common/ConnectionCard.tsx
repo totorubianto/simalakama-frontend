@@ -12,6 +12,7 @@ const ConnectionCard: React.FC<Props> = () => {
                 <Persona
                     width={PersonaSize.BIG}
                     imgURL="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
+                    mode="vertical"
                 />
             </Card>
         </div>

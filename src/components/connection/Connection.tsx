@@ -11,7 +11,7 @@ interface Props {
 const Connection: React.FC<Props> = ({ users: { users }, getUsers }) => {
     useEffect(() => {
         getUsers();
-    });
+    }, [getUsers]);
     return (
         <div className="container">
             <div className="row">
