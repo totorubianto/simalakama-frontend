@@ -1,9 +1,9 @@
 import React from 'react';
 import { PersonaVerticalStyle } from './styles/PersonaStyle';
-import {} from './enum/PersonaSize';
+import { PersonaSize, getNum } from './enum/PersonaSize';
 interface Props {
     imgURL: string;
-    width: number;
+    width: PersonaSize;
     mode: string;
 }
 
@@ -12,7 +12,11 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode }) => {
         <>
             {mode === 'vertical' ? (
                 <PersonaVerticalStyle>
-                    <img src={imgURL} style={{ width: `${width}px`, borderRadius: '50%' }} alt="" />
+                    <img
+                        src={imgURL}
+                        style={{ width: `${getNum(width)}px`, borderRadius: '50%' }}
+                        alt=""
+                    />
                 </PersonaVerticalStyle>
             ) : (
                 <div>
