@@ -1,20 +1,32 @@
-import React from 'react';
-import Card from '../global/style/Card';
+import React, { useEffect } from 'react';
+import ConnectionCard from './common/ConnectionCard';
+import { connect } from 'react-redux';
+import { getUsers } from '../../stores/user/action';
 
-interface Props {}
+interface Props {
+    users: any;
+    getUsers: Function;
+}
 
-const Connection: React.FC<Props> = () => {
+const Connection: React.FC<Props> = ({ users: { users }, getUsers }) => {
+    useEffect(() => {
+        getUsers();
+    });
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-3">
-                    <Card margin="20,0,0,0" padding="20">
-                        <div>asdasd</div>
-                    </Card>
-                </div>
+                {users.map((user: any, i: number) => (
+                    <ConnectionCard key={i}></ConnectionCard>
+                ))}
             </div>
         </div>
     );
 };
 
-export default Connection;
+const mapStateToProps = (state: any) => ({
+    auth: state.auth,
+    error: state.error,
+    users: state.users,
+});
+
+export default connect(mapStateToProps, { getUsers })(Connection);

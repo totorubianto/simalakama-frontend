@@ -2,6 +2,7 @@ import {
     // GET_PROFILE,
     // GET_PROFILES,
     GET_USERS,
+    GET_USER,
     UPDATE_PROFILE,
     UPLOAD_AVATAR,
     // CLEAR_PROFILE,
@@ -28,11 +29,11 @@ export const updateProfile = ({ firstName, lastName, email }: any) => async (dis
             body,
             config,
         );
-        dispatch(loadUser());
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data,
         });
+        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
     }
@@ -79,7 +80,6 @@ export const updatePassword = ({
             body,
             config,
         );
-        dispatch(loadUser());
         dispatch({
             type: UPDATE_PASSWORD,
             payload: res.data,
@@ -92,10 +92,11 @@ export const updatePassword = ({
 export const getUsers = () => async (dispatch: any) => {
     try {
         const res = await axios.get('https://simalakama.herokuapp.com/api/users/find-all');
-        dispatch(loadUser());
+        const { users } = res.data.data;
+
         dispatch({
             type: GET_USERS,
-            payload: res.data,
+            payload: users,
         });
     } catch (err) {
         dispatch(errorAction(err));
@@ -105,9 +106,8 @@ export const getUsers = () => async (dispatch: any) => {
 export const getUser = (id: string) => async (dispatch: any) => {
     try {
         const res = await axios.get('https://simalakama.herokuapp.com/api/users/find-all');
-        dispatch(loadUser());
         dispatch({
-            type: GET_USERS,
+            type: GET_USER,
             payload: res.data,
         });
     } catch (err) {
