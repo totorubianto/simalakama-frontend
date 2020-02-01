@@ -1,23 +1,18 @@
 import React from 'react';
-
-enum PrintMedia {
-    HEADLINE = 'NEWSPAPER',
-    PARAGRAPH = 'NEWSLETTER',
-}
+import { TextStyleHeadline, TextStyleParagraph } from './styles/TextStyle';
+import { TextType, TextSize } from './enum/text.enum';
 
 interface Props {
-    type: PrintMedia;
+    type: TextType;
+    text: string;
+    textSize: TextSize;
 }
 
-const Text: React.FC<Props> = ({ type }) => {
-    return type === PrintMedia.HEADLINE ? (
-        <div>
-            <div>Headline</div>
-        </div>
-    ) : type === PrintMedia.PARAGRAPH ? (
-        <div>
-            <div>paragraph</div>
-        </div>
+const Text: React.FC<Props> = ({ type, text, textSize }) => {
+    return type === TextType.HEADLINE ? (
+        <TextStyleHeadline fontSize={textSize}>{text}</TextStyleHeadline>
+    ) : type === TextType.PARAGRAPH ? (
+        <TextStyleParagraph fontSize={textSize}>{text}</TextStyleParagraph>
     ) : (
         <div>
             <div>asdasd</div>

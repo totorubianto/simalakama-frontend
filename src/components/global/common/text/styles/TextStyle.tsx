@@ -1,16 +1,21 @@
 import styled from 'styled-components';
+import { TextSize, getNum } from '../enum/text.enum';
 
-const TextStyleH1 = styled.h1`
-    font-size: 45px;
-`;
-const TextStyleH2 = styled.h2`
-    font-size: 35px;
-`;
-const TextStyleH3 = styled.h3`
-    font-size: 25px;
-`;
-const TextStyleH4 = styled.h4`
-    font-size: 15px;
+interface Props {
+    padding?: string;
+    margin?: string;
+    height?: string;
+    fontSize: TextSize;
+}
+
+const TextStyleHeadline = styled.h3<Props>`
+    margin-bottom:10px
+    font-size: ${(props: any) => getNum(props.fontSize)}px;
 `;
 
-export { TextStyleH1, TextStyleH2, TextStyleH3, TextStyleH4 };
+const TextStyleParagraph = styled.p<Props>`
+    margin: 0px;
+    font-size: ${(props: any) => getNum(props.fontSize)}px;
+`;
+
+export { TextStyleHeadline, TextStyleParagraph };
