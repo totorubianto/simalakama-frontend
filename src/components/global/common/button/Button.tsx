@@ -20,31 +20,30 @@ const Button: React.FC<Props> = ({
     theme,
     style,
     onRenderChildren,
+    iconProps,
 }) => {
-    return (
-        <div>
-            {theme === 'plain' ? (
-                <DefaultButton
-                    disabled={disabled}
-                    style={style}
-                    type={type}
-                    onRenderChildren={() => onRenderChildren}
-                    onClick={onClick ? () => onClick() : () => null}
-                >
-                    {value}
-                </DefaultButton>
-            ) : (
-                <PrimaryButton
-                    disabled={disabled}
-                    type={type}
-                    style={style}
-                    onRenderChildren={() => onRenderChildren}
-                    onClick={onClick ? () => onClick() : () => null}
-                >
-                    {value}
-                </PrimaryButton>
-            )}
-        </div>
+    return theme === 'plain' ? (
+        <DefaultButton
+            disabled={disabled}
+            style={style}
+            type={type}
+            iconProps={{ iconName: iconProps }}
+            onRenderChildren={() => onRenderChildren}
+            onClick={onClick ? () => onClick() : () => null}
+        >
+            {value}
+        </DefaultButton>
+    ) : (
+        <PrimaryButton
+            disabled={disabled}
+            type={type}
+            style={style}
+            iconProps={{ iconName: iconProps }}
+            onRenderChildren={() => onRenderChildren}
+            onClick={onClick ? () => onClick() : () => null}
+        >
+            {value}
+        </PrimaryButton>
     );
 };
 

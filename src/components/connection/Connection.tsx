@@ -16,7 +16,7 @@ const Connection: React.FC<Props> = ({ users: { users }, getUsers }) => {
         <div className="container">
             <div className="row">
                 {users.map((user: any, i: number) => (
-                    <ConnectionCard key={i}></ConnectionCard>
+                    <ConnectionCard user={user} key={i}></ConnectionCard>
                 ))}
             </div>
         </div>
