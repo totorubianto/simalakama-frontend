@@ -15,9 +15,14 @@ const Connection: React.FC<Props> = ({ users: { users }, getUsers }) => {
     return (
         <div className="container">
             <div className="row">
-                {users.map((user: any, i: number) => (
-                    <ConnectionCard user={user} key={i}></ConnectionCard>
-                ))}
+                <div className="col-md-3"></div>
+                <div className="col-md-9">
+                    <div className="row">
+                        {users.map((user: any, i: number) => (
+                            <ConnectionCard user={user} key={i}></ConnectionCard>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

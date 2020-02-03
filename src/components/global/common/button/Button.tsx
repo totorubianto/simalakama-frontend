@@ -7,7 +7,7 @@ interface Props {
     type: string;
     disabled?: boolean;
     theme?: string;
-    iconProps?: any;
+    iconProps?: string;
     style?: any;
     onRenderChildren?: any;
 }

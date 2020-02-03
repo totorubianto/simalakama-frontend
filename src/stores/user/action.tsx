@@ -13,6 +13,8 @@ import {
 import { clearErrors, errorAction } from '../global/action';
 import axios from 'axios';
 import { loadUser } from '../auth/action';
+import { setAlert } from '../alert/action';
+import { MessageBarType } from 'office-ui-fabric-react';
 
 // Updated User
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
@@ -91,13 +93,26 @@ export const updatePassword = ({
 
 export const getUsers = () => async (dispatch: any) => {
     try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/users/find-all');
+        const res = await axios.get('https://simalakama.herokuapp.com/api/friends/find-all');
         const { users } = res.data.data;
 
         dispatch({
             type: GET_USERS,
             payload: users,
         });
+    } catch (err) {
+        dispatch(errorAction(err));
+    }
+};
+
+export const addFriend = (id: string) => async (dispatch: any) => {
+    try {
+        const res = await axios.post(
+            `https://simalakama.herokuapp.com/api/friends/add-friend/${id}`,
+        );
+        console.log(res.data);
+
+        dispatch(setAlert('Permintaan Pertemanan terkirim', MessageBarType.success));
     } catch (err) {
         dispatch(errorAction(err));
     }

@@ -1,11 +1,12 @@
 import { setAlert } from '../alert/action';
 import { GET_ERRORS, CLEAR_ERRORS } from '../types';
+import { MessageBarType } from 'office-ui-fabric-react';
 
 export const errorAction = (err: any) => async (dispatch: any) => {
     const errors = err && err.response && err.response.data;
     let error;
     if (errors && typeof errors.message.message !== 'object')
-        dispatch(setAlert(errors.message.message, 'danger'));
+        dispatch(setAlert(errors.message.message, MessageBarType.error));
     if (errors && typeof errors.message.message === 'object' && errors.message.message.length > 0) {
         error = errors.message.message;
         dispatch({

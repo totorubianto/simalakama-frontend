@@ -73,7 +73,7 @@ const AccountTab: React.FC<Props> = ({
                             imageAlt="Annie Lindqvist, status is dnd"
                         />
                         <Button
-                            iconProps={{ iconName: 'CloudUpload' }}
+                            iconProps="CloudUpload"
                             style={{ position: 'relative', overflow: 'hidden' }}
                             value="Upload"
                             type="button"
