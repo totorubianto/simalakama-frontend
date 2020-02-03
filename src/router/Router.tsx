@@ -21,7 +21,7 @@ const Routes: React.FC<Props> = () => {
                 <DefaultRoute exact path="/register" comp={Register} navbar={Navbar} />
                 <DefaultRoute exact path="/logout" navbar={Navbar} />
                 <DefaultRoute exact path="/forgot-password" comp={ForgotPassword} navbar={Navbar} />
-                <DefaultRoute exact path="/network" comp={Connection} navbar={Navbar} />
+                <PrivateRouter exact path="/network" comp={Connection} navbar={Navbar} />
             </Switch>
         </div>
     );
