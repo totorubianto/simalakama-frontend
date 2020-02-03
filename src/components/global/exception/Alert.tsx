@@ -10,12 +10,12 @@ const Alert = ({ alerts }: any) =>
     alerts.map((alert: any) => (
         <MessageBar
             key={alert.id}
-            messageBarType={alerts.alertType}
+            messageBarType={alert.alertType}
             isMultiline={false}
             dismissButtonAriaLabel="Close"
         >
             {alert.msg}
-            {console.log(alerts)}
+            {console.log(alert.alertType)}
             <Link to="www.bing.com" target="_blank">
                 Visit our website.
             </Link>
