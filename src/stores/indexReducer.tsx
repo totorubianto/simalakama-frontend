@@ -7,6 +7,7 @@ import { alertReducer } from './alert/reducers';
 import { errorReducer } from './error/reducers';
 import { userReducer } from './user/reducers';
 import { verificationReducer } from './verification/reducers';
+import { friendReducer } from './friend/reducers';
 
 const rootReducer = combineReducers({
     alert: alertReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     error: errorReducer,
     users: userReducer,
     verification: verificationReducer,
+    friends: friendReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
