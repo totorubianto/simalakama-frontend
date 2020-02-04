@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '../../global/style/Card';
 import { Button } from '../../global/common';
 import { ButtonGroup } from '../../global/style/ButtonGroup';

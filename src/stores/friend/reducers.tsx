@@ -21,12 +21,9 @@ export function friendReducer(state = initialState, action: any) {
                 users: payload.data.users,
             };
         case CONFIRM_FRIEND:
-            console.log(payload.data.friend._id);
             return {
                 ...state,
-                request: [
-                    state.request.filter((item: any) => item._id !== payload.data.friend._id),
-                ],
+                request: state.request.filter((item: any) => item._id !== payload.data.friend._id),
             };
         default:
             return state;

@@ -47,6 +47,7 @@ export const addFriend = (id: string) => async (dispatch: any) => {
 export const confirmFriend = (id: any) => async (dispatch: any) => {
     try {
         const res = await axios.post(`https://simalakama.herokuapp.com/api/friends/confirm/${id}`);
+        dispatch(getUsersFriend());
         dispatch(setAlert('anda sekarang berteman', MessageBarType.success));
         dispatch({
             type: CONFIRM_FRIEND,

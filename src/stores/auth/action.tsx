@@ -110,7 +110,6 @@ export const login = ({ email, password, keepLogin }: any) => async (dispatch: a
 
 // request forgot password
 export const requestForgotPassword = ({ email }: any) => async (dispatch: any) => {
-    console.log(email, 'diaction');
     dispatch(clearErrors());
     const config = {
         headers: {

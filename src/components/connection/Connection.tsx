@@ -21,7 +21,6 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
         getPendingFriend();
         // eslint-disable-next-line
     }, []);
-
     return (
         <div className="container">
             <div className="row">

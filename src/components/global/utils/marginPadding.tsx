@@ -14,9 +14,7 @@ const margin = (margins: any) => {
 };
 
 const padding = (paddings: any) => {
-    console.log(paddings);
     if (paddings.all) {
-        console.log(paddings.all);
         return `padding: ${paddings.all}px;`;
     }
     const margin = Object.keys(paddings);
