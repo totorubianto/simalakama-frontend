@@ -1,8 +1,9 @@
-import { GET_PENDING_FRIEND } from '../types';
+import { GET_PENDING_FRIEND, GET_USER_FRIEND } from '../types';
 
 const initialState: any = {
     loading: false,
     users: [],
+    request: [],
 };
 
 export function friendReducer(state = initialState, action: any) {
@@ -12,7 +13,12 @@ export function friendReducer(state = initialState, action: any) {
             return {
                 ...state,
                 loading: true,
-                users: payload.data,
+                request: payload.data,
+            };
+        case GET_USER_FRIEND:
+            return {
+                ...state,
+                users: payload,
             };
 
         default:

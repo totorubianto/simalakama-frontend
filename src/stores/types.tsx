@@ -18,6 +18,7 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 
 export const GET_PENDING_FRIEND = 'GET_PENDING_FRIEND';
+export const GET_USER_FRIEND = 'GET_USER_FRIEND';
 
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';

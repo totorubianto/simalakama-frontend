@@ -1,7 +1,7 @@
 import {
     // GET_PROFILE,
     // GET_PROFILES,
-    GET_USERS,
+    // GET_USERS,
     GET_USER,
     UPDATE_PROFILE,
     UPLOAD_AVATAR,
@@ -85,20 +85,6 @@ export const updatePassword = ({
         dispatch({
             type: UPDATE_PASSWORD,
             payload: res.data,
-        });
-    } catch (err) {
-        dispatch(errorAction(err));
-    }
-};
-
-export const getUsers = () => async (dispatch: any) => {
-    try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/friends/find-all');
-        const { users } = res.data.data;
-
-        dispatch({
-            type: GET_USERS,
-            payload: users,
         });
     } catch (err) {
         dispatch(errorAction(err));
