@@ -3,7 +3,7 @@ import Card from '../../global/style/Card';
 import Persona from '../../global/common/persona/Persona';
 import { PersonaSize, PersonaMode } from '../../global/common/persona/enum/persona-size.enum';
 import { Button } from '../../global/common';
-import { addFriend } from '../../../stores/user/action';
+import { addFriend } from '../../../stores/friend/action';
 import { connect } from 'react-redux';
 interface Props {
     user: any;
