@@ -17,8 +17,8 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
     return (
         <div className="col-md-4">
             <Card
-                margin="0,0,0,0"
-                padding="20"
+                margin={{ bottom: 20 }}
+                padding={{ all: 20 }}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -41,16 +41,6 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
                     style={{ marginTop: '20px' }}
                     onClick={() => onInviteFriend(user._id)}
                 />
-
-                {/* <DefaultButton
-                    toggle
-                    checked={muted || checked}
-                    text={muted ? 'Volume muted' : 'Volume unmuted'}
-                    iconProps={muted ? volume0Icon : volume3Icon}
-                    onClick={onClick}
-                    allowDisabledFocus
-                    disabled={disabled}
-                /> */}
             </Card>
         </div>
     );

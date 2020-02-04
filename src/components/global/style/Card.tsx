@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { MarginPadding } from '../interfaces/marginPadding';
+import { padding, margin } from '../utils/marginPadding';
 interface Props {
-    padding?: string;
-    margin?: string;
+    padding?: MarginPadding;
+    margin?: MarginPadding;
     height?: string;
 }
 
@@ -11,20 +13,8 @@ const Card = styled.div<Props>`
     box-shadow: 1px 10px 51px -1px rgba(153, 153, 153, 0.28);
     border: 1px solid #e6e6e6;
     background: white;
-    padding: ${(props: any) =>
-        props.padding
-            ? props.padding
-                  .replace(' ', '')
-                  .split(',')
-                  .map((data: any) => data + 'px ')
-            : '0px'};
-    margin: ${(props: any) =>
-        props.margin
-            ? props.margin
-                  .replace(' ', '')
-                  .split(',')
-                  .map((data: any) => data + 'px ')
-            : '0px'};
+    ${(props: any) => (props.padding ? padding(props.padding) : 'padding:0px')}
+    ${(props: any) => (props.margin ? margin(props.margin) : 'margin:0px')}
     height: ${(props: any) => (props.height ? props.height + '%' : '')};
 `;
 

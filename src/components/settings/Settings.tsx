@@ -23,7 +23,7 @@ const Settings: React.FC<Props> = ({ history }) => {
 
     return (
         <SettingStyle className="container">
-            <Card height="100" margin="20,0,0,0">
+            <Card height="100" margin={{ top: 20 }}>
                 <div className="row no-gutters">
                     <div className="col-md-3">
                         <Sidebar onClick={_onLinkClick} selectedKey={menuSidebar} menu={menu} />

@@ -11,7 +11,7 @@ interface Props {
 
 const RequestFriends: React.FC<Props> = ({ user }) => {
     return (
-        <Card padding="15" style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Card padding={{ all: 20 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
                 <Persona
                     imgURL={user.avatar.url}

@@ -1,26 +1,17 @@
 import styled from 'styled-components';
-import { TextSize, getNum, Margin } from '../enum/text.enum';
+import { TextSize, getNum } from '../enum/text.enum';
+import { margin } from '../../../utils/marginPadding';
+import { MarginPadding } from '../../../interfaces/marginPadding';
 
 interface Props {
     padding?: string;
-    margin?: Margin;
+    margin?: MarginPadding;
     height?: string;
     fontSize: TextSize;
 }
 
 const TextStyleHeadline = styled.h3<Props>`
-    ${(props: any) => {
-        if (props.margin) {
-            const margin = Object.keys(props.margin);
-            let text: string = '';
-            let textString: string = '';
-            margin.map(data => {
-                textString = `margin-${data}: ${props.margin[data]}px;`;
-                text = text.concat(textString);
-            });
-            return text;
-        }
-    }}
+    ${(props: any) => (props.margin ? margin(props.margin) : 'margin: 0px')}
     font-size: ${(props: any) => getNum(props.fontSize)}px;
 `;
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PersonaVerticalStyle, PersonaHorizontalStyle } from './styles/PersonaStyle';
 import { PersonaSize, getNum, PersonaMode } from './enum/persona-size.enum';
 import Text from '../text/Text';
@@ -30,7 +30,7 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                             type={TextType.HEADLINE}
                             text={textTitle}
                             textSize={TextSize.NORMAL}
-                            margin={{ bottom: 10, top: 23 }}
+                            margin={{ bottom: 5, top: 20 }}
                         />
                     ) : null}
 

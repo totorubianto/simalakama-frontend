@@ -19,12 +19,7 @@ const getStr = (en: string): string => {
     }
 };
 
-export interface Margin {
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-}
+
 
 const getNum = (en: string): number => {
     switch (en) {

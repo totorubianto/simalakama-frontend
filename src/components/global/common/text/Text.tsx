@@ -1,12 +1,13 @@
 import React from 'react';
 import { TextStyleHeadline, TextStyleParagraph } from './styles/TextStyle';
-import { TextType, TextSize, Margin } from './enum/text.enum';
+import { TextType, TextSize } from './enum/text.enum';
+import { MarginPadding } from '../../interfaces/marginPadding';
 
 interface Props {
     type: TextType;
     text: string;
     textSize: TextSize;
-    margin?: Margin;
+    margin?: MarginPadding;
 }
 
 const Text: React.FC<Props> = ({ type, text, textSize, margin }) => {

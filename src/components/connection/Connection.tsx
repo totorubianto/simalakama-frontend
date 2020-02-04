@@ -31,6 +31,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         type={TextType.HEADLINE}
                         textSize={TextSize.MEDIUM}
                         text="Perminataan Pertemanan"
+                        margin={{ top: 20, bottom: 20 }}
                     ></Text>
                     {friends.request.map((user: any, i: number) => (
                         <RequestFriends key={i} user={user.requester}></RequestFriends>
@@ -39,6 +40,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         type={TextType.HEADLINE}
                         textSize={TextSize.MEDIUM}
                         text="Rekomendasi Teman"
+                        margin={{ top: 20, bottom: 20 }}
                     ></Text>
                     <div className="row">
                         {friends.users.map((user: any, i: number) => (
