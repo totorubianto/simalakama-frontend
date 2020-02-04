@@ -15,9 +15,9 @@ const Alert = ({ alerts }: any) =>
             dismissButtonAriaLabel="Close"
         >
             {alert.msg}
-            {console.log(alert.alertType)}
+
             <Link to="www.bing.com" target="_blank">
-                Visit our website.
+                Visit our ask website.
             </Link>
         </MessageBar>
     ));
