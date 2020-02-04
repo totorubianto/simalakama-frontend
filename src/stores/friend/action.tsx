@@ -4,9 +4,7 @@ import axios from 'axios';
 
 export const getPendingFriend = () => async (dispatch: any) => {
     try {
-        const res = await axios.get(
-            'https://simalakama.herokuapp.com/api/friends/get-friend?status=PENDING',
-        );
+        const res = await axios.get('https://simalakama.herokuapp.com/api/friends/list-pending');
         dispatch({
             type: GET_PENDING_FRIEND,
             payload: res.data,
@@ -19,11 +17,10 @@ export const getPendingFriend = () => async (dispatch: any) => {
 export const getUsersFriend = () => async (dispatch: any) => {
     try {
         const res = await axios.get('https://simalakama.herokuapp.com/api/friends/find-all');
-        const { users } = res.data.data;
 
         dispatch({
             type: GET_USER_FRIEND,
-            payload: users,
+            payload: res.data,
         });
     } catch (err) {
         dispatch(errorAction(err));

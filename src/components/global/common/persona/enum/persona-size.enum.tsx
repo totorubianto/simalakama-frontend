@@ -3,10 +3,14 @@ enum PersonaSize {
     MEDIUM = 'MEDIUM',
     BIG = 'BIG',
 }
+enum PersonaMode {
+    VERTICAL = 'VERTICAL',
+    HORIZONTAL = 'HORIZONTAL',
+}
 const getNum = (en: string): number => {
     switch (en) {
         case PersonaSize.SMALL:
-            return 25;
+            return 40;
         case PersonaSize.MEDIUM:
             return 50;
         case PersonaSize.BIG:
@@ -16,4 +20,4 @@ const getNum = (en: string): number => {
     }
 };
 
-export { PersonaSize, getNum };
+export { PersonaSize, getNum, PersonaMode };

@@ -21,6 +21,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
         getPendingFriend();
         // eslint-disable-next-line
     }, []);
+
     return (
         <div className="container">
             <div className="row">
@@ -31,8 +32,8 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         textSize={TextSize.MEDIUM}
                         text="Perminataan Pertemanan"
                     ></Text>
-                    {friends.request.map((user: any) => (
-                        <RequestFriends user={user.requester}></RequestFriends>
+                    {friends.request.map((user: any, i: number) => (
+                        <RequestFriends key={i} user={user.requester}></RequestFriends>
                     ))}
                     <Text
                         type={TextType.HEADLINE}

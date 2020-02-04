@@ -13,12 +13,12 @@ export function friendReducer(state = initialState, action: any) {
             return {
                 ...state,
                 loading: true,
-                request: payload.data,
+                request: payload.data.users,
             };
         case GET_USER_FRIEND:
             return {
                 ...state,
-                users: payload,
+                users: payload.data.users,
             };
 
         default:

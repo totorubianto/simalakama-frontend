@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../../global/style/Card';
 import Persona from '../../global/common/persona/Persona';
-import { PersonaSize } from '../../global/common/persona/enum/persona-size.enum';
+import { PersonaSize, PersonaMode } from '../../global/common/persona/enum/persona-size.enum';
 import { Button } from '../../global/common';
 import { addFriend } from '../../../stores/user/action';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
     return (
         <div className="col-md-4">
             <Card
-                margin="20,0,0,0"
+                margin="0,0,0,0"
                 padding="20"
                 style={{
                     display: 'flex',
@@ -29,7 +29,7 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
                 <Persona
                     width={PersonaSize.BIG}
                     imgURL="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
-                    mode="vertical"
+                    mode={PersonaMode.VERTICAL}
                     textTitle={user.firstName + ' ' + user.lastName}
                     textSubtitle="Software Engginer"
                 />

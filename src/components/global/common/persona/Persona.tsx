@@ -1,12 +1,12 @@
-import React from 'react';
-import { PersonaVerticalStyle } from './styles/PersonaStyle';
-import { PersonaSize, getNum } from './enum/persona-size.enum';
+import React, { useEffect } from 'react';
+import { PersonaVerticalStyle, PersonaHorizontalStyle } from './styles/PersonaStyle';
+import { PersonaSize, getNum, PersonaMode } from './enum/persona-size.enum';
 import Text from '../text/Text';
 import { TextType, TextSize } from '../text/enum/text.enum';
 interface Props {
     imgURL: string;
     width: PersonaSize;
-    mode: string;
+    mode: PersonaMode;
     textTitle?: string;
     textSubtitle?: string;
 }
@@ -14,11 +14,15 @@ interface Props {
 const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle }) => {
     return (
         <>
-            {mode === 'vertical' ? (
+            {mode === PersonaMode.VERTICAL ? (
                 <PersonaVerticalStyle>
                     <img
                         src={imgURL}
-                        style={{ width: `${getNum(width)}px`, borderRadius: '50%' }}
+                        style={{
+                            width: `${getNum(width)}px`,
+                            height: `${getNum(width)}px`,
+                            borderRadius: '50%',
+                        }}
                         alt=""
                     />
                     {textTitle ? (
@@ -26,6 +30,7 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                             type={TextType.HEADLINE}
                             text={textTitle}
                             textSize={TextSize.NORMAL}
+                            margin={{ bottom: 10, top: 23 }}
                         />
                     ) : null}
 
@@ -38,9 +43,34 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                     ) : null}
                 </PersonaVerticalStyle>
             ) : (
-                <div>
-                    <img src={imgURL} style={{ width: `${width}px`, borderRadius: '50%' }} alt="" />
-                </div>
+                <PersonaHorizontalStyle>
+                    <img
+                        src={imgURL}
+                        style={{
+                            width: `${getNum(width)}px`,
+                            height: `${getNum(width)}px`,
+                            borderRadius: '50%',
+                        }}
+                        alt=""
+                    />
+                    <div className="text-group">
+                        {textTitle ? (
+                            <Text
+                                type={TextType.HEADLINE}
+                                text={textTitle}
+                                textSize={TextSize.NORMAL}
+                            />
+                        ) : null}
+
+                        {textSubtitle ? (
+                            <Text
+                                type={TextType.PARAGRAPH}
+                                text={textSubtitle}
+                                textSize={TextSize.SMALL}
+                            />
+                        ) : null}
+                    </div>
+                </PersonaHorizontalStyle>
             )}
         </>
     );
