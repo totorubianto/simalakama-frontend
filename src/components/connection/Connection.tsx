@@ -32,16 +32,22 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         text="Perminataan Pertemanan"
                         margin={{ top: 20, bottom: 20 }}
                     ></Text>
-                    {friends.request.length !== 0
-                        ? friends.request.map((user: any, i: number) => (
-                              <RequestFriends
-                                  key={i}
-                                  user={user.requester}
-                                  id={user._id}
-                              ></RequestFriends>
-                          ))
-                        : null}
 
+                    {friends.request.length !== 0 ? (
+                        friends.request.map((user: any, i: number) => (
+                            <RequestFriends
+                                key={i}
+                                user={user.requester}
+                                id={user._id}
+                            ></RequestFriends>
+                        ))
+                    ) : (
+                        <Text
+                            type={TextType.PARAGRAPH}
+                            textSize={TextSize.NORMAL}
+                            text="Tidak ada request pertemanan"
+                        ></Text>
+                    )}
                     <Text
                         type={TextType.HEADLINE}
                         textSize={TextSize.MEDIUM}
