@@ -3,15 +3,17 @@ import { PersonaVerticalStyle, PersonaHorizontalStyle } from './styles/PersonaSt
 import { PersonaSize, getNum, PersonaMode } from './enum/persona-size.enum';
 import Text from '../text/Text';
 import { TextType, TextSize } from '../text/enum/text.enum';
+import { Link } from 'react-router-dom';
 interface Props {
     imgURL: string;
     width: PersonaSize;
     mode: PersonaMode;
     textTitle?: string;
     textSubtitle?: string;
+    to: string;
 }
 
-const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle }) => {
+const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle, to }) => {
     return (
         <>
             {mode === PersonaMode.VERTICAL ? (
@@ -26,12 +28,14 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                         alt=""
                     />
                     {textTitle ? (
-                        <Text
-                            type={TextType.HEADLINE}
-                            text={textTitle}
-                            textSize={TextSize.NORMAL}
-                            margin={{ bottom: 5, top: 20 }}
-                        />
+                        <Link to={to}>
+                            <Text
+                                type={TextType.HEADLINE}
+                                text={textTitle}
+                                textSize={TextSize.NORMAL}
+                                margin={{ bottom: 5, top: 20 }}
+                            />
+                        </Link>
                     ) : null}
 
                     {textSubtitle ? (
@@ -55,11 +59,13 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                     />
                     <div className="text-group">
                         {textTitle ? (
-                            <Text
-                                type={TextType.HEADLINE}
-                                text={textTitle}
-                                textSize={TextSize.NORMAL}
-                            />
+                            <Link to={to}>
+                                <Text
+                                    type={TextType.HEADLINE}
+                                    text={textTitle}
+                                    textSize={TextSize.NORMAL}
+                                />
+                            </Link>
                         ) : null}
 
                         {textSubtitle ? (

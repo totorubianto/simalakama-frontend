@@ -29,6 +29,7 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
                 <Persona
                     width={PersonaSize.BIG}
                     imgURL="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
+                    to={`user/${user.username}`}
                     mode={PersonaMode.VERTICAL}
                     textTitle={user.firstName + ' ' + user.lastName}
                     textSubtitle="Software Engginer"

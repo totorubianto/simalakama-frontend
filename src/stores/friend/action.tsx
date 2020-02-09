@@ -1,4 +1,4 @@
-import { GET_PENDING_FRIEND, GET_USER_FRIEND, CONFIRM_FRIEND, ADD_FRIEND } from '../types';
+import { GET_PENDING_FRIEND, GET_USER_FRIEND, ADD_FRIEND } from '../types';
 import { errorAction } from '../global/action';
 import axios from 'axios';
 import { setAlert } from '../alert/action';
@@ -46,13 +46,20 @@ export const addFriend = (id: string) => async (dispatch: any) => {
 
 export const confirmFriend = (id: any) => async (dispatch: any) => {
     try {
-        const res = await axios.post(`https://simalakama.herokuapp.com/api/friends/confirm/${id}`);
+        await axios.post(`https://simalakama.herokuapp.com/api/friends/confirm/${id}`);
         dispatch(getUsersFriend());
+        dispatch(getPendingFriend());
         dispatch(setAlert('anda sekarang berteman', MessageBarType.success));
-        dispatch({
-            type: CONFIRM_FRIEND,
-            payload: res.data,
-        });
+    } catch (err) {
+        dispatch(errorAction(err));
+    }
+};
+export const rejectFriend = (id: any) => async (dispatch: any) => {
+    try {
+        await axios.post(`https://simalakama.herokuapp.com/api/friends/reject/${id}`);
+        dispatch(getUsersFriend());
+        dispatch(getPendingFriend());
+        dispatch(setAlert('Anda telah membatalkan pertemanan', MessageBarType.success));
     } catch (err) {
         dispatch(errorAction(err));
     }

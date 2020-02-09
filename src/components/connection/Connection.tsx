@@ -55,9 +55,17 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         margin={{ top: 20, bottom: 20 }}
                     ></Text>
                     <div className="row">
-                        {friends.users.map((user: any, i: number) => (
-                            <ConnectionCard user={user} key={i}></ConnectionCard>
-                        ))}
+                        {friends.users.length !== 0 ? (
+                            friends.users.map((user: any, i: number) => (
+                                <ConnectionCard user={user} key={i}></ConnectionCard>
+                            ))
+                        ) : (
+                            <Text
+                                type={TextType.PARAGRAPH}
+                                textSize={TextSize.NORMAL}
+                                text="Tidak ada rekomendasi pertemanan"
+                            ></Text>
+                        )}
                     </div>
                 </div>
             </div>

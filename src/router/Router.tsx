@@ -9,6 +9,7 @@ import ForgotPassword from '../components/auth/forgot-password/ForgotPassword';
 import PrivateRouter from './utils/PrivateRoute';
 import DefaultRoute from './utils/DefaultRoute';
 import Connection from '../components/connection/Connection';
+import Profile from '../components/profile/Profile';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
@@ -22,6 +23,7 @@ const Routes: React.FC<Props> = () => {
                 <DefaultRoute exact path="/logout" navbar={Navbar} />
                 <DefaultRoute exact path="/forgot-password" comp={ForgotPassword} navbar={Navbar} />
                 <PrivateRouter exact path="/network" comp={Connection} navbar={Navbar} />
+                <PrivateRouter exact path="/user/:username" comp={Profile} navbar={Navbar} />
             </Switch>
         </div>
     );

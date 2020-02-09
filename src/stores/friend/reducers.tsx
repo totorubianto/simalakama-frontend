@@ -1,4 +1,4 @@
-import { GET_PENDING_FRIEND, GET_USER_FRIEND, CONFIRM_FRIEND } from '../types';
+import { GET_PENDING_FRIEND, GET_USER_FRIEND } from '../types';
 
 const initialState: any = {
     loading: false,
@@ -20,11 +20,7 @@ export function friendReducer(state = initialState, action: any) {
                 ...state,
                 users: payload.data.users,
             };
-        case CONFIRM_FRIEND:
-            return {
-                ...state,
-                request: state.request.filter((item: any) => item._id !== payload.data.friend._id),
-            };
+
         default:
             return state;
     }
