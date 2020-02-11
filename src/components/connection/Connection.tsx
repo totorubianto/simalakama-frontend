@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import ConnectionCard from './common/ConnectionCard';
+import ConnectionCard from './common/connectionCard';
 import { connect } from 'react-redux';
 import { getUsersFriend } from '../../stores/friend/action';
 import { getPendingFriend } from '../../stores/friend/action';
-import RequestFriends from './common/RequestFriends';
+import RequestFriends from './common/requestFriends';
 import Text from '../global/common/text/Text';
 import { TextSize, TextType } from '../global/common/text/enum/text.enum';
 interface Props {
@@ -54,19 +54,20 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         text="Rekomendasi Teman"
                         margin={{ top: 20, bottom: 20 }}
                     ></Text>
-                    <div className="row">
-                        {friends.users.length !== 0 ? (
-                            friends.users.map((user: any, i: number) => (
+
+                    {friends.users.length !== 0 ? (
+                        friends.users.map((user: any, i: number) => (
+                            <div className="row">
                                 <ConnectionCard user={user} key={i}></ConnectionCard>
-                            ))
-                        ) : (
-                            <Text
-                                type={TextType.PARAGRAPH}
-                                textSize={TextSize.NORMAL}
-                                text="Tidak ada rekomendasi pertemanan"
-                            ></Text>
-                        )}
-                    </div>
+                            </div>
+                        ))
+                    ) : (
+                        <Text
+                            type={TextType.PARAGRAPH}
+                            textSize={TextSize.NORMAL}
+                            text="Tidak ada rekomendasi pertemanan"
+                        ></Text>
+                    )}
                 </div>
             </div>
         </div>

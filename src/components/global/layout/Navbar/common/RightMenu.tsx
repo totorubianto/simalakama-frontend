@@ -10,7 +10,7 @@ import {
     PersonaPresence,
     ContextualMenu,
 } from 'office-ui-fabric-react';
-import MenuItems from './Menu';
+import MenuItems from './menu';
 
 export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
     const linkRef = React.useRef(null);

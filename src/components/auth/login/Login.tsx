@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginStyle from './styles/LoginStyle';
+import LoginStyle from './styles/loginStyle';
 import { Text } from 'office-ui-fabric-react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';

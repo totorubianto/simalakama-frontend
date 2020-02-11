@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text } from 'office-ui-fabric-react';
 import { connect } from 'react-redux';
-import ForgotPasswordStyle from './styles/ForgotPasswordStyle';
+import ForgotPasswordStyle from './styles/forgotPasswordStyle';
 import { requestForgotPassword } from '../../../stores/auth/action';
 import { useQuery } from '../../global/utils/useQuery';
 import { forgotPassword } from '../../../stores/auth/action';

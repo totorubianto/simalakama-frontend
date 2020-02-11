@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../../global/style/Card';
+import Card from '../../global/style/card';
 import Persona from '../../global/common/persona/Persona';
 import { PersonaSize, PersonaMode } from '../../global/common/persona/enum/persona-size.enum';
 import { Button } from '../../global/common';

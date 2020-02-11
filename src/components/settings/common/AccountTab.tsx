@@ -5,7 +5,7 @@ import { IPersonaSharedProps, Persona, PersonaSize } from 'office-ui-fabric-reac
 import { connect } from 'react-redux';
 import { updateAvatar } from '../../../stores/user/action';
 import { logoutAll } from '../../../stores/auth/action';
-import { ButtonGroup } from '../../global/style/ButtonGroup';
+import { ButtonGroup } from '../../global/style/buttonGroup';
 import { TextFieldGroup, Button } from '../../global/common';
 import { inputType } from '../../global/utils/inputType';
 interface Props {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Card from '../global/style/Card';
+import Card from '../global/style/card';
 import { INavLink } from 'office-ui-fabric-react/lib/Nav';
 import SettingStyle from './styles/SettingStyle';
 import { connect } from 'react-redux';
-import SecurityTab from './common/SecurityTab';
+import SecurityTab from './common/securityTab';
 import { withRouter } from 'react-router-dom';
-import AccountTab from './common/AccountTab';
+import AccountTab from './common/accountTab';
 import { Sidebar } from '../global/common';
 interface Props {
     history: any;

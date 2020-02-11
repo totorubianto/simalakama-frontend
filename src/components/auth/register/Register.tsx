@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text } from 'office-ui-fabric-react';
 import { Link, Redirect } from 'react-router-dom';
-import RegisterStyle from './styles/RegisterStyle';
+import RegisterStyle from './styles/registerStyle';
 import { connect } from 'react-redux';
 import { register } from '../../../stores/auth/action';
 import { inputType } from '../../global/utils/inputType';

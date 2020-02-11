@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParam } from '../global/utils/reactRouter';
-import UserStyle from './styles/UserStyle';
-import Card from '../global/style/Card';
+import ProfileStyle from './styles/profileStyle';
+import Card from '../global/style/card';
 interface Props {}
 
 const Profile: React.FC<Props> = () => {
@@ -10,7 +10,7 @@ const Profile: React.FC<Props> = () => {
         console.log(username);
     }, [username]);
     return (
-        <UserStyle>
+        <ProfileStyle>
             <div className="container">
                 <div className="row">
                     <div className="col-md-9">
@@ -26,7 +26,7 @@ const Profile: React.FC<Props> = () => {
                     <div className="col-md-3">asdasda</div>
                 </div>
             </div>
-        </UserStyle>
+        </ProfileStyle>
     );
 };
 

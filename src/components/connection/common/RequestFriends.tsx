@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from '../../global/style/Card';
+import Card from '../../global/style/card';
 import { Button } from '../../global/common';
-import { ButtonGroup } from '../../global/style/ButtonGroup';
+import { ButtonGroup } from '../../global/style/buttonGroup';
 import Persona from '../../global/common/persona/Persona';
 import { PersonaSize, PersonaMode } from '../../global/common/persona/enum/persona-size.enum';
 import { confirmFriend, rejectFriend } from '../../../stores/friend/action';

@@ -1,8 +1,8 @@
 import React from 'react';
-import NavbarStyle from './styles/NavbarStyle';
-import LeftMenu from './common/LeftMenu';
+import NavbarStyle from './styles/navbarStyle';
+import LeftMenu from './common/leftMenu';
 import { Link, useHistory } from 'react-router-dom';
-import { RightMenu } from './common/RightMenu';
+import { RightMenu } from './common/rightMenu';
 import { connect } from 'react-redux';
 import { AppState } from '../../../../stores/indexReducer';
 import { logout } from '../../../../stores/auth/action';

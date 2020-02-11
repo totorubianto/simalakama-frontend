@@ -1,15 +1,15 @@
 import React from 'react';
-import Navbar from '../components/global/layout/Navbar/Navbar';
+import Navbar from '../components/global/layout/navbar/navbar';
 import { Switch } from 'react-router-dom';
-import Login from '../components/auth/login/Login';
-import Register from '../components/auth/register/Register';
-import Home from '../components/settings/Settings';
+import Login from '../components/auth/login/login';
+import Register from '../components/auth/register/register';
+import Home from '../components/settings/settings';
 import Alert from '../components/global/exception/Alert';
-import ForgotPassword from '../components/auth/forgot-password/ForgotPassword';
+import ForgotPassword from '../components/auth/forgot-password/forgotPassword';
 import PrivateRouter from './utils/PrivateRoute';
 import DefaultRoute from './utils/DefaultRoute';
-import Connection from '../components/connection/Connection';
-import Profile from '../components/profile/Profile';
+import Connection from '../components/connection/connection';
+import Profile from '../components/profile/profile';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
