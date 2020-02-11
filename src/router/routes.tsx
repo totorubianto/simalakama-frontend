@@ -6,8 +6,8 @@ import Register from '../components/auth/register/register';
 import Home from '../components/settings/settings';
 import Alert from '../components/global/exception/Alert';
 import ForgotPassword from '../components/auth/forgot-password/forgotPassword';
-import PrivateRouter from './utils/PrivateRoute';
-import DefaultRoute from './utils/DefaultRoute';
+import PrivateRouter from './utils/privateRoute';
+import DefaultRoute from './utils/defaultRoute';
 import Connection from '../components/connection/connection';
 import Profile from '../components/profile/profile';
 interface Props {}
