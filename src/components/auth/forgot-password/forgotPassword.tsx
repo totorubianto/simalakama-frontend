@@ -61,32 +61,30 @@ const ForgotPassword: React.FC<Props> = ({
                                     Forgot Password
                                 </Text>
 
-                                <form>
-                                    <TextFieldGroup
-                                        label="New Password"
-                                        type="password"
-                                        placeholder="Input new password confirmation"
-                                        name="newPassword"
-                                        onChange={onChangeNewTextField}
-                                        error={error}
-                                        value={newPassword}
-                                    />
-                                    <TextFieldGroup
-                                        label="New Password Confirmation"
-                                        type="password"
-                                        placeholder="Input new password"
-                                        name="newPasswordConfirmation"
-                                        onChange={onChangeNewTextField}
-                                        error={error}
-                                        value={newPasswordConfirmation}
-                                    />
+                                <TextFieldGroup
+                                    label="New Password"
+                                    type="password"
+                                    placeholder="Input new password confirmation"
+                                    name="newPassword"
+                                    onChange={onChangeNewTextField}
+                                    error={error}
+                                    value={newPassword}
+                                />
+                                <TextFieldGroup
+                                    label="New Password Confirmation"
+                                    type="password"
+                                    placeholder="Input new password"
+                                    name="newPasswordConfirmation"
+                                    onChange={onChangeNewTextField}
+                                    error={error}
+                                    value={newPasswordConfirmation}
+                                />
 
-                                    <Button
-                                        onClick={onSubmitNewForgotPassword}
-                                        value="Forgot Password"
-                                        type="button"
-                                    ></Button>
-                                </form>
+                                <Button
+                                    onClick={onSubmitNewForgotPassword}
+                                    value="Forgot Password"
+                                    type="button"
+                                ></Button>
                             </div>
                         </div>
                         <div className="col-md-3"></div>
@@ -101,22 +99,20 @@ const ForgotPassword: React.FC<Props> = ({
                                 <Text className="card-field" variant="xxLarge">
                                     Forgot Password
                                 </Text>
-                                <form>
-                                    <TextFieldGroup
-                                        label="Email"
-                                        type="text"
-                                        placeholder="Masukan Email"
-                                        name="email"
-                                        onChange={onChangeTextField}
-                                        error={error}
-                                        value={email}
-                                    />
-                                    <Button
-                                        onClick={onSubmitForgotPassword}
-                                        value="Forgot Password"
-                                        type="button"
-                                    ></Button>
-                                </form>
+                                <TextFieldGroup
+                                    label="Email"
+                                    type="text"
+                                    placeholder="Masukan Email"
+                                    name="email"
+                                    onChange={onChangeTextField}
+                                    error={error}
+                                    value={email}
+                                />
+                                <Button
+                                    onClick={onSubmitForgotPassword}
+                                    value="Forgot Password"
+                                    type="button"
+                                ></Button>
                             </div>
                         </div>
                         <div className="col-md-3"></div>
