@@ -61,7 +61,7 @@ const ForgotPassword: React.FC<Props> = ({
                                     Forgot Password
                                 </Text>
 
-                                <form onSubmit={() => onSubmitForgotPassword()}>
+                                <form>
                                     <TextFieldGroup
                                         label="New Password"
                                         type="password"
@@ -101,7 +101,7 @@ const ForgotPassword: React.FC<Props> = ({
                                 <Text className="card-field" variant="xxLarge">
                                     Forgot Password
                                 </Text>
-                                <form onSubmit={() => onSubmitForgotPassword()}>
+                                <form>
                                     <TextFieldGroup
                                         label="Email"
                                         type="text"
