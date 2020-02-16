@@ -15,14 +15,16 @@ import {
 } from '../types';
 import { errorAction, clearErrors } from '../global/action';
 import setAuthToken from '../../utils/setAuthToken';
+import { GlobalHelper } from '../../config/config';
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
+    console.log();
     if (localStorage.accessToken) {
         await setAuthToken(localStorage.accessToken);
     }
     try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/users/me');
+        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/me`);
         dispatch({
             type: USER_LOADING,
             payload: res.data,
@@ -62,11 +64,7 @@ export const register = ({
         passwordConfirmation,
     });
     try {
-        const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/register',
-            body,
-            config,
-        );
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/register`, body, config);
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data,
@@ -90,11 +88,7 @@ export const login = ({ email, password, keepLogin }: any) => async (dispatch: a
     };
     const body = JSON.stringify({ email, password, keepLogin });
     try {
-        const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/login',
-            body,
-            config,
-        );
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/login`, body, config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
@@ -119,7 +113,7 @@ export const requestForgotPassword = ({ email }: any) => async (dispatch: any) =
     const body = JSON.stringify({ email });
     try {
         const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/request-forgot-password',
+            `${GlobalHelper.API_URL}/api/users/request-forgot-password`,
             body,
             config,
         );
@@ -151,7 +145,7 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
     const body = JSON.stringify({ newPassword, newPasswordConfirmation });
     try {
         const res = await axios.post(
-            `https://simalakama.herokuapp.com/api/users/forgot-password/${token}`,
+            `${GlobalHelper.API_URL}/api/users/forgot-password/${token}`,
             body,
             config,
         );
@@ -172,7 +166,7 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
 export const verify = (id: any) => async (dispatch: any) => {
     dispatch(clearErrors());
     try {
-        const res = await axios.get(`https://simalakama.herokuapp.com/api/users/verify/${id}`);
+        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/verify/${id}`);
 
         dispatch({
             type: FORGOT_PASSWORD_SUCCESS,
@@ -190,14 +184,14 @@ export const verify = (id: any) => async (dispatch: any) => {
 
 // Logout / Clear Profile
 export const logout = () => async (dispatch: any) => {
-    await axios.post(`https://simalakama.herokuapp.com/api/users/logout`);
+    await axios.post(`${GlobalHelper.API_URL}/api/users/logout`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };
 
 // Logout all Clear Profile
 export const logoutAll = () => async (dispatch: any) => {
-    await axios.post(`https://simalakama.herokuapp.com/api/users/logout-all`);
+    await axios.post(`${GlobalHelper.API_URL}/api/users/logout-all`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };

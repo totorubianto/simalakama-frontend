@@ -21,14 +21,16 @@ export const GET_PENDING_FRIEND = 'GET_PENDING_FRIEND';
 export const GET_USER_FRIEND = 'GET_USER_FRIEND';
 export const ADD_FRIEND = 'ADD_FRIEND';
 
-export const GET_USERS = 'GET_USERS';
-export const GET_USER = 'GET_USER';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
 export const POST_ERROR = 'POST_ERROR';
-export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const DELETE_POST = 'DELETE_POST';
 export const ADD_POST = 'ADD_POST';
+
+export const GET_USERS = 'GET_USERS';
+export const GET_USER = 'GET_USER';
+export const UPDATE_LIKES = 'UPDATE_LIKES';
+
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const GET_ERRORS = 'GET_ERRORS';

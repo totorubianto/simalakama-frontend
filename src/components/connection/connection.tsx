@@ -19,8 +19,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
 
     useEffect(() => {
         getPendingFriend();
-        // eslint-disable-next-line
-    }, []);
+    }, [getPendingFriend]);
     return (
         <div className="container">
             <div className="row">
@@ -57,7 +56,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
 
                     {friends.users.length !== 0 ? (
                         friends.users.map((user: any, i: number) => (
-                            <div className="row">
+                            <div key={i} className="row">
                                 <ConnectionCard user={user} key={i}></ConnectionCard>
                             </div>
                         ))

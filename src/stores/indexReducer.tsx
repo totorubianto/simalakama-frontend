@@ -8,12 +8,14 @@ import { errorReducer } from './error/reducers';
 import { userReducer } from './user/reducers';
 import { verificationReducer } from './verification/reducers';
 import { friendReducer } from './friend/reducers';
+import { postReducer } from './post/reducers';
 
 const rootReducer = combineReducers({
     alert: alertReducer,
     auth: authReducer,
     error: errorReducer,
     users: userReducer,
+    posts: postReducer,
     verification: verificationReducer,
     friends: friendReducer,
 });

@@ -1,18 +1,9 @@
-import {
-    // GET_PROFILE,
-    // GET_PROFILES,
-    // GET_USERS,
-    GET_USER,
-    UPDATE_PROFILE,
-    UPLOAD_AVATAR,
-    // CLEAR_PROFILE,
-    // PROFILE_ERROR,
-    // ACCOUNT_DELETED
-    UPDATE_PASSWORD,
-} from '../types';
+import { GET_USER, UPDATE_PROFILE, UPLOAD_AVATAR, UPDATE_PASSWORD } from '../types';
+
 import { clearErrors, errorAction } from '../global/action';
 import axios from 'axios';
 import { loadUser } from '../auth/action';
+import { GlobalHelper } from '../../config/config';
 
 // Updated User
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
@@ -24,11 +15,7 @@ export const updateProfile = ({ firstName, lastName, email }: any) => async (dis
     };
     const body = JSON.stringify({ firstName, lastName, email });
     try {
-        const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/update',
-            body,
-            config,
-        );
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update`, body, config);
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data,
@@ -45,10 +32,7 @@ export const updateAvatar = (file: any) => async (dispatch: any) => {
     let formData = new FormData();
     formData.append('avatar', file);
     try {
-        const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/upload-avatar',
-            formData,
-        );
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/upload-avatar`, formData);
 
         dispatch({
             type: UPLOAD_AVATAR,
@@ -76,7 +60,7 @@ export const updatePassword = ({
 
     try {
         const res = await axios.post(
-            'https://simalakama.herokuapp.com/api/users/update-password',
+            `${GlobalHelper.API_URL}/api/users/update-password`,
             body,
             config,
         );
@@ -91,7 +75,7 @@ export const updatePassword = ({
 
 export const getUser = (id: string) => async (dispatch: any) => {
     try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/users/find-all');
+        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/find-all`);
         dispatch({
             type: GET_USER,
             payload: res.data,

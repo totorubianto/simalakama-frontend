@@ -3,10 +3,11 @@ import { errorAction } from '../global/action';
 import axios from 'axios';
 import { setAlert } from '../alert/action';
 import { MessageBarType } from 'office-ui-fabric-react';
+import { GlobalHelper } from '../../config/config';
 
 export const getPendingFriend = () => async (dispatch: any) => {
     try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/friends/list-pending');
+        const res = await axios.get(`${GlobalHelper.API_URL}/api/friends/get-pending`);
         dispatch({
             type: GET_PENDING_FRIEND,
             payload: res.data,
@@ -18,7 +19,7 @@ export const getPendingFriend = () => async (dispatch: any) => {
 
 export const getUsersFriend = () => async (dispatch: any) => {
     try {
-        const res = await axios.get('https://simalakama.herokuapp.com/api/friends/find-all');
+        const res = await axios.get(`${GlobalHelper.API_URL}/api/friends/get-all`);
 
         dispatch({
             type: GET_USER_FRIEND,
@@ -31,9 +32,7 @@ export const getUsersFriend = () => async (dispatch: any) => {
 
 export const addFriend = (id: string) => async (dispatch: any) => {
     try {
-        const res = await axios.post(
-            `https://simalakama.herokuapp.com/api/friends/add-friend/${id}`,
-        );
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/friends/add-friend/${id}`);
         dispatch(setAlert('Permintaan Pertemanan terkirim', MessageBarType.success));
         dispatch({
             type: ADD_FRIEND,
@@ -46,7 +45,7 @@ export const addFriend = (id: string) => async (dispatch: any) => {
 
 export const confirmFriend = (id: any) => async (dispatch: any) => {
     try {
-        await axios.post(`https://simalakama.herokuapp.com/api/friends/confirm/${id}`);
+        await axios.post(`${GlobalHelper.API_URL}/api/friends/confirm/${id}`);
         dispatch(getUsersFriend());
         dispatch(getPendingFriend());
         dispatch(setAlert('anda sekarang berteman', MessageBarType.success));
@@ -54,9 +53,10 @@ export const confirmFriend = (id: any) => async (dispatch: any) => {
         dispatch(errorAction(err));
     }
 };
+
 export const rejectFriend = (id: any) => async (dispatch: any) => {
     try {
-        await axios.post(`https://simalakama.herokuapp.com/api/friends/reject/${id}`);
+        await axios.post(`${GlobalHelper.API_URL}/api/friends/reject/${id}`);
         dispatch(getUsersFriend());
         dispatch(getPendingFriend());
         dispatch(setAlert('Anda telah membatalkan pertemanan', MessageBarType.success));
