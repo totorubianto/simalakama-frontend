@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../global/style/card';
 import { INavLink } from 'office-ui-fabric-react/lib/Nav';
-import SettingStyle from './styles/SettingStyle';
+import SettingStyle from './styles/settingStyle';
 import { connect } from 'react-redux';
 import SecurityTab from './common/securityTab';
 import { withRouter } from 'react-router-dom';
