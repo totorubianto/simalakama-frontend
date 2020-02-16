@@ -19,7 +19,7 @@ import { GlobalHelper } from '../../config/config';
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
-    console.log();
+    console.log('belum jalan');
     if (localStorage.accessToken) {
         await setAuthToken(localStorage.accessToken);
     }

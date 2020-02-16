@@ -13,7 +13,8 @@ interface Props {
 const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
     useEffect(() => {
         getPosts();
-    }, [getPosts]);
+        // eslint-disable-next-line
+    }, [auth]);
     return (
         <div>
             <div className="container">
