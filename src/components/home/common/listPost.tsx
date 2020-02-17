@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Card from '../../global/style/card';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { getPosts, getPostsScroll } from '../../../stores/post/action';
 interface Props {
     posts: any[];
+    getPosts: Function;
+    getPostsScroll: Function;
 }
 
-const listPost: React.FC<Props> = ({ posts }) => {
-    const [state, setstate] = useState({ count: 1, start: 1 });
+const ListPost: React.FC<Props> = ({ posts, getPosts, getPostsScroll }) => {
+    useEffect(() => {
+        getPosts();
+    }, [getPosts]);
+
+    const [state, setstate] = useState({ count: 2, start: 1 });
     const fetchImages = () => {
         const { count, start } = state;
         setstate({ ...state, start: start + count });
-        // this.setState({ start: this.state.start + count });
-        // axios
-        //     .get(`/api/photos?count=${count}&start=${start}`)
-        //     .then(res => this.setState({ images: this.state.images.concat(res.data) }));
+        getPostsScroll();
     };
     return (
         <div>
@@ -26,6 +30,10 @@ const listPost: React.FC<Props> = ({ posts }) => {
             >
                 {posts.map((data: any, i: number) => (
                     <Card key={i} margin={{ bottom: 10 }} padding={{ all: 20 }}>
+                        {data.images.map((img: any) => (
+                            <img src={img.url} width="100%" alt="" />
+                        ))}
+
                         <div>{data.content}</div>
                     </Card>
                 ))}
@@ -34,4 +42,7 @@ const listPost: React.FC<Props> = ({ posts }) => {
     );
 };
 
-export default connect(null, {})(listPost);
+const mapStateToProps = (state: any) => ({
+    posts: state.posts.posts,
+});
+export default connect(mapStateToProps, { getPosts, getPostsScroll })(ListPost);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MeCard from './common/meCard';
 import ListCard from './common/listPost';
 import { connect } from 'react-redux';
@@ -11,10 +11,6 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
-    useEffect(() => {
-        getPosts();
-        // eslint-disable-next-line
-    }, []);
     return (
         <div>
             <div className="container">
@@ -23,7 +19,7 @@ const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
                         <MeCard user={auth && auth.user}></MeCard>
                     </div>
                     <div className="col-md-6">
-                        <ListCard posts={posts.posts}></ListCard>
+                        <ListCard></ListCard>
                     </div>
                 </div>
             </div>
