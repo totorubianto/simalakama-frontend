@@ -14,7 +14,7 @@ const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
     useEffect(() => {
         getPosts();
         // eslint-disable-next-line
-    }, [auth]);
+    }, []);
     return (
         <div>
             <div className="container">

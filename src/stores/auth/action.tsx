@@ -1,13 +1,16 @@
 import axios from 'axios';
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    USER_LOADED,
+    AUTH_LOADING,
+    AUTH_LOADED,
     AUTH_ERROR,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
+    REGISTER_LOADING,
+    REGISTER_LOADED,
+    REGISTER_ERROR,
+    LOGIN_LOADING,
+    LOGIN_LOADED,
+    LOGIN_ERROR,
+    //err
     LOGOUT,
-    USER_LOADING,
     CLEAR_PROFILE,
     // CLEAR_ERRORS,
     FORGOT_PASSWORD_SUCCESS,
@@ -19,24 +22,15 @@ import { GlobalHelper } from '../../config/config';
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
-    console.log('belum jalan');
     if (localStorage.accessToken) {
         await setAuthToken(localStorage.accessToken);
     }
     try {
+        dispatch({ type: AUTH_LOADING, payload: null });
         const res = await axios.get(`${GlobalHelper.API_URL}/api/users/me`);
-        dispatch({
-            type: USER_LOADING,
-            payload: res.data,
-        });
-        dispatch({
-            type: USER_LOADED,
-            payload: res.data,
-        });
+        dispatch({ type: AUTH_LOADED, payload: res.data });
     } catch (err) {
-        dispatch({
-            type: AUTH_ERROR,
-        });
+        dispatch({ type: AUTH_ERROR });
     }
 };
 
@@ -49,56 +43,29 @@ export const register = ({
     passwordConfirmation,
 }: any) => async (dispatch: any) => {
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
     const role = 'user';
-    const body = JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        password,
-        role,
-        passwordConfirmation,
-    });
+    const body = { firstName, lastName, email, password, role, passwordConfirmation };
     try {
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/register`, body, config);
-        dispatch({
-            type: REGISTER_SUCCESS,
-            payload: res.data,
-        });
-        dispatch(loadUser());
+        dispatch({ type: REGISTER_LOADING, payload: null });
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/register`, body);
+        dispatch({ type: REGISTER_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
-        dispatch({
-            type: REGISTER_FAIL,
-        });
+        dispatch({ type: REGISTER_ERROR });
     }
 };
 
 // Login User
 export const login = ({ email, password, keepLogin }: any) => async (dispatch: any) => {
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-    const body = JSON.stringify({ email, password, keepLogin });
+    const body = { email, password, keepLogin };
     try {
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/login`, body, config);
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res.data,
-        });
-        dispatch(loadUser());
+        dispatch({ type: LOGIN_LOADING, payload: null });
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/login`, body);
+        dispatch({ type: LOGIN_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
-        dispatch({
-            type: LOGIN_FAIL,
-        });
+        dispatch({ type: LOGIN_ERROR });
     }
 };
 
@@ -122,8 +89,6 @@ export const requestForgotPassword = ({ email }: any) => async (dispatch: any) =
             type: FORGOT_PASSWORD_SUCCESS,
             payload: res.data,
         });
-
-        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({
@@ -172,8 +137,6 @@ export const verify = (id: any) => async (dispatch: any) => {
             type: FORGOT_PASSWORD_SUCCESS,
             payload: res.data,
         });
-
-        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({

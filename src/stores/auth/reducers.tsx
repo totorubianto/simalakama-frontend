@@ -1,13 +1,16 @@
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    USER_LOADED,
+    AUTH_LOADING,
+    AUTH_LOADED,
     AUTH_ERROR,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
+    REGISTER_LOADING,
+    REGISTER_LOADED,
+    REGISTER_ERROR,
+    LOGIN_LOADING,
+    LOGIN_LOADED,
+    LOGIN_ERROR,
+    //not fix
     LOGOUT,
     ACCOUNT_DELETED,
-    USER_LOADING,
 } from '../types';
 import { AuthState } from './interfaces/auth.interface';
 import { AuthTypes } from './interfaces/update.interface';
@@ -22,19 +25,21 @@ const initialState: AuthState = {
 export function authReducer(state = initialState, action: AuthTypes): AuthState {
     const { type, payload } = action;
     switch (type) {
-        case USER_LOADING:
+        case AUTH_LOADING:
+        case REGISTER_LOADING:
+        case LOGIN_LOADING:
             return {
                 ...state,
                 loading: true,
             };
-        case USER_LOADED:
+        case AUTH_LOADED:
             return {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
                 user: payload.data,
             };
-        case REGISTER_SUCCESS:
+        case REGISTER_LOADED:
             localStorage.setItem('accessToken', payload.data.register.accessToken);
             localStorage.setItem('refreshToken', payload.data.register.refreshToken);
             return {
@@ -43,21 +48,20 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
                 isAuthenticated: true,
                 loading: false,
             };
-        case LOGIN_SUCCESS:
+        case LOGIN_LOADED:
             localStorage.setItem('accessToken', payload.data.login.accessToken);
             if (checkObject('payload.data.login.refreshToken', payload)) {
                 localStorage.setItem('refreshToken', payload.data.login.refreshToken);
             }
-
             return {
                 ...state,
                 ...payload,
                 isAuthenticated: true,
                 loading: false,
             };
-        case REGISTER_FAIL:
         case AUTH_ERROR:
-        case LOGIN_FAIL:
+        case REGISTER_ERROR:
+        case LOGIN_ERROR:
         case LOGOUT:
         case ACCOUNT_DELETED:
             localStorage.removeItem('accessToken');
@@ -69,6 +73,8 @@ export function authReducer(state = initialState, action: AuthTypes): AuthState 
                 loading: false,
             };
         default:
-            return state;
+            return {
+                ...state,
+            };
     }
 }

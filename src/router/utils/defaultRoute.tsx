@@ -9,9 +9,7 @@ const DefaultRoute = ({
     navbar: Navbar,
     ...rest
 }: any) => {
-    return loading ? (
-        <div>loading</div>
-    ) : (
+    return (
         <>
             {Navbar ? <Navbar /> : null}
             <Route {...rest} render={props => <Component {...props} />} />

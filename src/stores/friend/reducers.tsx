@@ -1,7 +1,12 @@
-import { GET_PENDING_FRIEND, GET_USER_FRIEND } from '../types';
+import {
+    GET_PENDING_FRIEND_LOADED,
+    GET_USER_FRIEND_LOADING,
+    GET_PENDING_FRIEND_LOADING,
+    GET_USER_FRIEND_LOADED,
+} from '../types';
 
 const initialState: any = {
-    loading: false,
+    loading: true,
     users: [],
     request: [],
 };
@@ -9,15 +14,22 @@ const initialState: any = {
 export function friendReducer(state = initialState, action: any) {
     const { type, payload } = action;
     switch (type) {
-        case GET_PENDING_FRIEND:
+        case GET_PENDING_FRIEND_LOADING:
+        case GET_USER_FRIEND_LOADING:
             return {
                 ...state,
                 loading: true,
-                request: payload.data.users,
             };
-        case GET_USER_FRIEND:
+        case GET_PENDING_FRIEND_LOADED:
             return {
                 ...state,
+                loading: false,
+                request: payload.data.users,
+            };
+        case GET_USER_FRIEND_LOADED:
+            return {
+                ...state,
+                loading: false,
                 users: payload.data.users,
             };
 

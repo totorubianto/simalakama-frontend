@@ -10,7 +10,7 @@ const listPost: React.FC<Props> = ({ posts }) => {
     return (
         <div>
             {posts.map((data: any, i: number) => (
-                <Card margin={{ bottom: 10 }} padding={{ all: 20 }}>
+                <Card key={i} margin={{ bottom: 10 }} padding={{ all: 20 }}>
                     <div>{data.content}</div>
                 </Card>
             ))}
