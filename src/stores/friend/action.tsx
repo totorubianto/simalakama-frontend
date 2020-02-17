@@ -6,13 +6,14 @@ import {
     ADD_FRIEND_LOADING,
     ADD_FRIEND_LOADED,
 } from '../types';
-import { errorAction } from '../global/action';
+import { errorAction, auth } from '../global/action';
 import axios from 'axios';
 import { setAlert } from '../alert/action';
 import { MessageBarType } from 'office-ui-fabric-react';
 import { GlobalHelper } from '../../config/config';
 
 export const getPendingFriend = () => async (dispatch: any) => {
+    dispatch(auth());
     try {
         dispatch({ type: GET_PENDING_FRIEND_LOADING, payload: null });
         const res = await axios.get(`${GlobalHelper.API_URL}/api/friends/get-pending`);
@@ -23,6 +24,7 @@ export const getPendingFriend = () => async (dispatch: any) => {
 };
 
 export const getUsersFriend = () => async (dispatch: any) => {
+    dispatch(auth());
     try {
         dispatch({ type: GET_USER_FRIEND_LOADING, payload: null });
         const res = await axios.get(`${GlobalHelper.API_URL}/api/friends/get-all`);
@@ -33,6 +35,7 @@ export const getUsersFriend = () => async (dispatch: any) => {
 };
 
 export const addFriend = (id: string) => async (dispatch: any) => {
+    dispatch(auth());
     try {
         dispatch({ type: ADD_FRIEND_LOADING, payload: null });
         const res = await axios.post(`${GlobalHelper.API_URL}/api/friends/add-friend/${id}`);
@@ -44,6 +47,7 @@ export const addFriend = (id: string) => async (dispatch: any) => {
 };
 
 export const confirmFriend = (id: any) => async (dispatch: any) => {
+    dispatch(auth());
     try {
         await axios.post(`${GlobalHelper.API_URL}/api/friends/confirm/${id}`);
         dispatch(getUsersFriend());
@@ -55,6 +59,7 @@ export const confirmFriend = (id: any) => async (dispatch: any) => {
 };
 
 export const rejectFriend = (id: any) => async (dispatch: any) => {
+    dispatch(auth());
     try {
         await axios.post(`${GlobalHelper.API_URL}/api/friends/reject/${id}`);
         dispatch(getUsersFriend());

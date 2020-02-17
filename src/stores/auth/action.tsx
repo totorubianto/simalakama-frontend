@@ -72,28 +72,16 @@ export const login = ({ email, password, keepLogin }: any) => async (dispatch: a
 // request forgot password
 export const requestForgotPassword = ({ email }: any) => async (dispatch: any) => {
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-    const body = JSON.stringify({ email });
+    const body = { email };
     try {
         const res = await axios.post(
             `${GlobalHelper.API_URL}/api/users/request-forgot-password`,
             body,
-            config,
         );
-
-        dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            payload: res.data,
-        });
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
-        dispatch({
-            type: FORGOT_PASSWORD_FAIL,
-        });
+        dispatch({ type: FORGOT_PASSWORD_FAIL });
     }
 };
 
@@ -102,28 +90,16 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
     dispatch: any,
 ) => {
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
     const body = JSON.stringify({ newPassword, newPasswordConfirmation });
     try {
         const res = await axios.post(
             `${GlobalHelper.API_URL}/api/users/forgot-password/${token}`,
             body,
-            config,
         );
-
-        dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            payload: res.data,
-        });
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
-        dispatch({
-            type: FORGOT_PASSWORD_FAIL,
-        });
+        dispatch({ type: FORGOT_PASSWORD_FAIL });
     }
 };
 
@@ -132,11 +108,7 @@ export const verify = (id: any) => async (dispatch: any) => {
     dispatch(clearErrors());
     try {
         const res = await axios.get(`${GlobalHelper.API_URL}/api/users/verify/${id}`);
-
-        dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            payload: res.data,
-        });
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({

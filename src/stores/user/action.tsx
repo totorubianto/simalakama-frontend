@@ -1,25 +1,25 @@
-import { GET_USER, UPDATE_PROFILE, UPLOAD_AVATAR, UPDATE_PASSWORD } from '../types';
+import {
+    UPDATE_PROFILE_LOADING,
+    UPDATE_PROFILE_LOADED,
+    UPLOAD_AVATAR_LOADED,
+    UPLOAD_AVATAR_LOADING,
+    UPDATE_PASSWORD,
+} from '../types';
 
-import { clearErrors, errorAction } from '../global/action';
+import { clearErrors, errorAction, auth } from '../global/action';
 import axios from 'axios';
 import { loadUser } from '../auth/action';
 import { GlobalHelper } from '../../config/config';
 
 // Updated User
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
+    dispatch(auth());
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
     const body = JSON.stringify({ firstName, lastName, email });
     try {
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update`, body, config);
-        dispatch({
-            type: UPDATE_PROFILE,
-            payload: res.data,
-        });
+        dispatch({ type: UPDATE_PROFILE_LOADING, payload: null });
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update`, body);
+        dispatch({ type: UPDATE_PROFILE_LOADED, payload: res.data });
         dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
@@ -28,16 +28,14 @@ export const updateProfile = ({ firstName, lastName, email }: any) => async (dis
 
 // Updated Avatar
 export const updateAvatar = (file: any) => async (dispatch: any) => {
+    dispatch(auth());
     dispatch(clearErrors());
     let formData = new FormData();
     formData.append('avatar', file);
     try {
+        dispatch({ type: UPLOAD_AVATAR_LOADING, payload: null });
         const res = await axios.post(`${GlobalHelper.API_URL}/api/users/upload-avatar`, formData);
-
-        dispatch({
-            type: UPLOAD_AVATAR,
-            payload: res.data,
-        });
+        dispatch({ type: UPLOAD_AVATAR_LOADED, payload: res.data });
         dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
@@ -50,37 +48,25 @@ export const updatePassword = ({
     newPassword,
     newPasswordConfirmation,
 }: any) => async (dispatch: any) => {
+    dispatch(auth());
     dispatch(clearErrors());
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-    const body = JSON.stringify({ oldPassword, newPassword, newPasswordConfirmation });
-
+    const body = { oldPassword, newPassword, newPasswordConfirmation };
     try {
-        const res = await axios.post(
-            `${GlobalHelper.API_URL}/api/users/update-password`,
-            body,
-            config,
-        );
-        dispatch({
-            type: UPDATE_PASSWORD,
-            payload: res.data,
-        });
+        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update-password`, body);
+        dispatch({ type: UPDATE_PASSWORD, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
     }
 };
 
-export const getUser = (id: string) => async (dispatch: any) => {
-    try {
-        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/find-all`);
-        dispatch({
-            type: GET_USER,
-            payload: res.data,
-        });
-    } catch (err) {
-        dispatch(errorAction(err));
-    }
-};
+// export const getUser = (id: string) => async (dispatch: any) => {
+//     try {
+//         const res = await axios.get(`${GlobalHelper.API_URL}/api/users/find-all`);
+//         dispatch({
+//             type: GET_USER,
+//             payload: res.data,
+//         });
+//     } catch (err) {
+//         dispatch(errorAction(err));
+//     }
+// };
