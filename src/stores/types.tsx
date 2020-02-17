@@ -22,6 +22,10 @@ export const GET_USER_FRIEND_ERROR = 'GET_USER_FRIEND_ERROR';
 export const ADD_FRIEND_LOADING = 'ADD_FRIEND_LOADING';
 export const ADD_FRIEND_LOADED = 'ADD_FRIEND_LOADED';
 export const ADD_FRIEND_ERROR = 'ADD_FRIEND_ERROR';
+
+export const GET_POSTS_LOADING = 'GET_POSTS_LOADING';
+export const GET_POSTS_LOADED = ', GET_POSTS_LOADED';
+export const GET_POSTS_ERROR = 'GET_POSTS_ERROR';
 // acak acakan
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
@@ -46,8 +50,6 @@ export const GET_USER_FRIEND = 'GET_USER_FRIEND';
 export const ADD_FRIEND = 'ADD_FRIEND';
 
 export const GET_POSTS = 'GET_POSTS';
-export const GET_POSTS_LOADING = 'GET_POSTS_LOADING';
-export const GET_POSTS_LOADED = 'GET_POSTS_LOADED';
 export const GET_POST = 'GET_POST';
 export const POST_ERROR = 'POST_ERROR';
 export const DELETE_POST = 'DELETE_POST';
