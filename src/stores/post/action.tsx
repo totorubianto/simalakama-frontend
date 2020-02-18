@@ -8,22 +8,26 @@ import { errorAction, auth } from '../global/action';
 import axios from 'axios';
 import { GlobalHelper } from '../../config/config';
 
-export const getPosts = () => async (dispatch: any) => {
+export const getPosts = (limit: number, skip: number) => async (dispatch: any) => {
     dispatch(auth());
     try {
         dispatch({ type: GET_POSTS_LOADING, payload: null });
-        const res = await axios.get(`${GlobalHelper.API_URL}/api/posts/get-posts`);
+        const res = await axios.get(
+            `${GlobalHelper.API_URL}/api/posts/get-posts??skip=${skip}&limit=${limit}`,
+        );
         dispatch({ type: GET_POSTS_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
     }
 };
 
-export const getPostsScroll = () => async (dispatch: any) => {
+export const getPostsScroll = (limit: number, skip: number) => async (dispatch: any) => {
     dispatch(auth());
     try {
         dispatch({ type: GET_POSTS_MORE_LOADING, payload: null });
-        const res = await axios.get(`${GlobalHelper.API_URL}/api/posts/get-posts`);
+        const res = await axios.get(
+            `${GlobalHelper.API_URL}/api/posts/get-posts/?skip=${skip}&limit=${limit}`,
+        );
         dispatch({ type: GET_POSTS_MORE_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));

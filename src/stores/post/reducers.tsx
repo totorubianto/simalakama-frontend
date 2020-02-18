@@ -8,6 +8,7 @@ const initialState = {
     loading: true,
     user: {},
     posts: [],
+    countPosts: 0,
 };
 export function postReducer(state = initialState, action: any) {
     const { type, payload } = action;
@@ -23,12 +24,14 @@ export function postReducer(state = initialState, action: any) {
                 ...state,
                 loading: false,
                 posts: payload.data.posts,
+                countPosts: payload.data.count,
             };
         case GET_POSTS_MORE_LOADED:
             return {
                 ...state,
                 loading: false,
                 posts: state.posts.concat(payload.data.posts),
+                countPosts: payload.data.count,
             };
         default:
             return state;
