@@ -37,7 +37,7 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
             />
             {isAuthenticated ? (
                 <>
-                    <Link to="#/" className="nav-link">
+                    <Link to="/" className="nav-link">
                         <Text key="1" variant="medium" nowrap block>
                             Beranda
                         </Text>

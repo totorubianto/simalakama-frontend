@@ -16,7 +16,7 @@ const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
             <div className="container">
                 <div className="row mt-5">
                     <div className="col-md-3">
-                        <MeCard user={auth && auth.user}></MeCard>
+                        <MeCard></MeCard>
                     </div>
                     <div className="col-md-6">
                         <ListCard></ListCard>

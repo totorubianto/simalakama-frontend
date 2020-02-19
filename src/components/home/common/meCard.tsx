@@ -4,10 +4,10 @@ import Persona from '../../global/common/persona/Persona';
 import { PersonaSize, PersonaMode } from '../../global/common/persona/enum/persona-size.enum';
 import { connect } from 'react-redux';
 interface Props {
-    user: any;
+    auth: any;
 }
 
-const MeCard: React.FC<Props> = ({ user }) => {
+const MeCard: React.FC<Props> = ({ auth: { loading, user } }) => {
     return (
         <Card
             margin={{ bottom: 20 }}
@@ -30,5 +30,9 @@ const MeCard: React.FC<Props> = ({ user }) => {
         </Card>
     );
 };
-
-export default connect(null, {})(MeCard);
+const mapStateToProps = (state: any) => ({
+    auth: state.auth,
+    error: state.error,
+    posts: state.posts,
+});
+export default connect(mapStateToProps, {})(MeCard);
