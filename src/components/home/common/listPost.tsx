@@ -24,7 +24,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
     }, []);
 
     useEffect(() => {
-        if (posts.length === state.count) {
+        if (posts.length === countPosts) {
             setState({ ...state, hashMore: false });
         }
         // eslint-disable-next-line
