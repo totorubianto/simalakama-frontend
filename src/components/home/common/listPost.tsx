@@ -59,7 +59,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                 loader={
                     <>
                         {[...Array(5)].map((x, i) => (
-                            <Card margin={{ bottom: 20 }} padding={{ all: 20 }}>
+                            <Card key={i} margin={{ bottom: 20 }} padding={{ all: 20 }}>
                                 <Shimmer
                                     customElementsGroup={_getCustomElementsExampleTwo()}
                                     width={300}

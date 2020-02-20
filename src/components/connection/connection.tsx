@@ -6,6 +6,7 @@ import { getPendingFriend } from '../../stores/friend/action';
 import RequestFriends from './common/requestFriends';
 import Text from '../global/common/text/Text';
 import { TextSize, TextType } from '../global/common/text/enum/text.enum';
+import MeCard from '../home/common/meCard';
 interface Props {
     getUsersFriend: Function;
     getPendingFriend: Function;
@@ -22,14 +23,16 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
     }, [getPendingFriend]);
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-3"></div>
+            <div className="row mt-5">
+                <div className="col-md-3">
+                    <MeCard></MeCard>
+                </div>
                 <div className="col-md-9">
                     <Text
                         type={TextType.HEADLINE}
                         textSize={TextSize.MEDIUM}
                         text="Perminataan Pertemanan"
-                        margin={{ top: 20, bottom: 20 }}
+                        margin={{ top: 0, bottom: 20 }}
                     ></Text>
 
                     {friends.request.length !== 0 ? (
