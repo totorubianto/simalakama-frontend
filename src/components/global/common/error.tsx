@@ -10,9 +10,8 @@ function errorData({ error }: Props): ReactElement {
     if (error) for (let i = 0; i < error.length; ++i) errors = error[i];
     return (
         <>
-            {errors &&
-                errors.constraints &&
-                Object.keys(errors.constraints).map((data, i) => (
+            {errors?.constraints &&
+                Object.keys(errors.constraints).map((data: any, i: number) => (
                     <div key={i}>
                         <Text
                             variant="medium"
@@ -29,7 +28,7 @@ function errorData({ error }: Props): ReactElement {
 }
 const checkErrors = (data: any, error: any) => {
     let result;
-    if (error && error.length > 0) {
+    if (error?.length > 0) {
         result = error.filter((obj: any) => {
             return obj.property === data;
         });

@@ -44,8 +44,8 @@ const AccountTab: React.FC<Props> = ({
     const { email, firstName, lastName } = formUpdateProfile;
     const { email: emailData, firstName: firstNameData, lastName: lastNameData } = user;
     const examplePersona: IPersonaSharedProps = {
-        imageUrl: user && user.avatar && user.avatar.url,
-        imageInitials: user && user.firstName && firstNameData[0] + firstNameData[1],
+        imageUrl: user?.avatar?.url,
+        imageInitials: user?.firstName?.firstNameData?.[0] + firstNameData?.[1],
         text: `${firstNameData} ${lastNameData}`,
         secondaryText: 'Software Engineer',
         optionalText: 'Available at 4:00pm',

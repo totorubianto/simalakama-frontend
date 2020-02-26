@@ -35,7 +35,7 @@ const Connection: React.FC<Props> = ({ getUsersFriend, friends, getPendingFriend
                         margin={{ top: 0, bottom: 20 }}
                     ></Text>
 
-                    {friends.request.length !== 0 ? (
+                    {friends?.request?.length !== 0 ? (
                         friends.request.map((user: any, i: number) => (
                             <RequestFriends
                                 key={i}

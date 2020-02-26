@@ -19,9 +19,9 @@ export const RightMenu = ({ history, isAuthenticated, user, logout }: any) => {
     const onHideContextualMenu = useConstCallback(() => setShowContextualMenu(false));
 
     const avatar: IPersonaSharedProps = {
-        imageUrl: user && user.avatar && user.avatar.url,
-        imageInitials: user && user.firstName && user.firstName[0] + user.firstName[1],
-        text: user && user.firstName,
+        imageUrl: user?.avatar?.url,
+        imageInitials: user?.firstName?.[0] + user?.firstName?.[1],
+        text: user?.firstName,
         secondaryText: 'Software Engineer',
         tertiaryText: 'In a meeting',
         optionalText: 'Available at 4:00pm',

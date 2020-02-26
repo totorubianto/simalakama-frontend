@@ -48,7 +48,7 @@ const ForgotPassword: React.FC<Props> = ({
         forgotPassword(token, formNewPassword);
     };
     const { verification: verify } = verification;
-    if (verify && verify.user && verify.user.email) Redirect(history, '/');
+    if (verify?.user?.email) Redirect(history, '/');
     return (
         <ForgotPasswordStyle>
             {token ? (

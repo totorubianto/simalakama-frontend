@@ -15,10 +15,10 @@ const Settings: React.FC<Props> = ({ history }) => {
     const [menuSidebar, setMenuSidebar] = useState('account');
     const [tabQuery, setTabQuery] = useState('account');
     const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
-        const queryPage = item && item.page;
+        const queryPage = item?.page;
         history.push(`?page=${queryPage}`);
         setTabQuery(queryPage);
-        if (item && item.key) setMenuSidebar(item.key);
+        if (item?.key) setMenuSidebar(item.key);
     };
 
     return (

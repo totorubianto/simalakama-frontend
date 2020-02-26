@@ -24,7 +24,7 @@ const RequestFriends: React.FC<Props> = ({ user, id, confirmFriend, rejectFriend
         <Card padding={{ all: 20 }} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
                 <Persona
-                    imgURL={user.avatar && user.avatar.url}
+                    imgURL={user.avatar?.url}
                     width={PersonaSize.SMALL}
                     mode={PersonaMode.HORIZONTAL}
                     to={`user/${user.username}`}

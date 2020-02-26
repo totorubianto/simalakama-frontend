@@ -41,9 +41,9 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
     };
     const avatar = (data: any) => {
         return {
-            imageUrl: data.actor && data.actor.avatar && data.actor.avatar.url,
+            imageUrl: data?.actor?.avatar?.url,
             imageInitials: 'AB',
-            text: `${data.actor.firstName} ${data.actor.lastName}`,
+            text: `${data?.actor?.firstName} ${data?.actor?.lastName}`,
             secondaryText: 'Software Engineer',
             tertiaryText: 'In a meeting',
             optionalText: 'Available at 4:00pm',
