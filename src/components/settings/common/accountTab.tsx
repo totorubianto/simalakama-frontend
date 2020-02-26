@@ -52,6 +52,7 @@ const AccountTab: React.FC<Props> = ({
     };
     const onUpdateProfile = () => {
         updateProfile({ firstName, lastName, email });
+        console.log({ firstName, lastName, email });
     };
     const changeAvatar = (e: any) => {
         updateAvatar(e.target.files[0]);

@@ -21,7 +21,7 @@ const MenuItems = (history: any, logout: any) => {
             iconProps: {
                 iconName: 'Settings',
             },
-            onClick: () => Redirect(history, '/login'),
+            onClick: () => Redirect(history, '/setting'),
         },
         {
             key: 'logout',

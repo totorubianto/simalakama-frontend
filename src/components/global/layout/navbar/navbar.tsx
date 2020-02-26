@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavbarStyle from './styles/navbarStyle';
 import LeftMenu from './common/leftMenu';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,14 +6,19 @@ import { RightMenu } from './common/rightMenu';
 import { connect } from 'react-redux';
 import { AppState } from '../../../../stores/indexReducer';
 import { logout } from '../../../../stores/auth/action';
-
+import { reload } from '../../../../stores/global/action';
 interface Props {
     auth: any;
     isAuthenticated: boolean;
     logout: any;
+    reload: Function;
 }
 
-const Navbar: React.FC<Props> = ({ auth, isAuthenticated, logout }) => {
+const Navbar: React.FC<Props> = ({ auth, isAuthenticated, logout, reload }) => {
+    useEffect(() => {
+        reload();
+        console.log('rubah');
+    }, [auth]);
     let history = useHistory();
 
     return (
@@ -42,4 +47,4 @@ const mapStateToProps = (state: AppState) => ({
     isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, reload })(Navbar);

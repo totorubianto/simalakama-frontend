@@ -17,6 +17,10 @@ export const errorAction = (err: any) => async (dispatch: any) => {
     }
 };
 
+export const reload = (err: any) => async (dispatch: any) => {
+    console.log('reload');
+};
+
 export const clearErrors = () => {
     return {
         type: CLEAR_ERRORS,

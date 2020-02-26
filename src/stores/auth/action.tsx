@@ -19,6 +19,8 @@ import {
 import { errorAction, clearErrors } from '../global/action';
 import setAuthToken from '../../utils/setAuthToken';
 import { GlobalHelper } from '../../config/config';
+import { MessageBarType } from 'office-ui-fabric-react';
+import { setAlert } from '../alert/action';
 
 // Load User
 export const loadUser = () => async (dispatch: any) => {
@@ -79,6 +81,9 @@ export const requestForgotPassword = ({ email }: any) => async (dispatch: any) =
             body,
         );
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
+        dispatch(
+            setAlert(`Request Forgot Password Terkirim keEmail ${email}`, MessageBarType.success),
+        );
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({ type: FORGOT_PASSWORD_FAIL });
@@ -90,13 +95,14 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
     dispatch: any,
 ) => {
     dispatch(clearErrors());
-    const body = JSON.stringify({ newPassword, newPasswordConfirmation });
+    const body = { newPassword, newPasswordConfirmation };
     try {
         const res = await axios.post(
             `${GlobalHelper.API_URL}/api/users/forgot-password/${token}`,
             body,
         );
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
+        dispatch(setAlert(`Password has been change`, MessageBarType.success));
     } catch (err) {
         dispatch(errorAction(err));
         dispatch({ type: FORGOT_PASSWORD_FAIL });

@@ -15,12 +15,11 @@ import { GlobalHelper } from '../../config/config';
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
     dispatch(auth());
     dispatch(clearErrors());
-    const body = JSON.stringify({ firstName, lastName, email });
+    const body = { firstName, lastName, email };
     try {
         dispatch({ type: UPDATE_PROFILE_LOADING, payload: null });
         const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update`, body);
         dispatch({ type: UPDATE_PROFILE_LOADED, payload: res.data });
-        dispatch(loadUser());
     } catch (err) {
         dispatch(errorAction(err));
     }
