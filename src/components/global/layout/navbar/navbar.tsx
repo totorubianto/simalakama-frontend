@@ -15,10 +15,6 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ auth, isAuthenticated, logout, reload }) => {
-    useEffect(() => {
-        reload();
-        console.log('rubah');
-    }, [auth]);
     let history = useHistory();
 
     return (

@@ -16,10 +16,6 @@ interface Props {
 }
 
 const Settings: React.FC<Props> = ({ auth, history, reload }) => {
-    useEffect(() => {
-        console.log('rubah');
-        reload();
-    }, [auth]);
     const [menuSidebar, setMenuSidebar] = useState('account');
     const [tabQuery, setTabQuery] = useState('account');
     const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
