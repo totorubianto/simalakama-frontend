@@ -15,7 +15,7 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
         addFriend(id);
     };
     return (
-        <div className="col-md-4">
+        <>
             <Card
                 margin={{ bottom: 20 }}
                 padding={{ all: 20 }}
@@ -43,7 +43,7 @@ const ConnectionCard: React.FC<Props> = ({ user, addFriend }) => {
                     onClick={() => onInviteFriend(user._id)}
                 />
             </Card>
-        </div>
+        </>
     );
 };
 

@@ -3,6 +3,7 @@ import MeCard from './common/meCard';
 import ListCard from './common/listPost';
 import { connect } from 'react-redux';
 import { getPosts } from '../../stores/post/action';
+import Post from './common/post';
 
 interface Props {
     auth: any;
@@ -19,6 +20,7 @@ const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
                         <MeCard></MeCard>
                     </div>
                     <div className="col-md-6">
+                        <Post></Post>
                         <ListCard></ListCard>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from '../global/style/card';
 import { INavLink } from 'office-ui-fabric-react/lib/Nav';
 import SettingStyle from './styles/settingStyle';
@@ -7,15 +7,13 @@ import SecurityTab from './common/securityTab';
 import { withRouter } from 'react-router-dom';
 import AccountTab from './common/accountTab';
 import { Sidebar } from '../global/common';
-import { reload } from '../../stores/global/action';
 
 interface Props {
     history: any;
     auth: any;
-    reload: Function;
 }
 
-const Settings: React.FC<Props> = ({ auth, history, reload }) => {
+const Settings: React.FC<Props> = ({ auth, history }) => {
     const [menuSidebar, setMenuSidebar] = useState('account');
     const [tabQuery, setTabQuery] = useState('account');
     const _onLinkClick = (ev: React.MouseEvent<HTMLElement>, item?: INavLink) => {
@@ -67,4 +65,4 @@ const menu = [
 const mapStateToProps = (state: any) => ({
     auth: state.auth,
 });
-export default withRouter(connect(mapStateToProps, { reload })(Settings));
+export default withRouter(connect(mapStateToProps)(Settings));
