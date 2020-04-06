@@ -33,6 +33,16 @@ const TextFieldGroup: React.FC<Props> = ({
                     onChange={(e: any) => onChange(e)}
                     label={label}
                 />
+            ) : type === 'textarea' ? (
+                <TextField
+                    label={label}
+                    name={name}
+                    onChange={(e) => onChange(e)}
+                    onRenderDescription={() => errorData({ error: checkErrors(name, error) })}
+                    value={value}
+                    multiline
+                    rows={5}
+                />
             ) : (
                 <TextField
                     className="card-field"
@@ -40,7 +50,7 @@ const TextFieldGroup: React.FC<Props> = ({
                     type={type}
                     placeholder={placeholder}
                     name={name}
-                    onChange={e => onChange(e)}
+                    onChange={(e) => onChange(e)}
                     onRenderDescription={() => errorData({ error: checkErrors(name, error) })}
                     value={value}
                 />

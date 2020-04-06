@@ -3,6 +3,9 @@ const inputType = (event: any, state: any, setState: Function, option?: any) => 
         case 'text':
             setState({ ...state, [event.target.name]: event.target.value });
             break;
+        case 'textarea':
+            setState({ ...state, [event.target.name]: event.target.value });
+            break;
         case 'password':
             setState({ ...state, [event.target.name]: event.target.value });
             break;

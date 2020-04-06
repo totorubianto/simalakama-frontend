@@ -1,17 +1,46 @@
-import React from 'react';
-import { TextField, PrimaryButton } from 'office-ui-fabric-react';
+import React, { useState } from 'react';
 import PostStyle from '../styles/postStyle';
-interface Props {}
+import { connect } from 'react-redux';
+import { createPost } from '../../../stores/post/action';
+import { Button } from '../../global/common';
+import { inputType } from '../../global/utils/inputType';
+import { TextFieldGroup } from '../../global/common/index';
+interface Props {
+    createPost: Function;
+    error: any;
+}
 
-const post: React.FC<Props> = () => {
+const Post: React.FC<Props> = ({ createPost, error }) => {
+    const [fieldCreatePost, setFieldCreatePost] = useState({
+        content: '',
+    });
+    const { content } = fieldCreatePost;
+    const onPost = () => {
+        createPost(fieldCreatePost.content, null);
+    };
+    const onChangeTextField = (e: any) => {
+        inputType(e, fieldCreatePost, setFieldCreatePost);
+    };
     return (
         <PostStyle>
             <div className="create-post">
-                <TextField label="Buat Post" multiline rows={5} />
-                <PrimaryButton text="Kirim" allowDisabledFocus disabled={false} checked={false} />
+                <TextFieldGroup
+                    type="textarea"
+                    name="content"
+                    onChange={onChangeTextField}
+                    error={error}
+                    value={content}
+                    label="Buat Post"
+                />
+                <Button type="button" value="Kirim" onClick={onPost}></Button>
             </div>
         </PostStyle>
     );
 };
 
-export default post;
+const mapStateToProps = (state: any) => ({
+    posts: state.posts,
+    error: state.error,
+});
+
+export default connect(mapStateToProps, { createPost })(Post);
