@@ -50,6 +50,10 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                 <PersonaHorizontalStyle>
                     <img
                         src={imgURL}
+                        onError={(e: any) => {
+                            e.target.onerror = null;
+                            e.target.src = 'assets/images/avatar_default.png';
+                        }}
                         style={{
                             width: `${getNum(width)}px`,
                             height: `${getNum(width)}px`,

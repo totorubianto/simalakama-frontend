@@ -8,15 +8,16 @@ import { TextFieldGroup } from '../../global/common/index';
 interface Props {
     createPost: Function;
     error: any;
+    posts: any;
 }
 
-const Post: React.FC<Props> = ({ createPost, error }) => {
+const Post: React.FC<Props> = ({ createPost, error, posts: { posts } }) => {
     const [fieldCreatePost, setFieldCreatePost] = useState({
         content: '',
     });
     const { content } = fieldCreatePost;
     const onPost = () => {
-        createPost(fieldCreatePost.content, null);
+        createPost(fieldCreatePost.content);
     };
     const onChangeTextField = (e: any) => {
         inputType(e, fieldCreatePost, setFieldCreatePost);

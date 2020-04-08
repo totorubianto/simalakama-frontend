@@ -52,8 +52,9 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
 
     return (
         <ListPostStyle>
+            {console.log(posts)}
             <InfiniteScroll
-                dataLength={1}
+                dataLength={posts.length}
                 next={fetchImages}
                 hasMore={hashMore}
                 loader={

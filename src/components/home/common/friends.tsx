@@ -27,8 +27,8 @@ const Friends: React.FC<Props> = ({ getFriend, friends: { friends } }) => {
         >
             <div className="p-1">
                 <div className="row no-gutters">
-                    {friends.map((data: any) => (
-                        <div className="col-md-4">
+                    {friends.map((data: any, i: number) => (
+                        <div key={i} className="col-md-4">
                             <img
                                 width="100%"
                                 src="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
