@@ -10,7 +10,9 @@ import { errorAction, auth } from '../global/action';
 import axios from 'axios';
 import { GlobalHelper } from '../../config/config';
 
-export const createPost = (contents: string, images: any) => async (dispatch: any) => {
+export const createPost = (contents: string, images: any, limit: number, skip: number) => async (
+    dispatch: any,
+) => {
     dispatch(auth());
     let body = new FormData();
     body.append('images', images);

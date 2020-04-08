@@ -17,7 +17,7 @@ const Post: React.FC<Props> = ({ createPost, error, posts: { posts } }) => {
     });
     const { content } = fieldCreatePost;
     const onPost = () => {
-        createPost(fieldCreatePost.content);
+        createPost(fieldCreatePost.content, null, 1, 0);
     };
     const onChangeTextField = (e: any) => {
         inputType(e, fieldCreatePost, setFieldCreatePost);
