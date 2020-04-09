@@ -4,6 +4,7 @@ import { PersonaSize, getNum, PersonaMode } from './enum/persona-size.enum';
 import Text from '../text/Text';
 import { TextType, TextSize } from '../text/enum/text.enum';
 import { Link } from 'react-router-dom';
+import Image from '../image/Image';
 interface Props {
     imgURL: string;
     width: PersonaSize;
@@ -18,15 +19,18 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
         <>
             {mode === PersonaMode.VERTICAL ? (
                 <PersonaVerticalStyle>
-                    <img
-                        src={imgURL}
+                    <Image
                         style={{
                             width: `${getNum(width)}px`,
                             height: `${getNum(width)}px`,
                             borderRadius: '50%',
                         }}
-                        alt=""
-                    />
+                        key="someUrl"
+                        src={imgURL}
+                        fallback="assets/images/avatar_default.png"
+                        alt="..."
+                    ></Image>
+
                     {textTitle ? (
                         <Link to={to}>
                             <Text
