@@ -21,7 +21,7 @@ const MeCard: React.FC<Props> = ({ auth: { loading, user } }) => {
         >
             <Persona
                 width={PersonaSize.BIG}
-                imgURL="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
+                imgURL={user?.avatar?.url}
                 to={`user/${user.username}`}
                 mode={PersonaMode.VERTICAL}
                 textTitle={user.firstName + ' ' + user.lastName}

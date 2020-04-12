@@ -3,6 +3,7 @@ import Card from '../../global/style/card';
 import { getFriend } from '../../../stores/friend/action';
 import { connect } from 'react-redux';
 import { PrimaryButton } from 'office-ui-fabric-react';
+import Image from '../../global/common/image/Image';
 
 interface Props {
     getFriend: Function;
@@ -29,11 +30,15 @@ const Friends: React.FC<Props> = ({ getFriend, friends: { friends } }) => {
                 <div className="row no-gutters">
                     {friends.map((data: any, i: number) => (
                         <div key={i} className="col-md-4">
-                            <img
-                                width="100%"
-                                src="https://cf.shopee.co.id/file/c3deb1bcc9a9ab2337d21fe007b661eb"
-                                alt=""
-                            />
+                            {console.log(data)}
+                            <Image
+                                src={data.friend.avatar.url}
+                                fallback="/assets/images/avatar_default.png"
+                                alt={data.friend.avatar.key}
+                                style={{
+                                    width: '100%',
+                                }}
+                            ></Image>
                         </div>
                     ))}
                 </div>

@@ -1,43 +1,90 @@
-import React, { useState } from 'react';
-import PostStyle from '../styles/postStyle';
+import React, { Component } from 'react';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
+import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
+import mentions from './mention';
 import { connect } from 'react-redux';
 import { createPost } from '../../../stores/post/action';
-import { Button } from '../../global/common';
-import { inputType } from '../../global/utils/inputType';
-import { TextFieldGroup } from '../../global/common/index';
+import { Button } from 'components/global/common';
 interface Props {
-    createPost: Function;
-    error: any;
-    posts: any;
+    createPost: any;
 }
+interface State {}
 
-const Post: React.FC<Props> = ({ createPost, error, posts: { posts } }) => {
-    const [fieldCreatePost, setFieldCreatePost] = useState({
-        content: '',
-    });
-    const { content } = fieldCreatePost;
-    const onPost = () => {
-        createPost(fieldCreatePost.content, null, 1, 0);
+class Post extends Component<Props, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = { editorState: EditorState.createEmpty(), suggestions: [] };
+        this.onPost = this.onPost.bind(this);
+    }
+    componentDidMount() {
+        // Load editor data (raw js object) from local storage
+        const rawEditorData = this.getSavedEditorData();
+        if (rawEditorData !== null) {
+            const contentState = convertFromRaw(rawEditorData);
+            this.setState({
+                editorState: EditorState.createWithContent(contentState),
+            });
+        }
+    }
+
+    getSavedEditorData() {
+        const savedData = localStorage.getItem('editorData');
+
+        return savedData ? JSON.parse(savedData) : null;
+    }
+
+    state = {
+        editorState: EditorState.createEmpty(),
+        suggestions: mentions,
     };
-    const onChangeTextField = (e: any) => {
-        inputType(e, fieldCreatePost, setFieldCreatePost);
+
+    mentionPlugin = createMentionPlugin();
+    onChange = (editorState: any) => {
+        this.setState({
+            editorState,
+        });
     };
-    return (
-        <PostStyle>
-            <div className="create-post">
-                <TextFieldGroup
-                    type="textarea"
-                    name="content"
-                    onChange={onChangeTextField}
-                    error={error}
-                    value={content}
-                    label="Buat Post"
-                />
-                <Button type="button" value="Kirim" onClick={onPost}></Button>
+
+    onPost() {
+        console.log(this);
+        const raw = convertToRaw(this.state.editorState.getCurrentContent());
+        const content = JSON.stringify(raw, null, 2);
+        this.props.createPost(content, null, 1, 0);
+    }
+
+    onSearchChange = ({ value }: any) => {
+        this.setState({
+            suggestions: defaultSuggestionsFilter(value, mentions),
+        });
+    };
+
+    onAddMention = () => {
+        // get the mention object selected
+    };
+
+    render() {
+        const { MentionSuggestions } = this.mentionPlugin;
+        const plugins = [this.mentionPlugin];
+        return (
+            <div>
+                <div className="editor">
+                    <Editor
+                        editorState={this.state.editorState}
+                        onChange={this.onChange}
+                        plugins={plugins}
+                    />
+                    <MentionSuggestions
+                        onSearchChange={this.onSearchChange}
+                        suggestions={this.state.suggestions}
+                        onAddMention={this.onAddMention}
+                    />
+                </div>
+                <Button type="button" value="Kirim" onClick={this.onPost}></Button>
             </div>
-        </PostStyle>
-    );
-};
+        );
+    }
+}
 
 const mapStateToProps = (state: any) => ({
     posts: state.posts,

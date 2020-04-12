@@ -24,7 +24,7 @@ const Image = (props: Props) => {
     return (
         <Image
             key="someUrl"
-            src={props.src}
+            src={props.src ? props.src : props.fallback}
             fallback={props.fallback}
             alt={props.alt}
             style={props.style}

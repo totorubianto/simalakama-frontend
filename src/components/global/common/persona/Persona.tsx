@@ -28,7 +28,7 @@ const Persona: React.FC<Props> = ({ imgURL, width, mode, textTitle, textSubtitle
                         key="someUrl"
                         src={imgURL}
                         fallback="assets/images/avatar_default.png"
-                        alt="..."
+                        alt={imgURL}
                     ></Image>
 
                     {textTitle ? (

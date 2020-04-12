@@ -6,12 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { initializeIcons } from '@uifabric/icons';
 import store from './stores/indexReducer';
 import { Provider } from 'react-redux';
-
+import 'draft-js-mention-plugin/lib/plugin.css';
 initializeIcons();
 const Root = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+        <App />
+    </Provider>
 );
 
 ReactDOM.render(<Root />, document.getElementById('root'));

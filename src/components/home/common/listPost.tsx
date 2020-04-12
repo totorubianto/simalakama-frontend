@@ -4,6 +4,8 @@ import Card from '../../global/style/card';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getPosts, getPostsScroll } from '../../../stores/post/action';
 import ListPostStyle from '../styles/listPostStyle';
+import { EditorState, convertFromRaw, CompositeDecorator } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
 import {
     Persona,
     PersonaPresence,
@@ -19,7 +21,7 @@ interface Props {
 }
 
 const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, getPostsScroll }) => {
-    const [state, setState] = useState({ limit: 5, skip: 0, hashMore: true, count: 1 });
+    const [state, setState] = useState({ limit: 5, skip: 0, hashMore: false, count: 1 });
     const { limit, skip, hashMore } = state;
 
     useEffect(() => {
@@ -31,6 +33,9 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
     useEffect(() => {
         if (posts.length !== 0 && posts.length === countPosts) {
             setState({ ...state, hashMore: false });
+        }
+        if (posts.length !== 0 && posts.length !== countPosts) {
+            setState({ ...state, hashMore: true });
         }
         // eslint-disable-next-line
     }, [posts]);
@@ -49,10 +54,34 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
             optionalText: 'Available at 4:00pm',
         };
     };
+    const Link = (props: any) => {
+        const {
+            mention: { link },
+        } = props.contentState.getEntity(props.entityKey).getData();
+
+        return <a href={link}>{props.children}</a>;
+    };
+    const decorator = new CompositeDecorator([
+        {
+            strategy: findLinkEntities,
+            component: Link,
+        },
+    ]);
+    function findLinkEntities(contentBlock: any, callback: any, contentState: any) {
+        contentBlock.findEntityRanges((character: any) => {
+            const entityKey = character.getEntity();
+            return entityKey !== null && contentState.getEntity(entityKey).getType() === 'mention';
+        }, callback);
+    }
+    const content = (data: any) => {
+        const parse = JSON.parse(data);
+        const contentState = convertFromRaw(parse);
+        const editorState = EditorState.createWithContent(contentState, decorator);
+        return editorState;
+    };
 
     return (
         <ListPostStyle>
-            {console.log(posts)}
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchImages}
@@ -104,7 +133,11 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                             />
                         </div>
                         <div className="post-content">
-                            <div>{data.content}</div>
+                            <Editor
+                                editorState={content(data.content)}
+                                onChange={(e: any) => console.log(e)}
+                                readOnly={true}
+                            />
                         </div>
 
                         {data.images.length === 1 ? (
