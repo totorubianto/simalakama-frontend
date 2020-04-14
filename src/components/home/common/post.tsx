@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { EditorState, convertToRaw, RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
-import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
-import mentions from './mention';
+import createMentionPlugin from 'draft-js-mention-plugin';
+import createHashtagPlugin from '../../global/draft.js/hashtag';
+import createLinkifyPlugin from '../../global/draft.js/linkfy';
 import { connect } from 'react-redux';
 import { createPost } from '../../../stores/post/action';
 import { Button } from 'components/global/common';
@@ -34,6 +35,8 @@ class Post extends Component<Props, State> {
     }
 
     mentionPlugin = createMentionPlugin();
+    hashtagPlugin = createHashtagPlugin();
+    linkifyPlugin = createLinkifyPlugin();
     onChange = (editorState: any) => {
         this.setState({
             editorState,
@@ -47,7 +50,6 @@ class Post extends Component<Props, State> {
     }
 
     componentWillReceiveProps(nextProps: any) {
-        console.log(nextProps.friends);
         if (nextProps.friends !== this.props.friends) {
             //Perform some operation
             this.setState({ suggestion: nextProps.friends.sugestion });
@@ -56,9 +58,6 @@ class Post extends Component<Props, State> {
 
     onSearchChange = ({ value }: any) => {
         this.props.getFriendByUsername(value);
-        // this.setState({
-        //     suggestion: this.props.friends.suggestion,
-        // });
     };
 
     onAddMention = () => {
@@ -77,7 +76,7 @@ class Post extends Component<Props, State> {
     render() {
         // console.log(this.props.friends);
         const { MentionSuggestions } = this.mentionPlugin;
-        const plugins = [this.mentionPlugin];
+        const plugins = [this.mentionPlugin, this.hashtagPlugin, this.linkifyPlugin];
         return (
             <PostStyle>
                 <div className="editor">

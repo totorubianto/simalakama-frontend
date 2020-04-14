@@ -30,7 +30,6 @@ const Friends: React.FC<Props> = ({ getFriend, friends: { friends } }) => {
                 <div className="row no-gutters">
                     {friends.map((data: any, i: number) => (
                         <div key={i} className="col-md-4">
-                            {console.log(data)}
                             <Image
                                 src={data.friend.avatar.url}
                                 fallback="/assets/images/avatar_default.png"

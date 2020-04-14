@@ -6,6 +6,8 @@ import { getPosts, getPostsScroll } from '../../../stores/post/action';
 import ListPostStyle from '../styles/listPostStyle';
 import { EditorState, convertFromRaw, CompositeDecorator } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
+import createHashtagPlugin from '../../global/draft.js/hashtag';
+import createLinkifyPlugin from '../../global/draft.js/linkfy';
 import {
     Persona,
     PersonaPresence,
@@ -14,6 +16,7 @@ import {
     ShimmerElementsGroup,
     ShimmerElementType,
 } from 'office-ui-fabric-react';
+import createMentionPlugin from 'draft-js-mention-plugin';
 interface Props {
     posts: any;
     getPosts: Function;
@@ -23,7 +26,9 @@ interface Props {
 const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, getPostsScroll }) => {
     const [state, setState] = useState({ limit: 5, skip: 0, hashMore: false, count: 1 });
     const { limit, skip, hashMore } = state;
-
+    const hashtagPlugin = createHashtagPlugin();
+    const linkifyPlugin = createLinkifyPlugin();
+    const plugins = [hashtagPlugin, linkifyPlugin];
     useEffect(() => {
         getPosts(limit, skip);
         setState({ ...state, skip: skip + limit, count: countPosts });
@@ -54,25 +59,15 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
             optionalText: 'Available at 4:00pm',
         };
     };
-    const Link = (props: any) => {
-        const {
-            mention: { link },
-        } = props.contentState.getEntity(props.entityKey).getData();
-
-        return <a href={link}>{props.children}</a>;
-    };
-    const decorator = new CompositeDecorator([
-        {
-            strategy: findLinkEntities,
-            component: Link,
-        },
-    ]);
-    function findLinkEntities(contentBlock: any, callback: any, contentState: any) {
-        contentBlock.findEntityRanges((character: any) => {
-            const entityKey = character.getEntity();
-            return entityKey !== null && contentState.getEntity(entityKey).getType() === 'mention';
-        }, callback);
-    }
+    const linkDecoration = createLinkifyPlugin();
+    const hashtagDecoration = createHashtagPlugin();
+    const mentionDecoration = createMentionPlugin();
+    const decorationArr = [
+        linkDecoration.decorators[0],
+        hashtagDecoration.decorators[0],
+        mentionDecoration.decorators[0],
+    ];
+    const decorator = new CompositeDecorator(decorationArr);
     const content = (data: any) => {
         const parse = JSON.parse(data);
         const contentState = convertFromRaw(parse);
@@ -137,6 +132,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 editorState={content(data.content)}
                                 onChange={(e: any) => console.log(e)}
                                 readOnly={true}
+                                plugins={plugins}
                             />
                         </div>
 
