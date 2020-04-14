@@ -17,6 +17,7 @@
         "@types/uuid": "^3.4.6",
         "axios": "^0.19.0",
         "draft-js": "^0.11.5",
+        "draft-js-hashtag-plugin": "^2.0.4",
         "draft-js-mention-plugin": "^3.1.5",
         "draft-js-plugins-editor": "^3.0.0",
         "office-ui-fabric-react": "^7.72.0",

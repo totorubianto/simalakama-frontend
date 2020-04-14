@@ -1,43 +1,37 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, convertToRaw, RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
 import mentions from './mention';
 import { connect } from 'react-redux';
 import { createPost } from '../../../stores/post/action';
 import { Button } from 'components/global/common';
+import PostStyle from '../styles/postStyle';
+import { getFriendByUsername } from 'stores/friend/action';
+
 interface Props {
     createPost: any;
+    getFriendByUsername: Function;
+    friends: {
+        suggestion: [];
+    };
 }
-interface State {}
+interface State {
+    editorState: any;
+    suggestion: any[];
+}
 
 class Post extends Component<Props, State> {
     constructor(props: any) {
         super(props);
-        this.state = { editorState: EditorState.createEmpty(), suggestions: [] };
+
+        this.state = {
+            editorState: EditorState.createEmpty(),
+            suggestion: [],
+        };
+
         this.onPost = this.onPost.bind(this);
     }
-    componentDidMount() {
-        // Load editor data (raw js object) from local storage
-        const rawEditorData = this.getSavedEditorData();
-        if (rawEditorData !== null) {
-            const contentState = convertFromRaw(rawEditorData);
-            this.setState({
-                editorState: EditorState.createWithContent(contentState),
-            });
-        }
-    }
-
-    getSavedEditorData() {
-        const savedData = localStorage.getItem('editorData');
-
-        return savedData ? JSON.parse(savedData) : null;
-    }
-
-    state = {
-        editorState: EditorState.createEmpty(),
-        suggestions: mentions,
-    };
 
     mentionPlugin = createMentionPlugin();
     onChange = (editorState: any) => {
@@ -47,41 +41,60 @@ class Post extends Component<Props, State> {
     };
 
     onPost() {
-        console.log(this);
         const raw = convertToRaw(this.state.editorState.getCurrentContent());
         const content = JSON.stringify(raw, null, 2);
         this.props.createPost(content, null, 1, 0);
     }
 
+    componentWillReceiveProps(nextProps: any) {
+        console.log(nextProps.friends);
+        if (nextProps.friends !== this.props.friends) {
+            //Perform some operation
+            this.setState({ suggestion: nextProps.friends.sugestion });
+        }
+    }
+
     onSearchChange = ({ value }: any) => {
-        this.setState({
-            suggestions: defaultSuggestionsFilter(value, mentions),
-        });
+        this.props.getFriendByUsername(value);
+        // this.setState({
+        //     suggestion: this.props.friends.suggestion,
+        // });
     };
 
     onAddMention = () => {
         // get the mention object selected
     };
 
+    handleKeyCommand(command: any, editorState: any) {
+        const newState = RichUtils.handleKeyCommand(editorState, command);
+        if (newState) {
+            this.onChange(newState);
+            return 'handled';
+        }
+        return 'not-handled';
+    }
+
     render() {
+        // console.log(this.props.friends);
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin];
         return (
-            <div>
+            <PostStyle>
                 <div className="editor">
                     <Editor
                         editorState={this.state.editorState}
                         onChange={this.onChange}
                         plugins={plugins}
+                        handleKeyCommand={this.handleKeyCommand}
                     />
                     <MentionSuggestions
                         onSearchChange={this.onSearchChange}
-                        suggestions={this.state.suggestions}
+                        suggestions={this.state.suggestion}
                         onAddMention={this.onAddMention}
                     />
                 </div>
                 <Button type="button" value="Kirim" onClick={this.onPost}></Button>
-            </div>
+            </PostStyle>
         );
     }
 }
@@ -89,6 +102,7 @@ class Post extends Component<Props, State> {
 const mapStateToProps = (state: any) => ({
     posts: state.posts,
     error: state.error,
+    friends: state.friends,
 });
 
-export default connect(mapStateToProps, { createPost })(Post);
+export default connect(mapStateToProps, { createPost, getFriendByUsername })(Post);

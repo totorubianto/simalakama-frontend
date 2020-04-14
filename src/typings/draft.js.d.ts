@@ -19,6 +19,10 @@ declare module "draft-js-emoji-plugin" {
     export default createEmojiPlugin;
 }
 
+declare module "draft-js-hashtag-plugin" {
+    export default function createHashtagPlugin(config?: object): any;
+}
+
 declare module "draft-js-mention-plugin" {
     // @todo missing defaultTheme
     // @todo missing defaultSuggestionsFilter

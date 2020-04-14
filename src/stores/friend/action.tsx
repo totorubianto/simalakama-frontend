@@ -7,6 +7,8 @@ import {
     ADD_FRIEND_LOADED,
     GET_FRIEND_LOADING,
     GET_FRIEND_LOADED,
+    GET_SUGESTION_LOADING,
+    GET_SUGESTION_LOADED,
 } from '../types';
 import { errorAction, auth } from '../global/action';
 import axios from 'axios';
@@ -42,6 +44,19 @@ export const getFriend = () => async (dispatch: any) => {
         dispatch({ type: GET_FRIEND_LOADING, payload: null });
         const res = await axios.get(`${GlobalHelper.API_URL}/api/friends/get-friend`);
         dispatch({ type: GET_FRIEND_LOADED, payload: res.data });
+    } catch (err) {
+        dispatch(errorAction(err));
+    }
+};
+
+export const getFriendByUsername = (value: any) => async (dispatch: any) => {
+    dispatch(auth());
+    try {
+        dispatch({ type: GET_SUGESTION_LOADING, payload: null });
+        const res = await axios.get(
+            `${GlobalHelper.API_URL}/api/friends/get-friend-by-name?filter=${value}`,
+        );
+        dispatch({ type: GET_SUGESTION_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
     }
