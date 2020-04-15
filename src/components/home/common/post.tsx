@@ -9,6 +9,7 @@ import { createPost } from '../../../stores/post/action';
 import { Button } from 'components/global/common';
 import PostStyle from '../styles/postStyle';
 import { getFriendByUsername } from 'stores/friend/action';
+import { hashTag } from './draft.js/ekstract';
 
 interface Props {
     createPost: any;
@@ -46,10 +47,11 @@ class Post extends Component<Props, State> {
     onPost() {
         const raw = convertToRaw(this.state.editorState.getCurrentContent());
         const content = JSON.stringify(raw, null, 2);
-        this.props.createPost(content, null, 1, 0);
+        const hashtag = hashTag(raw);
+        this.props.createPost([content, hashtag], null, 1, 0);
     }
 
-    componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: any) {
         if (nextProps.friends !== this.props.friends) {
             //Perform some operation
             this.setState({ suggestion: nextProps.friends.sugestion });

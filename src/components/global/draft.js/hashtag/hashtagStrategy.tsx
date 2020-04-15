@@ -5,7 +5,6 @@ export default (contentBlock: any, callback: Function) => {
     const results = extractHashtagsWithIndices(text);
 
     results.forEach((hashtag: any) => {
-        console.log(hashtag);
         callback(hashtag.indices[0], hashtag.indices[1]);
     });
 };

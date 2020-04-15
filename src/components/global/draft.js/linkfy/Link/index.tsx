@@ -12,7 +12,6 @@ export default class Link extends Component {
         const {
             decoratedText = '',
             theme = {},
-            target = '_self',
             rel = 'noreferrer noopener',
             className,
             component,
@@ -33,7 +32,7 @@ export default class Link extends Component {
         const props = {
             ...otherProps,
             href,
-            target,
+            target: '_blank',
             rel,
             className: combinedClassName,
         };

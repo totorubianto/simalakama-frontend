@@ -128,6 +128,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                             />
                         </div>
                         <div className="post-content">
+                            {/* {data.content} */}
                             <Editor
                                 editorState={content(data.content)}
                                 onChange={(e: any) => console.log(e)}
