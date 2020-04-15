@@ -10,6 +10,8 @@ import { Button } from 'components/global/common';
 import PostStyle from '../styles/postStyle';
 import { getFriendByUsername } from 'stores/friend/action';
 import { hashTag } from './draft.js/ekstract';
+import Text from '../../global/common/text/Text';
+import { TextType, TextSize } from 'components/global/common/text/enum/text.enum';
 
 interface Props {
     createPost: any;
@@ -24,6 +26,7 @@ interface State {
 }
 
 class Post extends Component<Props, State> {
+    private editor: any;
     constructor(props: any) {
         super(props);
 
@@ -75,17 +78,30 @@ class Post extends Component<Props, State> {
         return 'not-handled';
     }
 
+    focus = () => {
+        this.editor.focus();
+    };
+
     render() {
         // console.log(this.props.friends);
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin, this.hashtagPlugin, this.linkifyPlugin];
         return (
             <PostStyle>
-                <div className="editor">
+                <Text
+                    type={TextType.HEADLINE}
+                    text="Create Post"
+                    textSize={TextSize.MEDIUM}
+                    margin={{ bottom: 10, top: 0 }}
+                />
+                <div className="editor" onClick={this.focus}>
                     <Editor
                         editorState={this.state.editorState}
                         onChange={this.onChange}
                         plugins={plugins}
+                        ref={(element: any) => {
+                            this.editor = element;
+                        }}
                         handleKeyCommand={this.handleKeyCommand}
                     />
                     <MentionSuggestions

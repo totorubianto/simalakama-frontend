@@ -17,6 +17,7 @@ import {
     ShimmerElementType,
 } from 'office-ui-fabric-react';
 import createMentionPlugin from 'draft-js-mention-plugin';
+import Comment from './comment';
 interface Props {
     posts: any;
     getPosts: Function;
@@ -172,6 +173,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 </figure>
                             </div>
                         ) : null}
+                        <Comment></Comment>
                     </Card>
                 ))}
             </InfiniteScroll>

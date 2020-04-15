@@ -1,12 +1,13 @@
 import React from 'react';
+import CommentPost from '../styles/commentStyle';
 
 interface Props {}
 
 const comment: React.FC<Props> = () => {
     return (
-        <div>
+        <CommentPost>
             <div>asdasdasdasd</div>
-        </div>
+        </CommentPost>
     );
 };
 
