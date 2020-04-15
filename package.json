@@ -34,6 +34,7 @@
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
         "styled-components": "^4.4.1",
+        "tlds": "^1.207.0",
         "typescript": "^3.7.3",
         "uuid": "^3.3.3"
     },
