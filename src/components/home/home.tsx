@@ -5,6 +5,7 @@ import Friends from './common/friends';
 import { connect } from 'react-redux';
 import { getPosts } from '../../stores/post/action';
 import Post from './common/post';
+import { useQuery } from '../global/utils/reactRouter';
 
 interface Props {
     auth: any;
@@ -13,6 +14,9 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ auth, getPosts, posts }) => {
+    let query = useQuery();
+    let token = query.get('hashtag');
+    console.log(token);
     return (
         <div>
             <div className="container">

@@ -3220,3 +3220,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .editor :global(.public-DraftEditor-content) {
     min-height: 140px;
 }
+
+.align-item-center {
+    align-items: center;
+}

@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
 export default class Hashtag extends Component {
+    deleteHashtag = (hashtag: string) => {
+        const hashtagNew = hashtag.split('#');
+        console.log(hashtagNew[1]);
+        return hashtagNew[1];
+    };
     render() {
         const {
             theme = {},
@@ -18,7 +23,7 @@ export default class Hashtag extends Component {
         }: any = this.props; // eslint-disable-next-line
         const combinedClassName = clsx(theme.hashtag, className);
         return (
-            <Link to={`?hashtag=${decoratedText}`}>
+            <Link to={`?hashtag=${this.deleteHashtag(decoratedText)}`}>
                 <span {...otherProps} className={combinedClassName}></span>
             </Link>
         );

@@ -11,7 +11,7 @@ import axios from 'axios';
 import { GlobalHelper } from '../../config/config';
 
 export const createPost = (
-    [contents, hashtag, mention]: any,
+    [contents, hashtag, mention, scope]: any,
     images: any,
     limit: number,
     skip: number,
@@ -28,6 +28,7 @@ export const createPost = (
         body.append('mention[]', mention[i]);
     }
     body.append('contents', contents);
+    body.append('scope', scope);
     try {
         dispatch({ type: CREATE_POSTS_LOADING, payload: null });
         const res = await axios.post(`${GlobalHelper.API_URL}/api/posts/create`, body);
