@@ -13,6 +13,7 @@ import { hashTags, mentions } from './draft.js/ekstract';
 import Text from '../../global/common/text/Text';
 import { TextType, TextSize } from 'components/global/common/text/enum/text.enum';
 import FileFieldGroup from 'components/global/common/input/FileFieldGroup';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
 
 interface Props {
     createPost: any;
@@ -43,6 +44,7 @@ class Post extends Component<Props, State> {
     mentionPlugin = createMentionPlugin();
     hashtagPlugin = createHashtagPlugin();
     linkifyPlugin = createLinkifyPlugin();
+    emojiPlugin = createEmojiPlugin();
 
     onChange = (editorState: any) => {
         this.setState({
@@ -85,8 +87,14 @@ class Post extends Component<Props, State> {
         this.setState({ images: e.target.files });
     };
     render() {
+        const { EmojiSuggestions, EmojiSelect } = this.emojiPlugin;
         const { MentionSuggestions } = this.mentionPlugin;
-        const plugins = [this.mentionPlugin, this.hashtagPlugin, this.linkifyPlugin];
+        const plugins = [
+            this.mentionPlugin,
+            this.hashtagPlugin,
+            this.linkifyPlugin,
+            this.emojiPlugin,
+        ];
         return (
             <PostStyle>
                 <Text
@@ -109,13 +117,18 @@ class Post extends Component<Props, State> {
                         onSearchChange={this.onSearchChange}
                         suggestions={this.state.suggestion}
                     />
+                    <EmojiSuggestions />
                 </div>
-                <FileFieldGroup
-                    name="images"
-                    multiple={true}
-                    onChange={this.onFile}
-                ></FileFieldGroup>
-                <Button type="button" value="Kirim" onClick={this.onPost}></Button>
+                <div className="input-group-post">
+                    <div className="left">
+                        <FileFieldGroup name="images" multiple={true} onChange={this.onFile} />
+
+                        <EmojiSelect />
+                    </div>
+                    <div className="right">
+                        <Button type="button" value="Kirim" onClick={this.onPost}></Button>
+                    </div>
+                </div>
             </PostStyle>
         );
     }
