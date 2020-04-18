@@ -1,4 +1,9 @@
-const inputType = (event: any, state: any, setState: Function, option?: any) => {
+enum InputType {
+    CLASS = 'CLASS',
+    HOOK = 'HOOK',
+}
+
+const inputType = (event: any, state: any, setState: Function, option?: any, type?: string) => {
     switch (event.target.type) {
         case 'text':
             setState({ ...state, [event.target.name]: event.target.value });
@@ -28,4 +33,4 @@ const inputType = (event: any, state: any, setState: Function, option?: any) => 
     }
 };
 
-export { inputType };
+export { inputType, InputType };

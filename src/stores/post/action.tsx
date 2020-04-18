@@ -11,16 +11,23 @@ import axios from 'axios';
 import { GlobalHelper } from '../../config/config';
 
 export const createPost = (
-    [contents, hashtag]: any,
+    [contents, hashtag, mention]: any,
     images: any,
     limit: number,
     skip: number,
 ) => async (dispatch: any) => {
     dispatch(auth());
     let body = new FormData();
-    body.append('images', images);
+    for (const key of Object.keys(images)) {
+        body.append('images', images[key]);
+    }
+    for (let i = 0; i < hashtag.length; i++) {
+        body.append('hashtag[]', hashtag[i]);
+    }
+    for (let i = 0; i < mention.length; i++) {
+        body.append('mention[]', mention[i]);
+    }
     body.append('contents', contents);
-    body.append('hashtag', hashtag);
     try {
         dispatch({ type: CREATE_POSTS_LOADING, payload: null });
         const res = await axios.post(`${GlobalHelper.API_URL}/api/posts/create`, body);

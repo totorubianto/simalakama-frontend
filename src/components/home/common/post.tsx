@@ -9,9 +9,10 @@ import { createPost } from '../../../stores/post/action';
 import { Button } from 'components/global/common';
 import PostStyle from '../styles/postStyle';
 import { getFriendByUsername } from 'stores/friend/action';
-import { hashTag } from './draft.js/ekstract';
+import { hashTags, mentions } from './draft.js/ekstract';
 import Text from '../../global/common/text/Text';
 import { TextType, TextSize } from 'components/global/common/text/enum/text.enum';
+import FileFieldGroup from 'components/global/common/input/FileFieldGroup';
 
 interface Props {
     createPost: any;
@@ -23,67 +24,67 @@ interface Props {
 interface State {
     editorState: any;
     suggestion: any[];
+    images: any;
 }
 
 class Post extends Component<Props, State> {
     private editor: any;
     constructor(props: any) {
         super(props);
-
         this.state = {
             editorState: EditorState.createEmpty(),
             suggestion: [],
+            images: '',
         };
-
         this.onPost = this.onPost.bind(this);
+        this.onFile = this.onFile.bind(this);
     }
 
     mentionPlugin = createMentionPlugin();
     hashtagPlugin = createHashtagPlugin();
     linkifyPlugin = createLinkifyPlugin();
+
     onChange = (editorState: any) => {
         this.setState({
             editorState,
         });
     };
 
+    //untuk dikirim ke action post
     onPost() {
         const raw = convertToRaw(this.state.editorState.getCurrentContent());
         const content = JSON.stringify(raw, null, 2);
-        const hashtag = hashTag(raw);
-        this.props.createPost([content, hashtag], null, 1, 0);
+        const hashtag = hashTags(raw);
+        const mention = mentions(raw);
+        this.props.createPost([content, hashtag, mention], this.state.images, 1, 0);
     }
 
+    // terima props
     UNSAFE_componentWillReceiveProps(nextProps: any) {
-        if (nextProps.friends !== this.props.friends) {
-            //Perform some operation
+        if (nextProps.friends !== this.props.friends)
             this.setState({ suggestion: nextProps.friends.sugestion });
-        }
     }
 
     onSearchChange = ({ value }: any) => {
         this.props.getFriendByUsername(value);
     };
 
-    onAddMention = () => {
-        // get the mention object selected
-    };
-
+    //biar bisa bold italic dll
     handleKeyCommand(command: any, editorState: any) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            this.onChange(newState);
-            return 'handled';
-        }
-        return 'not-handled';
+        if (!newState) return 'not-handled';
+        this.onChange(newState);
+        return 'handled';
     }
 
+    //untuk fokusin ke text editor
     focus = () => {
         this.editor.focus();
     };
-
+    onFile = (e: any) => {
+        this.setState({ images: e.target.files });
+    };
     render() {
-        // console.log(this.props.friends);
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin, this.hashtagPlugin, this.linkifyPlugin];
         return (
@@ -107,9 +108,13 @@ class Post extends Component<Props, State> {
                     <MentionSuggestions
                         onSearchChange={this.onSearchChange}
                         suggestions={this.state.suggestion}
-                        onAddMention={this.onAddMention}
                     />
                 </div>
+                <FileFieldGroup
+                    name="images"
+                    multiple={true}
+                    onChange={this.onFile}
+                ></FileFieldGroup>
                 <Button type="button" value="Kirim" onClick={this.onPost}></Button>
             </PostStyle>
         );

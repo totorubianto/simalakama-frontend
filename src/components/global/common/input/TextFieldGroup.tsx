@@ -10,9 +10,10 @@ interface Props {
     onChange?: any;
     type: string;
     error?: any;
-    disabled?: string;
+    disabled?: boolean;
     value?: string;
     label?: string;
+    style?: any;
 }
 
 const TextFieldGroup: React.FC<Props> = ({
@@ -23,9 +24,10 @@ const TextFieldGroup: React.FC<Props> = ({
     value,
     type,
     label,
+    style,
 }) => {
     return (
-        <div>
+        <div style={style}>
             {type === 'checkbox' ? (
                 <Checkbox
                     className="card-field"

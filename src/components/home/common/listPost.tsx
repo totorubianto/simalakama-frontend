@@ -132,12 +132,11 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                             {/* {data.content} */}
                             <Editor
                                 editorState={content(data.content)}
-                                onChange={(e: any) => console.log(e)}
+                                onChange={() => null}
                                 readOnly={true}
                                 plugins={plugins}
                             />
                         </div>
-
                         {data.images.length === 1 ? (
                             <div className="img-cover-1">
                                 <figure className="gallery-item-1">
@@ -170,6 +169,45 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 <figure className="gallery-item-3">
                                     <img className="img-post" src={data.images[2].url} alt="" />
                                     <div className="gallery-overlay gallery-item-2"></div>
+                                </figure>
+                            </div>
+                        ) : data.images.length === 4 ? (
+                            <div className="img-cover-4">
+                                <figure className="gallery-item-1">
+                                    <img className="img-post" src={data.images[0].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-1"></div>
+                                </figure>
+                                <figure className="gallery-item-2">
+                                    <img className="img-post" src={data.images[1].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-2"></div>
+                                </figure>
+                                <figure className="gallery-item-3">
+                                    <img className="img-post" src={data.images[2].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-3"></div>
+                                </figure>
+                                <figure className="gallery-item-4">
+                                    <img className="img-post" src={data.images[3].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-4"></div>
+                                </figure>
+                            </div>
+                        ) : data.images.length > 4 ? (
+                            <div className="img-cover-5">
+                                <figure className="gallery-item-1">
+                                    <img className="img-post" src={data.images[0].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-1"></div>
+                                </figure>
+                                <figure className="gallery-item-2">
+                                    <img className="img-post" src={data.images[1].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-2"></div>
+                                </figure>
+                                <figure className="gallery-item-3">
+                                    <img className="img-post" src={data.images[2].url} alt="" />
+                                    <div className="gallery-overlay gallery-item-3"></div>
+                                </figure>
+                                <figure className="gallery-item-4">
+                                    <div className="gallery-label">+{data.images.length - 4}</div>
+                                    <img className="img-post" src={data.images[3].url} alt="" />
+                                    <div className="gallery-more gallery-item-4"></div>
                                 </figure>
                             </div>
                         ) : null}
