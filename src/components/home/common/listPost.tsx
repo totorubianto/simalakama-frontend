@@ -8,6 +8,8 @@ import { EditorState, convertFromRaw, CompositeDecorator } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createHashtagPlugin from '../../global/draft.js/hashtag';
 import createLinkifyPlugin from '../../global/draft.js/linkfy';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import {
     Persona,
     PersonaPresence,
@@ -23,10 +25,19 @@ interface Props {
     getPosts: Function;
     getPostsScroll: Function;
 }
-
+const images = [
+    '//placekitten.com/1500/500',
+    '//placekitten.com/4000/3000',
+    '//placekitten.com/800/1200',
+    '//placekitten.com/1500/1500',
+];
 const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, getPostsScroll }) => {
     const [state, setState] = useState({ limit: 5, skip: 0, hashMore: false, count: 1 });
     const { limit, skip, hashMore } = state;
+    const [lightBox, setlightBox] = useState({
+        photoIndex: 0,
+        isOpen: false,
+    });
     const hashtagPlugin = createHashtagPlugin();
     const linkifyPlugin = createLinkifyPlugin();
     const plugins = [hashtagPlugin, linkifyPlugin];
@@ -76,8 +87,37 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
         return editorState;
     };
 
+    const onCloseRequest = () => {
+        setlightBox({ ...lightBox, isOpen: false });
+    };
+    const onMoveNextRequest = () => {
+        setlightBox({
+            ...lightBox,
+            photoIndex: (lightBox.photoIndex + images.length - 1) % images.length,
+        });
+    };
+    const onMovePrevRequest = () => {
+        setlightBox({
+            ...lightBox,
+            photoIndex: (lightBox.photoIndex + 1) % images.length,
+        });
+    };
+
     return (
         <ListPostStyle>
+            <button type="button" onClick={() => setlightBox({ ...lightBox, isOpen: true })}>
+                Open Lightbox
+            </button>
+            {lightBox.isOpen && (
+                <Lightbox
+                    mainSrc={images[lightBox.photoIndex]}
+                    nextSrc={images[(lightBox.photoIndex + 1) % images.length]}
+                    prevSrc={images[(lightBox.photoIndex + images.length - 1) % images.length]}
+                    onCloseRequest={() => onCloseRequest()}
+                    onMovePrevRequest={() => onMoveNextRequest}
+                    onMoveNextRequest={() => onMovePrevRequest()}
+                />
+            )}
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchImages}
