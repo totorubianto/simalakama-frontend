@@ -331,3 +331,32 @@
     -webkit-transform: scale(0);
     transform: scale(0);
 }
+
+/* 
+image crop */
+
+.crop-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 999;
+    bottom: 80px;
+}
+.crop-button {
+    z-index: 9999;
+}
+.controls {
+    background-color: white;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    padding: 0 16px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
