@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/src/config
+**/config
 
 # production
 /build

@@ -25,19 +25,16 @@ interface Props {
     getPosts: Function;
     getPostsScroll: Function;
 }
-const images = [
-    '//placekitten.com/1500/500',
-    '//placekitten.com/4000/3000',
-    '//placekitten.com/800/1200',
-    '//placekitten.com/1500/1500',
-];
+
 const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, getPostsScroll }) => {
     const [state, setState] = useState({ limit: 5, skip: 0, hashMore: false, count: 1 });
     const { limit, skip, hashMore } = state;
     const [lightBox, setlightBox] = useState({
         photoIndex: 0,
         isOpen: false,
+        images: [],
     });
+    const { images }: any = lightBox;
     const hashtagPlugin = createHashtagPlugin();
     const linkifyPlugin = createLinkifyPlugin();
     const plugins = [hashtagPlugin, linkifyPlugin];
@@ -105,12 +102,9 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
 
     return (
         <ListPostStyle>
-            <button type="button" onClick={() => setlightBox({ ...lightBox, isOpen: true })}>
-                Open Lightbox
-            </button>
             {lightBox.isOpen && (
                 <Lightbox
-                    mainSrc={images[lightBox.photoIndex]}
+                    mainSrc={images[lightBox.photoIndex].url}
                     nextSrc={images[(lightBox.photoIndex + 1) % images.length]}
                     prevSrc={images[(lightBox.photoIndex + images.length - 1) % images.length]}
                     onCloseRequest={() => onCloseRequest()}
@@ -158,6 +152,7 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                     </p>
                 }
             >
+                {console.log(lightBox.images)}
                 {posts.map((data: any, i: number) => (
                     <Card key={i} margin={{ bottom: 20 }}>
                         <div className="post-author">
@@ -178,14 +173,24 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                             />
                         </div>
                         {data.images.length === 1 ? (
-                            <div className="img-cover-1">
+                            <div
+                                onClick={() =>
+                                    setlightBox({ ...lightBox, isOpen: true, images: data.images })
+                                }
+                                className="img-cover-1"
+                            >
                                 <figure className="gallery-item-1">
                                     <img className="img-post" src={data.images[0].url} alt="" />
                                     <div className="gallery-overlay gallery-item-1"></div>
                                 </figure>
                             </div>
                         ) : data.images.length === 2 ? (
-                            <div className="img-cover-2">
+                            <div
+                                onClick={() =>
+                                    setlightBox({ ...lightBox, isOpen: true, images: data.images })
+                                }
+                                className="img-cover-2"
+                            >
                                 <figure className="gallery-item-1">
                                     <img className="img-post" src={data.images[0].url} alt="" />
                                     <div className="gallery-overlay gallery-item-1"></div>
@@ -197,7 +202,12 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 </figure>
                             </div>
                         ) : data.images.length === 3 ? (
-                            <div className="img-cover-3">
+                            <div
+                                onClick={() =>
+                                    setlightBox({ ...lightBox, isOpen: true, images: data.images })
+                                }
+                                className="img-cover-3"
+                            >
                                 <figure className="gallery-item-1">
                                     <img className="img-post" src={data.images[0].url} alt="" />
                                     <div className="gallery-overlay gallery-item-1"></div>
@@ -212,7 +222,12 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 </figure>
                             </div>
                         ) : data.images.length === 4 ? (
-                            <div className="img-cover-4">
+                            <div
+                                onClick={() =>
+                                    setlightBox({ ...lightBox, isOpen: true, images: data.images })
+                                }
+                                className="img-cover-4"
+                            >
                                 <figure className="gallery-item-1">
                                     <img className="img-post" src={data.images[0].url} alt="" />
                                     <div className="gallery-overlay gallery-item-1"></div>
@@ -231,7 +246,12 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                                 </figure>
                             </div>
                         ) : data.images.length > 4 ? (
-                            <div className="img-cover-5">
+                            <div
+                                onClick={() =>
+                                    setlightBox({ ...lightBox, isOpen: true, images: data.images })
+                                }
+                                className="img-cover-5"
+                            >
                                 <figure className="gallery-item-1">
                                     <img className="img-post" src={data.images[0].url} alt="" />
                                     <div className="gallery-overlay gallery-item-1"></div>
