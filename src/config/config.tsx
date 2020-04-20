@@ -1,6 +1,5 @@
-class GlobalHelper {
-    static API_URL: string = 'https://simalakama.herokuapp.com';
-    // static API_URL: string = 'http://localhost:5000';
-}
+import { resolve } from 'path';
 
-export { GlobalHelper };
+import { config } from 'dotenv';
+
+config({ path: resolve(__dirname, '../../.env') });

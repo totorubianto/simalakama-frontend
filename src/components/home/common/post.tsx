@@ -179,7 +179,6 @@ const iconStyles = { marginRight: '8px' };
 const dropdownStyles = { dropdown: { width: 100 } };
 
 const onRenderPlaceholder = (props: IDropdownProps): JSX.Element => {
-    console.log(props);
     return (
         <div className="dropdownExample-placeholder">
             <Icon style={iconStyles} iconName={'MessageFill'} aria-hidden="true" />

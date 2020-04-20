@@ -11,7 +11,6 @@ const Comment: React.FC<Props> = () => {
         comment: '',
     });
     const onChange = (e: any) => {
-        console.log(e);
         inputType(e, comment, setComment);
     };
     return (

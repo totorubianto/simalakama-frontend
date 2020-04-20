@@ -7,7 +7,9 @@ import { initializeIcons } from '@uifabric/icons';
 import store from './stores/indexReducer';
 import { Provider } from 'react-redux';
 import 'draft-js-mention-plugin/lib/plugin.css';
+import './config/config';
 initializeIcons();
+
 const Root = () => (
     <Provider store={store}>
         <App />

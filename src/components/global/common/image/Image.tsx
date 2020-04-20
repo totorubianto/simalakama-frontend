@@ -11,7 +11,6 @@ const Image = (props: Props) => {
     const useFallbackImg = (img: any, fallback: any) => {
         const [src, setImg] = useState(img);
         function onError(e: any) {
-            console.log('Missing img', img, e);
             setImg(fallback);
         }
         return { src, onError };

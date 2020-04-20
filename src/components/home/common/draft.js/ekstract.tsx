@@ -18,7 +18,6 @@ const hashTags = (data: any) => {
 
 const mentions = (data: any) => {
     let array: any = [];
-    console.log(data);
     Object.keys(data.entityMap).map((e: any, i: number) => {
         if (data.entityMap[e].type === 'mention') {
             array.push(data.entityMap[e].data.mention._id);

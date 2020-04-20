@@ -18,10 +18,10 @@ import {
 } from '../types';
 import { errorAction, clearErrors } from '../global/action';
 import setAuthToken from '../../utils/setAuthToken';
-import { GlobalHelper } from '../../config/config';
 import { MessageBarType } from 'office-ui-fabric-react';
 import { setAlert } from '../alert/action';
 
+const API_URL = process.env.REACT_APP_API_URL;
 // Load User
 export const loadUser = () => async (dispatch: any) => {
     if (localStorage.accessToken) {
@@ -29,7 +29,7 @@ export const loadUser = () => async (dispatch: any) => {
     }
     try {
         dispatch({ type: AUTH_LOADING, payload: null });
-        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/me`);
+        const res = await axios.get(`${API_URL}/api/users/me`);
         dispatch({ type: AUTH_LOADED, payload: res.data });
     } catch (err) {
         dispatch({ type: AUTH_ERROR });
@@ -49,7 +49,7 @@ export const register = ({
     const body = { firstName, lastName, email, password, role, passwordConfirmation };
     try {
         dispatch({ type: REGISTER_LOADING, payload: null });
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/register`, body);
+        const res = await axios.post(`${API_URL}/api/users/register`, body);
         dispatch({ type: REGISTER_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
@@ -63,7 +63,7 @@ export const login = ({ email, password, keepLogin }: any) => async (dispatch: a
     const body = { email, password, keepLogin };
     try {
         dispatch({ type: LOGIN_LOADING, payload: null });
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/login`, body);
+        const res = await axios.post(`${API_URL}/api/users/login`, body);
         dispatch({ type: LOGIN_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
@@ -76,10 +76,7 @@ export const requestForgotPassword = ({ email }: any) => async (dispatch: any) =
     dispatch(clearErrors());
     const body = { email };
     try {
-        const res = await axios.post(
-            `${GlobalHelper.API_URL}/api/users/request-forgot-password`,
-            body,
-        );
+        const res = await axios.post(`${API_URL}/api/users/request-forgot-password`, body);
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
         dispatch(
             setAlert(`Request Forgot Password Terkirim keEmail ${email}`, MessageBarType.success),
@@ -97,10 +94,7 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
     dispatch(clearErrors());
     const body = { newPassword, newPasswordConfirmation };
     try {
-        const res = await axios.post(
-            `${GlobalHelper.API_URL}/api/users/forgot-password/${token}`,
-            body,
-        );
+        const res = await axios.post(`${API_URL}/api/users/forgot-password/${token}`, body);
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
         dispatch(setAlert(`Password has been change`, MessageBarType.success));
     } catch (err) {
@@ -113,7 +107,7 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
 export const verify = (id: any) => async (dispatch: any) => {
     dispatch(clearErrors());
     try {
-        const res = await axios.get(`${GlobalHelper.API_URL}/api/users/verify/${id}`);
+        const res = await axios.get(`${API_URL}/api/users/verify/${id}`);
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
@@ -125,14 +119,14 @@ export const verify = (id: any) => async (dispatch: any) => {
 
 // Logout / Clear Profile
 export const logout = () => async (dispatch: any) => {
-    await axios.post(`${GlobalHelper.API_URL}/api/users/logout`);
+    await axios.post(`${API_URL}/api/users/logout`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };
 
 // Logout all Clear Profile
 export const logoutAll = () => async (dispatch: any) => {
-    await axios.post(`${GlobalHelper.API_URL}/api/users/logout-all`);
+    await axios.post(`${API_URL}/api/users/logout-all`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };

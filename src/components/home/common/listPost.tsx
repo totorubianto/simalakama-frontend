@@ -152,7 +152,6 @@ const ListPost: React.FC<Props> = ({ posts: { posts, countPosts }, getPosts, get
                     </p>
                 }
             >
-                {console.log(lightBox.images)}
                 {posts.map((data: any, i: number) => (
                     <Card key={i} margin={{ bottom: 20 }}>
                         <div className="post-author">

@@ -5,7 +5,6 @@ import clsx from 'clsx';
 export default class Hashtag extends Component {
     deleteHashtag = (hashtag: string) => {
         const hashtagNew = hashtag.split('#');
-        console.log(hashtagNew[1]);
         return hashtagNew[1];
     };
     render() {

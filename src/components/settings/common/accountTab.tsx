@@ -80,7 +80,6 @@ const AccountTab: React.FC<Props> = ({
     const showCroppedImage = useCallback(async () => {
         try {
             const croppedImage: any = await getCroppedImg(preCroppedImage, croppedAreaPixels);
-            console.log('donee', { croppedImage });
             var file = new File([croppedImage], 'asdasda.png', {
                 type: 'image/png',
                 lastModified: Date.now(),

@@ -9,8 +9,8 @@ import {
 import { clearErrors, errorAction, auth } from '../global/action';
 import axios from 'axios';
 import { loadUser } from '../auth/action';
-import { GlobalHelper } from '../../config/config';
 
+const API_URL = process.env.REACT_APP_API_URL;
 // Updated User
 export const updateProfile = ({ firstName, lastName, email }: any) => async (dispatch: any) => {
     dispatch(auth());
@@ -18,7 +18,7 @@ export const updateProfile = ({ firstName, lastName, email }: any) => async (dis
     const body = { firstName, lastName, email };
     try {
         dispatch({ type: UPDATE_PROFILE_LOADING, payload: null });
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update`, body);
+        const res = await axios.post(`${API_URL}/api/users/update`, body);
         dispatch({ type: UPDATE_PROFILE_LOADED, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
@@ -33,7 +33,7 @@ export const updateAvatar = (file: any) => async (dispatch: any) => {
     formData.append('avatar', file);
     try {
         dispatch({ type: UPLOAD_AVATAR_LOADING, payload: null });
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/upload-avatar`, formData);
+        const res = await axios.post(`${API_URL}/api/users/upload-avatar`, formData);
         dispatch({ type: UPLOAD_AVATAR_LOADED, payload: res.data });
         dispatch(loadUser());
     } catch (err) {
@@ -51,7 +51,7 @@ export const updatePassword = ({
     dispatch(clearErrors());
     const body = { oldPassword, newPassword, newPasswordConfirmation };
     try {
-        const res = await axios.post(`${GlobalHelper.API_URL}/api/users/update-password`, body);
+        const res = await axios.post(`${API_URL}/api/users/update-password`, body);
         dispatch({ type: UPDATE_PASSWORD, payload: res.data });
     } catch (err) {
         dispatch(errorAction(err));
@@ -60,7 +60,7 @@ export const updatePassword = ({
 
 // export const getUser = (id: string) => async (dispatch: any) => {
 //     try {
-//         const res = await axios.get(`${GlobalHelper.API_URL}/api/users/find-all`);
+//         const res = await axios.get(`${process.env["API_URL"]}/api/users/find-all`);
 //         dispatch({
 //             type: GET_USER,
 //             payload: res.data,
