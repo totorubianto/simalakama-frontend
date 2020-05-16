@@ -11,7 +11,7 @@ import DefaultRoute from './utils/defaultRoute';
 import Connection from '../components/connection/connection';
 import Profile from '../components/profile/profile';
 import Home from '../components/home/home';
-
+import Message from '../components/message/message';
 interface Props {}
 
 const Routes: React.FC<Props> = () => {
@@ -26,6 +26,7 @@ const Routes: React.FC<Props> = () => {
                 <DefaultRoute exact path="/logout" navbar={Navbar} />
                 <DefaultRoute exact path="/forgot-password" comp={ForgotPassword} navbar={Navbar} />
                 <PrivateRouter exact path="/network" comp={Connection} navbar={Navbar} />
+                <PrivateRouter exact path="/message" comp={Message} />
                 <PrivateRouter exact path="/user/:username" comp={Profile} navbar={Navbar} />
             </Switch>
         </div>
