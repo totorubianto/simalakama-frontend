@@ -11,6 +11,10 @@ import { getMessages, getMessagesMore } from 'stores/message/action';
 import { withRouter } from 'react-router-dom';
 import { useQuery } from '../global/utils/useQuery';
 import { create } from '../../stores/message/action';
+import UIfx from 'uifx';
+import audio from '../../sound/just-saying.mp3';
+const htmlaudio: any = new Audio(audio);
+
 interface Props {
     auth: any;
     getFriend: Function;
@@ -37,7 +41,9 @@ const Message = (props: Props) => {
     const io = socket('http://localhost:5000');
     useEffect(() => {
         io.on('MESSAGE', (data: any) => {
+            if (data.recipient == props.auth._id) htmlaudio.play();
             props.getMessagesMore(data);
+
             // const chat: [any] = props.message;
             // setMessage([...message, data]);
             // props.message.push(data);

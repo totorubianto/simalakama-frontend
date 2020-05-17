@@ -8,10 +8,29 @@ interface Props {
 const MessageList = (props: Props) => {
     const scrollToBottom = useScrollToBottom();
     const [sticky] = useSticky();
-    console.log(scrollToBottom);
+    console.log(sticky);
     return (
         <div className="chat-area-main">
-            {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}
+            {!sticky ? (
+                <button
+                    style={{
+                        backgroundColor: 'rgba(0, 0, 0, .2)',
+                        borderRadius: '10px',
+                        borderWidth: 0,
+                        bottom: '80px',
+                        cursor: 'pointer',
+                        height: '40px',
+                        outline: '0',
+                        position: 'absolute',
+                        right: '40px',
+                        width: '40px',
+                        zIndex: 9999,
+                    }}
+                    onClick={scrollToBottom}
+                >
+                    V
+                </button>
+            ) : null}
             {props.messages.map((msg: any, i: number) =>
                 msg.requester === props.user._id ? (
                     <div className="chat-msg owner" key={i}>

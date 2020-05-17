@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface Props {}
 
-const areaSidebar = (props: Props) => {
+const AreaSidebar = (props: Props) => {
+    const [themes, setThemes] = useState('blue');
+    const setTheme = (e: string) => {
+        setThemes(e);
+        document.body.setAttribute('data-theme', e);
+    };
     return (
         <div className="detail-area">
             <div className="detail-area-header">
@@ -62,10 +67,30 @@ const areaSidebar = (props: Props) => {
                 <div className="detail-change">
                     Change Color
                     <div className="colors">
-                        <div className="color blue selected" data-color="blue"></div>
-                        <div className="color purple" data-color="purple"></div>
-                        <div className="color green" data-color="green"></div>
-                        <div className="color orange" data-color="orange"></div>
+                        <div
+                            className={themes === 'blue' ? 'color blue selected' : 'color blue'}
+                            onClick={(e) => setTheme('blue')}
+                            data-color="blue"
+                        ></div>
+                        <div
+                            className={
+                                themes === 'purple' ? 'color purple selected' : 'color purple'
+                            }
+                            onClick={(e) => setTheme('purple')}
+                            data-color="purple"
+                        ></div>
+                        <div
+                            className={themes === 'green' ? 'color green selected' : 'color green'}
+                            onClick={(e) => setTheme('green')}
+                            data-color="green"
+                        ></div>
+                        <div
+                            className={
+                                themes === 'orange' ? 'color orange selected' : 'color orange'
+                            }
+                            onClick={(e) => setTheme('orange')}
+                            data-color="orange"
+                        ></div>
                     </div>
                 </div>
                 <div className="detail-change">
@@ -187,4 +212,4 @@ const areaSidebar = (props: Props) => {
     );
 };
 
-export default areaSidebar;
+export default AreaSidebar;

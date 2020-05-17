@@ -777,3 +777,7 @@ html {
 .absolute {
     position: absolute !important;
 }
+
+.delete-button > button {
+    display: none;
+}

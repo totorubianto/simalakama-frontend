@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface Props {}
 
-const headerChat = (props: Props) => {
+const HeaderChat = (props: Props) => {
+    const [themes, setThemes] = useState(false);
+    const setTheme = () => {
+        setThemes(!themes);
+        if (themes) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    };
     return (
         <div className="header">
             <div className="logo">
@@ -18,7 +27,7 @@ const headerChat = (props: Props) => {
                 <input type="text" placeholder="Search..." />
             </div>
             <div className="user-settings">
-                <div className="dark-light">
+                <div className="dark-light" onClick={() => setTheme()}>
                     <svg
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -54,4 +63,4 @@ const headerChat = (props: Props) => {
     );
 };
 
-export default headerChat;
+export default HeaderChat;

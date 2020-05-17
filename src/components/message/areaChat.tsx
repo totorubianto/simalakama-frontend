@@ -29,7 +29,7 @@ const AreaChat = (props: Props) => {
     };
 
     return (
-        <ScrollToBottom className="w-full d-flex flex-column pb-5 ">
+        <ScrollToBottom className="w-full d-flex flex-column pb-5 delete-button">
             <div className="chat-area-header">
                 <div className="chat-area-title">CodePen Group</div>
                 <div className="chat-area-group">
