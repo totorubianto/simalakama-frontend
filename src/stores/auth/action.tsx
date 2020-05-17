@@ -34,6 +34,7 @@ export const loadUser = () => async (dispatch: any) => {
     } catch (err) {
         dispatch({ type: AUTH_ERROR });
     }
+    return {};
 };
 
 // Register User
@@ -55,6 +56,7 @@ export const register = ({
         dispatch(errorAction(err));
         dispatch({ type: REGISTER_ERROR });
     }
+    return {};
 };
 
 // Login User
@@ -69,6 +71,7 @@ export const login = ({ email, password, keepLogin }: any) => async (dispatch: a
         dispatch(errorAction(err));
         dispatch({ type: LOGIN_ERROR });
     }
+    return {};
 };
 
 // request forgot password
@@ -85,6 +88,7 @@ export const requestForgotPassword = ({ email }: any) => async (dispatch: any) =
         dispatch(errorAction(err));
         dispatch({ type: FORGOT_PASSWORD_FAIL });
     }
+    return {};
 };
 
 // request forgot password
@@ -101,6 +105,7 @@ export const forgotPassword = (token: any, { newPassword, newPasswordConfirmatio
         dispatch(errorAction(err));
         dispatch({ type: FORGOT_PASSWORD_FAIL });
     }
+    return {};
 };
 
 // request forgot password
@@ -115,6 +120,7 @@ export const verify = (id: any) => async (dispatch: any) => {
             type: FORGOT_PASSWORD_FAIL,
         });
     }
+    return {};
 };
 
 // Logout / Clear Profile
@@ -122,6 +128,7 @@ export const logout = () => async (dispatch: any) => {
     await axios.post(`${API_URL}/api/users/logout`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
+    return {};
 };
 
 // Logout all Clear Profile
@@ -129,4 +136,5 @@ export const logoutAll = () => async (dispatch: any) => {
     await axios.post(`${API_URL}/api/users/logout-all`);
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
+    return {};
 };

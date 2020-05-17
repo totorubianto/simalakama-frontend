@@ -9,6 +9,7 @@ import { userReducer } from './user/reducers';
 import { verificationReducer } from './verification/reducers';
 import { friendReducer } from './friend/reducers';
 import { postReducer } from './post/reducers';
+import { messageReducer } from './message/reducers';
 
 const rootReducer = combineReducers({
     alert: alertReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     posts: postReducer,
     verification: verificationReducer,
     friends: friendReducer,
+    messages: messageReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

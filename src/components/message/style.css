@@ -762,3 +762,18 @@ html {
         padding-right: 10px;
     }
 }
+
+.w-full {
+    width: 100%;
+}
+.d-flex {
+    display: flex !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.absolute {
+    position: absolute !important;
+}

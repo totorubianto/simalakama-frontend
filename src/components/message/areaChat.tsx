@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MessageList from './common/messageList';
-
+import { inputType } from '../global/utils/inputType';
+import { useQuery } from '../global/utils/useQuery';
+import ScrollToBottom, { useScrollToBottom } from 'react-scroll-to-bottom';
 interface Props {
     messages: [];
     auth: any;
+    create: Function;
 }
 
-const areaChat = (props: Props) => {
+const AreaChat = (props: Props) => {
     const { user } = props.auth;
+    const [message, setMessage] = useState({
+        message: '',
+    });
+    const scrollToBottom = useScrollToBottom();
+    let to = useQuery().get('id');
     const onEnter = (e: any) => {
         if (e.key === 'Enter') {
-            console.log(e.target.value);
+            props.create(message.message, to);
+            e.target.value = '';
+            inputType(e, message, setMessage);
+            scrollToBottom();
         }
     };
+    const onChange = (e: any) => {
+        inputType(e, message, setMessage);
+    };
+
     return (
-        <div className="chat-area">
+        <ScrollToBottom className="w-full d-flex flex-column pb-5 ">
             <div className="chat-area-header">
                 <div className="chat-area-title">CodePen Group</div>
                 <div className="chat-area-group">
@@ -37,7 +52,7 @@ const areaChat = (props: Props) => {
                 </div>
             </div>
             <MessageList messages={props.messages} user={user} />
-            <div className="chat-area-footer">
+            <div className="chat-area-footer absolute">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -93,6 +108,9 @@ const areaChat = (props: Props) => {
                 <input
                     type="text"
                     placeholder="Type something here..."
+                    name="message"
+                    value={message.message}
+                    onChange={(e: any) => onChange(e)}
                     onKeyDown={(e: any) => onEnter(e)}
                 />
                 <svg
@@ -121,8 +139,8 @@ const areaChat = (props: Props) => {
                     <path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" />
                 </svg>
             </div>
-        </div>
+        </ScrollToBottom>
     );
 };
 
-export default areaChat;
+export default AreaChat;
