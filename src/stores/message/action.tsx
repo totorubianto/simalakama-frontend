@@ -18,7 +18,6 @@ export const getMessages = (id: string) => async (dispatch: any) => {
 };
 
 export const create = (message: string, to: string) => async (dispatch: any) => {
-    console.log('jadu');
     dispatch(auth());
     try {
         dispatch({ type: GET_MESSAGES_LOADING, payload: null });

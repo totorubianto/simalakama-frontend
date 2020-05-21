@@ -32,32 +32,36 @@ const Message = (props: Props) => {
     }, []);
     let location = useQuery().get('id');
 
+    const io = socket('http://localhost:5000', {
+        query: {
+            id: props.auth.user._id,
+        },
+    });
+
     useEffect(() => {
         props.getMessages(location);
         // eslint-disable-next-line
     }, [location]);
 
-    const io = socket('http://localhost:5000');
     useEffect(() => {
         io.on('MESSAGE', (data: any) => {
             if (data.recipient === props.auth.user._id) htmlaudio.play();
             props.getMessagesMore(data);
-
-            // const chat: [any] = props.message;
-            // setMessage([...message, data]);
-            // props.message.push(data);
         });
         // eslint-disable-next-line
     }, []);
 
-    console.log(props.messages.message);
-    return (
+    return props.friends.loading ? (
+        <div>loading</div>
+    ) : (
         <div className="app">
             <HeaderChat></HeaderChat>
             <div className="wrapper">
                 <AreaConversation
                     friends={props.friends}
                     history={props.history}
+                    auth={props.auth}
+                    io={io}
                 ></AreaConversation>
                 <AreaChat
                     create={props.create}

@@ -8,7 +8,6 @@ interface Props {
 const MessageList = (props: Props) => {
     const scrollToBottom = useScrollToBottom();
     const [sticky] = useSticky();
-    console.log(sticky);
     return (
         <div className="chat-area-main">
             {!sticky ? (

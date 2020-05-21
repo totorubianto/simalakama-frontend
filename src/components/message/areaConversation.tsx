@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Props {
     friends: any;
     history: any;
+    auth: any;
+    io: any;
 }
 
 const AreaConversation = (props: Props) => {
+    const [connect, setConnect]: any[] = useState([]);
+    useEffect(() => {
+        props.io.on('CONNECT', (data: any) => {
+            if (props.friends.friends.some((fr: any) => fr.friend._id === data)) {
+                console.log(connect);
+                setConnect([...connect, data]);
+            }
+        });
+        // eslint-disable-next-line
+    }, []);
+
     const [isActive, setIsActive] = useState(1);
     const onSetActive = (key: any) => {
         setIsActive(key);
@@ -13,6 +26,7 @@ const AreaConversation = (props: Props) => {
     };
     return (
         <div className="conversation-area">
+            {console.log(connect)}
             {props.friends.friends.map((friend: any, key: number) => (
                 <div
                     className={isActive === friend.friend._id ? 'msg active' : 'msg'}
@@ -28,7 +42,11 @@ const AreaConversation = (props: Props) => {
                         <div className="msg-username">{friend.friend.firstName}</div>
                         <div className="msg-content">
                             <span className="msg-message">What time was our meet</span>
-                            <span className="msg-date">20m</span>
+                            {connect.includes(friend.friend._id) ? (
+                                <span className="msg-date">online</span>
+                            ) : (
+                                <span className="msg-date">20m</span>
+                            )}
                         </div>
                     </div>
                 </div>
