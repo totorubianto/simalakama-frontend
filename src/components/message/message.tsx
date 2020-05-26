@@ -32,7 +32,7 @@ const Message = (props: Props) => {
     }, []);
     let location = useQuery().get('id');
 
-    const io = socket('http://localhost:5000', {
+    const io = socket(process.env.REACT_APP_SOCKET_URL, {
         query: {
             id: props.auth.user._id,
         },
